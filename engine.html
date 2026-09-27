@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MyZaad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="step-label" id="stepLabel">1 / 1</div>
+  </div>
+  <div id="app"></div>
+</div>
+
+<div class="btn-bar">
+  <button class="btn btn-ghost" id="backBtn">Назад</button>
+  <button class="btn btn-primary" id="nextBtn">Начать</button>
+</div>
+
+<script src="engine.js"></script>
+<script>
+(function(){
+  // Какую главу открыть — через ?ch=2 (по умолчанию глава 1).
+  // Чтобы добавить главу, движок и эту оболочку менять не нужно —
+  // достаточно создать файл chapterN-data.js рядом с этим файлом.
+  var params = new URLSearchParams(window.location.search);
+  var chapterId = params.get("ch") || "1";
+  var script = document.createElement("script");
+  script.src = "chapter" + chapterId + "-data.js";
+  script.onload = function(){
+    if(window.CHAPTER_DATA){
+      window.MyZaadEngine.init(window.CHAPTER_DATA);
+    } else {
+      document.getElementById("app").innerHTML = "<p class=\"lede\">Файл главы " + chapterId + " не задаёт CHAPTER_DATA.</p>";
+    }
+  };
+  script.onerror = function(){
+    document.getElementById("app").innerHTML = "<p class=\"lede\">Не удалось загрузить главу " + chapterId + " (chapter" + chapterId + "-data.js).</p>";
+  };
+  document.body.appendChild(script);
+})();
+</script>
+</body>
+</html>
