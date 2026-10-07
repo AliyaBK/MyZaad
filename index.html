@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B1E2E">
-<title>MyZaad</title>
+<title>MyZaad — оглавление</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -14,47 +14,83 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="plan">
 
 <div class="sheet">
   <header class="isnad">
-    <p class="chain" id="chain"></p>
-    <p class="runhead" id="runhead"></p>
-    <p class="folio"><span id="stepLabel">01</span><span class="folio-rule"></span><span id="stepTotal">14</span></p>
+    <p class="chain">Ад-Дубейси → Ибрахим Братов</p>
+    <p class="runhead">Оглавление</p>
   </header>
-  <div class="gauge"><span class="gauge-fill" id="progressFill"></span></div>
+  <div class="gauge"></div>
 
-  <main id="app"></main>
+  <main>
+    <h1>MyZaad</h1>
+    <p class="lede"><span class="ar-inline" lang="ar" dir="rtl">زاد</span> — провизия, которую берут в дорогу. Здесь прослушанная лекция превращается в пройденную главу: вы идёте по экранам, проверяете себя и уносите конспект.</p>
+
+    <h2 class="plan-head">Как это устроено</h2>
+    <ol class="rules">
+      <li><b>Сначала лекция, потом глава.</b> Приложение не заменяет урок устаза и не пересказывает его. Оно рассчитано на того, кто лекцию уже прослушал или прочитал.</li>
+      <li><b>Проверка возвращает к словам шейха.</b> У каждого вопроса есть выдержка из лекции: после «Проверить» она въезжает на поле рядом со строкой, которой отвечает, и остаётся там до конца главы.</li>
+      <li><b>Ошибка учит, а не штрафует.</b> Верное и неверное помечаются подписями, а не одним цветом, и всегда вместе с источником.</li>
+      <li><b>Есть экраны без правильного ответа.</b> Вопросы для размышления — полноценная часть главы, а не довесок к тесту.</li>
+      <li><b>Прогресс живёт в этом браузере.</b> Ответы сохраняются на устройстве, с которого вы читаете; на другом телефоне глава начнётся заново.</li>
+      <li><b>Уйти есть с чем.</b> В конце главы можно скачать конспект и лист для размышлений.</li>
+    </ol>
+
+    <h2 class="plan-head">Циклы</h2>
+    <ul class="cycles">
+      <li class="cycle open">
+        <p class="cycle-rubric">Доступно</p>
+        <h3><a href="chapter.html?ch=1">Ща'бан</a></h3>
+        <p class="cycle-note">Подготовка к Рамадану. Цикл из 30 лекций по пятничным проповедям — по одной на каждый день месяца.</p>
+        <p class="cycle-state"><span id="ch1state">Глава 1 — открыта</span></p>
+        <a class="cycle-audio" href="https://t.me/Mesiac_Shaaban_Ramadan" target="_blank" rel="noopener">Аудио в канале «Радость благочестивых»</a>
+      </li>
+      <li class="cycle">
+        <p class="cycle-rubric">Готовится</p>
+        <h3>Рамадан</h3>
+        <p class="cycle-note">Цель поста, цена прощения и пути к нему. Цикл из 26 лекций; стенограммы расшифрованы не полностью.</p>
+        <p class="cycle-state">Глав пока нет</p>
+        <a class="cycle-audio" href="https://t.me/Mesiac_Shaaban_Ramadan" target="_blank" rel="noopener">Аудио в канале «Радость благочестивых»</a>
+      </li>
+      <li class="cycle">
+        <p class="cycle-rubric">Готовится</p>
+        <h3>Сладость молитвы</h3>
+        <p class="cycle-note">По книге Ибн аль-Каййима «ذوق الصلاة». Цикл из 5 лекций: сущность молитвы, присутствие сердца и разбор Фатихи.</p>
+        <p class="cycle-state">Глав пока нет</p>
+      </li>
+    </ul>
+
+    <p class="plan-foot">Вопросы и варианты ответов, включая правильные, проверяет и утверждает устаз Ибрахим Братов.</p>
+  </main>
 </div>
 
 <div class="colophon">
   <div class="colophon-inner">
-    <button class="act act-back" id="backBtn">Назад</button>
-    <button class="act act-go" id="nextBtn">Начать</button>
+    <a class="act act-go" href="chapter.html?ch=1">Открыть Ща'бан, глава 1</a>
   </div>
 </div>
 
-<script src="engine.js"></script>
 <script>
 (function(){
-  // Какую главу открыть — через ?ch=2 (по умолчанию глава 1).
-  // Чтобы добавить главу, движок и эту оболочку менять не нужно —
-  // достаточно создать файл chapterN-data.js рядом с этим файлом.
-  var params = new URLSearchParams(window.location.search);
-  var chapterId = params.get("ch") || "1";
-  var script = document.createElement("script");
-  script.src = "chapter" + chapterId + "-data.js";
-  script.onload = function(){
-    if(window.CHAPTER_DATA){
-      window.MyZaadEngine.init(window.CHAPTER_DATA);
-    } else {
-      document.getElementById("app").innerHTML = "<p class=\"lede\">Файл главы " + chapterId + " не задаёт CHAPTER_DATA.</p>";
+  var tg = window.Telegram && window.Telegram.WebApp;
+  if(tg){ try{ tg.ready(); tg.expand(); }catch(e){} }
+
+  // Состояние главы 1 читается из того же хранилища, что ведёт сама глава.
+  var el = document.getElementById("ch1state");
+  if(!el) return;
+  try{
+    var raw = localStorage.getItem("myzaad_ch1");
+    if(!raw) return;
+    var st = JSON.parse(raw);
+    if(st.maxScore){
+      el.textContent = "Глава 1 — пройдена, " + st.score + " из " + st.maxScore;
+      el.className = "done";
+    } else if(st.answers && Object.keys(st.answers).length){
+      el.textContent = "Глава 1 — начата";
+      el.className = "started";
     }
-  };
-  script.onerror = function(){
-    document.getElementById("app").innerHTML = "<p class=\"lede\">Не удалось загрузить главу " + chapterId + " (chapter" + chapterId + "-data.js).</p>";
-  };
-  document.body.appendChild(script);
+  }catch(e){}
 })();
 </script>
 </body>

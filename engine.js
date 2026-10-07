@@ -335,8 +335,8 @@
           html += '<div class="tf-item" data-i="' + i + '">' +
             '<p class="tf-statement">' + item.statement + "</p>" +
             '<div class="tf-buttons">' +
-              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="true">Верно<span class="mk" aria-hidden="true">' + mark("tick") + '</span></button>' +
-              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="false">Неверно<span class="mk" aria-hidden="true">' + mark("tick") + '</span></button>' +
+              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="true">Верно</button>' +
+              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="false">Неверно</button>' +
             "</div>" +
             (item.excerpt ? renderExcerptBox(screen.id + "_" + i, item.excerpt) : "") +
             "</div>";
@@ -829,7 +829,13 @@
       progressFill.style.transform = "scaleX(" + (pct / 100) + ")";
       stepLabel.textContent = pad(current + 1);
       if(runhead) runhead.textContent = rubricOf(screens[current]);
-      backBtn.style.visibility = current === 0 ? "hidden" : "visible";
+      if(current === 0){
+        backBtn.textContent = "Оглавление";
+        backBtn.style.visibility = "visible";
+      } else {
+        backBtn.textContent = "Назад";
+        backBtn.style.visibility = "visible";
+      }
       if(current === screenEls.length - 1){
         calculateScore();
         nextBtn.textContent = "Готово";
@@ -859,7 +865,11 @@
       current = Math.min(current + 1, screenEls.length - 1);
       render();
     }
-    function goBack(){ if(current === 0) return; current -= 1; render(); }
+    function goBack(){
+      if(current === 0){ window.location.href = "index.html"; return; }
+      current -= 1;
+      render();
+    }
 
     nextBtn.addEventListener("click", goNext);
     backBtn.addEventListener("click", goBack);
