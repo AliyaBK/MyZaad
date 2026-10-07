@@ -67,7 +67,6 @@
         <h3>Рамадан</h3>
         <p class="cycle-teacher">Устаз Ибрахим Братов · по проповедям шейха Мухаммада ад-Дубейси</p>
         <p class="cycle-note">Цель поста, цена прощения и пути к нему. Цикл из 26 лекций.</p>
-        <div class="journey" id="journeyRamadan" hidden></div>
         <p class="cycle-state">Материалы готовятся</p>
         <a class="cycle-audio" href="https://t.me/Mesiac_Shaaban_Ramadan" target="_blank" rel="noopener">Аудио в канале «Радость благочестивых»</a>
       </li>
@@ -125,8 +124,6 @@
 
   MyZaadJourney.render(document.getElementById("journeyShaban"),
     { current: doneShaban, total: 30, name: "Ща'бан" });
-  MyZaadJourney.render(document.getElementById("journeyRamadan"),
-    { current: 0, total: 26, name: "Рамадан" });
 
   var sign = document.querySelector(".ayah-mark");
   if(sign) sign.innerHTML = MyZaadJourney.dhow;
