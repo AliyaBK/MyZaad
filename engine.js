@@ -724,8 +724,19 @@
       overlay.querySelector("textarea").select();
     }
 
+    // Скрипт Telegram подключён на каждой странице, поэтому window.Telegram.WebApp
+    // существует и в обычном браузере. Признак реального запуска внутри Telegram —
+    // непустой initData или известная платформа.
+    function isTelegram(tg){
+      if(!tg) return false;
+      if(tg.initData && tg.initData.length) return true;
+      return !!(tg.platform && tg.platform !== "unknown");
+    }
+
     function downloadFile(filename, text, tg){
-      if(tg && typeof tg.downloadFile === "function"){
+      var inTg = isTelegram(tg);
+
+      if(inTg && typeof tg.downloadFile === "function"){
         try{
           var dataUrl = "data:text/plain;charset=utf-8," + encodeURIComponent(text);
           tg.downloadFile({ url: dataUrl, file_name: filename }, function(accepted){
@@ -734,6 +745,7 @@
           return;
         }catch(e){}
       }
+
       try{
         var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
         var url = URL.createObjectURL(blob);
@@ -741,7 +753,9 @@
         a.href = url; a.download = filename; a.style.display = "none";
         document.body.appendChild(a); a.click();
         setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 1500);
-        if(tg){ setTimeout(function(){ showFallback(filename, text); }, 800); }
+        // В обычном браузере загрузка работает, и запасное окно только мешает.
+        // Внутри Telegram WebView её часто блокируют молча — там оно нужно.
+        if(inTg){ setTimeout(function(){ showFallback(filename, text); }, 1200); }
       }catch(e){
         showFallback(filename, text);
       }
