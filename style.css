@@ -203,7 +203,7 @@ p{margin:0 0 14px;}
   font-size:21px;
   line-height:1.95;
   direction:rtl;
-  text-align:right;
+  text-align:left;
   color:var(--ink);
   margin-bottom:12px;
 }
