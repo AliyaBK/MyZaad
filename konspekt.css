@@ -100,6 +100,8 @@ body{
 .k-quote p{font-family:var(--set);font-size:15px;line-height:1.6;}
 .k-quote ul{margin:6px 0 10px;padding-left:1.1em;font-family:var(--set);font-size:15px;}
 .k-quote li{margin-bottom:3px;}
+/* Специфичность выше, чем у .k-quote p, иначе аят набирается набором главы. */
+.k-quote p.k-ar,
 .k-ar{font-family:var(--ar);font-size:20px;line-height:1.95;direction:rtl;text-align:right;margin-bottom:9px;}
 .k-src{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:6px 0 0;}
 .k-principle{font-family:var(--set);font-style:italic;font-size:15.5px;border-left:1px solid var(--rubric);padding-left:15px;margin:0 0 16px;}
