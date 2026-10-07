@@ -281,6 +281,8 @@ window.CHAPTER_DATA = {
     // 10. От знания — к делу
     {
       type: "content",
+      // Экран решений: его вопросы собираются в «Что я решил сделать».
+      action: true,
       blocks: [
         { type: "eyebrow", text: "Действия" },
         { type: "title", tag: "h2", text: "От знания — к делу" },

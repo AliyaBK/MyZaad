@@ -673,8 +673,38 @@
 
     TYPES["result"] = {
       render: function(screen){
-        var html = '<div class="result-hero"><h2>' + screen.completedLabel + '</h2>' +
-          '<p class="result-line" role="status"><span class="result-score" id="scoreOut">0 / 0</span> ' + screen.resultLabel + "</p></div>";
+        // Провизия главы: не балл, а то, что человек уносит дальше.
+        // Собирается из самой главы, поэтому новая глава получает раздел сама.
+        var keep = [], banner = "", actions = [];
+        screens.forEach(function(sc){
+          if(sc.type === "reveal" && sc.reveal){
+            if(!keep.length) keep = sc.reveal.items || [];
+            if(!banner && sc.reveal.banner) banner = sc.reveal.banner;
+          }
+          if(sc.action){
+            (sc.blocks || []).forEach(function(b){
+              if(b.type === "promptCard" && b.text) actions.push(b.text);
+            });
+          }
+        });
+
+        var html = '<div class="result-hero">' +
+          '<h2>' + (screen.provisionLabel || "Провизия этой главы") + "</h2>" +
+          '<p class="result-line" role="status">' + screen.completedLabel +
+          ' · <span class="result-score" id="scoreOut">0 / 0</span> ' + screen.resultLabel + "</p></div>";
+
+        if(keep.length){
+          html += '<section class="prov"><h3 class="prov-head">Что я понял</h3><ul class="prov-list">' +
+            keep.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul></section>";
+        }
+        if(banner){
+          html += '<section class="prov"><h3 class="prov-head">Что хочу запомнить</h3>' +
+            '<p class="prov-note">' + banner + "</p></section>";
+        }
+        if(actions.length){
+          html += '<section class="prov"><h3 class="prov-head">Что я решил сделать</h3><ul class="prov-list prov-actions">' +
+            actions.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul></section>";
+        }
         if(screen.note){
           var notes = Array.isArray(screen.note) ? screen.note : [screen.note];
           html += '<div class="card">' + notes.map(function(n){ return '<p class="lede" style="margin-bottom:0;">' + n + "</p>"; }).join("") + "</div>";
