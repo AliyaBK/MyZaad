@@ -875,28 +875,27 @@ p{margin:0 0 14px;}
  * Нос лодки стоит в горячей точке, поэтому клик попадает туда, куда смотрит
  * нос, а не в середину корпуса. Над тем, что можно нажать, лодка теплеет и
  * уходит на пиксель вперёд. Ни волн, ни следа, ни движения само по себе.
+ *
+ * Картинка — один PNG 32x32 на состояние: силуэт занимает левый верхний
+ * угол 24x21, остальное прозрачно. Квадрат в 32 пикселя Windows рисует
+ * наверняка, а image-set() здесь не используется намеренно: на экране
+ * с масштабированием браузер брал вариант 2x, упирался в предел системы
+ * и не рисовал ничего.
+ *
  * На касании курсора нет вовсе — правило включается только для точного
- * указателя. Если картинка не загрузится, останется обычный курсор системы.
+ * указателя. Если картинка не загрузится, останется курсор системы.
  */
 @media (hover: hover) and (pointer: fine){
-  html{
-    cursor:url("cursor-dhow.png") 1 4, auto;
-    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
-    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
-  }
+  html{ cursor:url("cursor-dhow.png") 1 4, auto; }
 
   a[href], button, label, summary, select,
   [role="button"], [role="radio"], [role="checkbox"]{
     cursor:url("cursor-dhow-hot.png") 0 3, pointer;
-    cursor:-webkit-image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
-    cursor:image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
   }
 
   /* Отвечено — нажимать больше нечего, лодка остывает обратно. */
   .btn-check[disabled], button[disabled], [aria-disabled="true"]{
     cursor:url("cursor-dhow.png") 1 4, default;
-    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
-    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
   }
 
   /* Ввод и правка текста остаются за системой. */
