@@ -871,7 +871,8 @@
       render();
     }
     function goBack(){
-      if(current === 0){ window.location.href = "index.html"; return; }
+      // На корень, а не на index.html: короткий адрес и есть канонический.
+      if(current === 0){ window.location.href = "./"; return; }
       current -= 1;
       render();
     }
