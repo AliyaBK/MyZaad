@@ -777,3 +777,5 @@ p{margin:0 0 14px;}
 .btn-sheet{color:var(--lamp);text-decoration:none;}
 .btn-sheet .mk{width:15px;height:15px;color:var(--lamp);flex-shrink:0;}
 .btn-sheet .mk svg{width:100%;height:100%;}
+/* Аят, от которого идёт название, стоит между лидом и правилами. */
+.plan-ayah{margin:0 0 34px;}
