@@ -193,7 +193,7 @@
           var tag = b.tag || "h2";
           return "<" + tag + ">" + b.text + "</" + tag + ">";
         case "iconBadge":
-          return '<div class="icon-badge" aria-hidden="true">' + mark(markFor(b.icon)) + "</div>";
+          return '<div class="icon-badge" aria-hidden="true">' + mark(b.mark || markFor(b.icon)) + "</div>";
         case "slogan":
           return '<p class="slogan">' + b.text + "</p>";
         case "lede":
@@ -215,7 +215,7 @@
         case "flowDiagram":
           return '<div class="card">' + renderFlowMarkup(b) + "</div>";
         case "notebookCallout":
-          return '<div class="notebook-callout"><span class="icon" aria-hidden="true">' + mark(markFor(b.icon)) + '</span><div><p>' + b.intro + "</p>" +
+          return '<div class="notebook-callout"><span class="icon" aria-hidden="true">' + mark(b.mark || markFor(b.icon)) + '</span><div><p>' + b.intro + "</p>" +
             (b.items ? '<ul>' + b.items.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul>" : "") +
             (b.outro ? '<p style="margin-top:8px;">' + b.outro + "</p>" : "") +
             "</div></div>";
