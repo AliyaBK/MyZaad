@@ -679,6 +679,11 @@
           var notes = Array.isArray(screen.note) ? screen.note : [screen.note];
           html += '<div class="card">' + notes.map(function(n){ return '<p class="lede" style="margin-bottom:0;">' + n + "</p>"; }).join("") + "</div>";
         }
+        if(screen.sheetLabel){
+          var ch = new URLSearchParams(window.location.search).get("ch") || "1";
+          html += '<a class="btn-download btn-sheet" href="konspekt.html?ch=' + ch + '">' + screen.sheetLabel +
+            '<span class="mk" aria-hidden="true">' + mark("arrow") + "</span></a>";
+        }
         html += '<div class="download-row">';
         screen.downloads.forEach(function(d){
           html += '<button class="btn-download" id="download_' + d.id + '">' + d.label + '<span class="mk" aria-hidden="true">' + mark("down") + "</span></button>";

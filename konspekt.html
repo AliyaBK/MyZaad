@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F7F1E1">
+<title>MyZaad — конспект</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Golos+Text:wght@400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="konspekt.css">
+</head>
+<body>
+
+<div class="k-bar">
+  <a class="k-back" href="chapter.html?ch=1">К главе</a>
+  <button class="k-print" id="kPrint">Сохранить в PDF</button>
+</div>
+
+<article class="k-sheet">
+  <header class="k-head">
+    <p class="k-mark">MyZaad · конспект</p>
+    <h1 id="kTitle"></h1>
+    <p class="k-teacher" id="kTeacher"></p>
+    <dl class="k-meta">
+      <div><dt>Дата</dt><dd id="kDate"></dd></div>
+      <div><dt>Результат</dt><dd id="kScore"></dd></div>
+    </dl>
+    <p class="k-lede" id="kLede"></p>
+  </header>
+
+  <section id="kBody"></section>
+
+  <section>
+    <h2 class="k-rule"><span>Разбор вопросов</span></h2>
+    <div id="kQuestions"></div>
+  </section>
+
+  <footer class="k-foot">
+    <p id="kFoot"></p>
+    <p class="k-colophon">Лист собран приложением MyZaad из материалов главы. Проверяйте по источнику.</p>
+  </footer>
+</article>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var chapterId = params.get("ch") || "1";
+  document.getElementById("kPrint").addEventListener("click", function(){ window.print(); });
+  document.querySelector(".k-back").setAttribute("href", "chapter.html?ch=" + chapterId);
+
+  var data = document.createElement("script");
+  data.src = "chapter" + chapterId + "-data.js";
+  data.onload = function(){
+    var r = document.createElement("script");
+    r.src = "konspekt.js";
+    r.onload = function(){
+      if(window.CHAPTER_DATA && window.MyZaadKonspekt){
+        window.MyZaadKonspekt.build(window.CHAPTER_DATA);
+      }
+    };
+    document.body.appendChild(r);
+  };
+  data.onerror = function(){
+    document.getElementById("kTitle").textContent = "Глава " + chapterId + " не найдена";
+  };
+  document.body.appendChild(data);
+})();
+</script>
+</body>
+</html>
