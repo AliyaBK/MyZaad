@@ -99,9 +99,13 @@
     }
   }
 
-  function blocks(list){
-    return (list || []).filter(function(b){ return b.type !== "eyebrow" && b.type !== "iconBadge" && b.type !== "audioLink"; })
-      .map(block).join("");
+  function blocks(list, skipLede){
+    var drop = ["eyebrow", "iconBadge", "audioLink", "slogan"];
+    return (list || []).filter(function(b){
+      if(drop.indexOf(b.type) > -1) return false;
+      if(skipLede && b.type === "lede") return false;   // лид уже стоит в шапке листа
+      return true;
+    }).map(block).join("");
   }
 
   // ---------- проверочные экраны ----------
@@ -191,8 +195,10 @@
     var qs = "";
 
     CHAPTER.screens.forEach(function(screen, i){
-      if(i === 0) return;                       // титул уже в шапке
       if(screen.type === "result") return;
+      // Титульный экран несёт аят и перечень имён месяца — в лист они входят,
+      // а заголовок с лидом уже стоят в шапке.
+      if(i === 0){ out += blocks(screen.blocks, true); return; }
 
       var isQuiz = ["single-choice", "true-false", "ordering", "fill-blank", "multi-select"].indexOf(screen.type) > -1;
       if(isQuiz){
