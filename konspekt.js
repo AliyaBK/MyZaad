@@ -193,6 +193,7 @@
 
     var out = "";
     var qs = "";
+    var guide = "";
 
     CHAPTER.screens.forEach(function(screen, i){
       if(screen.type === "result") return;
@@ -212,10 +213,16 @@
         if(screen.reveal.note) out += '<p class="k-hint">' + screen.reveal.note + "</p>";
         return;
       }
+      if(screen.guide){ guide += blocks(screen.blocks); return; }
       out += blocks(screen.blocks);
     });
 
     el("kBody").innerHTML = out;
+    var g = el("kGuide"), gw = el("kGuideWrap");
+    if(g){
+      g.innerHTML = guide;
+      if(gw) gw.hidden = !guide;
+    }
     el("kQuestions").innerHTML = qs;
     el("kFoot").textContent = (CHAPTER.screens[CHAPTER.screens.length - 1].note || []).join(" ");
   }

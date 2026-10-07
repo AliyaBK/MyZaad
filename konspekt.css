@@ -199,3 +199,20 @@ body{
   .k-q-head{break-after:avoid;}
   .k-foot{break-inside:avoid;}
 }
+
+/* Инструкция к приложению: на листе её нет, пока не попросят. */
+.k-opt{
+  display:flex;align-items:center;gap:7px;
+  font-size:12.5px;color:var(--ink-2);
+  cursor:pointer;user-select:none;
+  margin-left:auto;margin-right:14px;
+}
+/* На узком экране три элемента в строку не помещаются: переключатель уходит вниз. */
+@media (max-width:620px){
+  .k-bar{flex-wrap:wrap;}
+  .k-opt{order:3;width:100%;margin:10px 0 0;padding-top:10px;border-top:1px solid var(--rule);}
+}
+.k-opt input{accent-color:var(--rubric);width:14px;height:14px;cursor:pointer;}
+#kGuideWrap{display:none;}
+body.guide-on #kGuideWrap{display:block;}
+@media print{ .k-opt{display:none;} }

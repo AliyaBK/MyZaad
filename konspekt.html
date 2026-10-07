@@ -16,6 +16,7 @@
 
 <div class="k-bar">
   <a class="k-back" href="chapter.html?ch=1">К главе</a>
+  <label class="k-opt"><input type="checkbox" id="kGuideOn"> Печатать «Как проходить главу»</label>
   <button class="k-print" id="kPrint">Сохранить в PDF</button>
 </div>
 
@@ -31,6 +32,11 @@
   </header>
 
   <section id="kBody"></section>
+
+  <section id="kGuideWrap" hidden>
+    <h2 class="k-rule"><span>Как проходить главу</span></h2>
+    <div id="kGuide"></div>
+  </section>
 
   <section>
     <h2 class="k-rule"><span>Разбор вопросов</span></h2>
@@ -48,6 +54,16 @@
   var params = new URLSearchParams(window.location.search);
   var chapterId = params.get("ch") || "1";
   document.getElementById("kPrint").addEventListener("click", function(){ window.print(); });
+
+  // Инструкция к приложению печатается только по просьбе; выбор запоминается.
+  var box = document.getElementById("kGuideOn");
+  function applyGuide(){
+    document.body.classList.toggle("guide-on", box.checked);
+    try{ localStorage.setItem("myzaad_konspekt_guide", box.checked ? "1" : "0"); }catch(e){}
+  }
+  try{ box.checked = localStorage.getItem("myzaad_konspekt_guide") === "1"; }catch(e){}
+  applyGuide();
+  box.addEventListener("change", applyGuide);
   document.querySelector(".k-back").setAttribute("href", "chapter.html?ch=" + chapterId);
 
   var data = document.createElement("script");
