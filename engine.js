@@ -39,6 +39,87 @@
     }
     load();
 
+    // Своя прокрутка: behavior:"smooth" молча не работает в части окружений,
+    // включая встроенные панели, а движение здесь обязано состояться.
+    function glide(distance, instant){
+      var from = window.pageYOffset;
+      if(instant){ window.scrollTo(0, from + distance); return; }
+      var start = null, dur = 320;
+      function step(now){
+        if(start === null) start = now;
+        var t = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - t, 3); // то же экспоненциальное замедление, что у выдержки
+        window.scrollTo(0, from + distance * eased);
+        if(t < 1) window.requestAnimationFrame(step);
+      }
+      window.requestAnimationFrame(step);
+    }
+
+    // Скобка должна упираться в строку, которой выдержка отвечает, а не в верх колонки.
+    var TIED = [];
+    function tie(id, target){
+      var exc = document.getElementById("excerpt_" + id);
+      if(!exc || !target) return;
+      var screenEl = exc.closest ? exc.closest(".screen") : null;
+      if(!screenEl) return;
+
+      if(TIED.indexOf(id) === -1) TIED.push(id);
+      exc.tieTarget = target;
+      // Выдержка остаётся прямым потомком экрана: внутри виджета она попала бы
+      // в состав группы переключателей и читалась бы как один из её вариантов.
+      if(exc.parentNode !== screenEl) screenEl.appendChild(exc);
+      if(target.id || target.getAttribute("data-value") !== null || target.getAttribute("data-i") !== null){
+        target.setAttribute("aria-describedby", "excerpt_" + id);
+      }
+
+      var narrow = window.matchMedia && window.matchMedia("(max-width: 899px)").matches;
+      if(narrow){
+        // Скобка идёт вверх по полю от выдержки к строке, которой она отвечает.
+        exc.style.marginTop = "";
+        var gap = exc.getBoundingClientRect().top - target.getBoundingClientRect().bottom;
+        exc.style.setProperty("--tie-h", Math.max(14, Math.round(gap)) + "px");
+      } else {
+        exc.style.removeProperty("--tie-h");
+        var offset = target.getBoundingClientRect().top - screenEl.getBoundingClientRect().top;
+        exc.style.marginTop = Math.max(0, Math.round(offset)) + "px";
+      }
+    }
+
+    // Привязка — измеренная величина, поэтому её пересчитывают при смене ширины.
+    var retieTimer = null;
+    function retie(){
+      if(retieTimer) window.clearTimeout(retieTimer);
+      retieTimer = window.setTimeout(function(){
+        TIED.forEach(function(id){
+          var exc = document.getElementById("excerpt_" + id);
+          if(exc && exc.tieTarget && exc.classList.contains("show")) tie(id, exc.tieTarget);
+        });
+      }, 120);
+    }
+    window.addEventListener("resize", retie);
+    if(window.matchMedia){
+      var mq = window.matchMedia("(max-width: 899px)");
+      if(mq.addEventListener) mq.addEventListener("change", retie);
+      else if(mq.addListener) mq.addListener(retie);
+    }
+
+    // После проверки: кнопка отработала, выдержка не должна остаться за колофоном.
+    function settle(id){
+      var btn = document.getElementById("check_" + id);
+      if(btn){ btn.disabled = true; btn.setAttribute("aria-disabled", "true"); }
+      var exc = document.getElementById("excerpt_" + id);
+      if(exc && window.matchMedia && window.matchMedia("(max-width: 899px)").matches){
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        setTimeout(function(){
+          var bar = document.querySelector(".colophon");
+          var barTop = bar ? bar.getBoundingClientRect().top : window.innerHeight;
+          var overlap = exc.getBoundingClientRect().bottom - barTop + 16;
+          if(overlap <= 0) return;
+          glide(overlap, reduce);
+        }, 60);
+      }
+    }
+
     function showError(id, text){
       var el = document.getElementById("err_" + id);
       if(el){ el.textContent = text; el.classList.add("show"); }
@@ -56,7 +137,7 @@
       html += '<div class="flow-diagram">';
       (flow.steps || []).forEach(function(step, i){
         if(i > 0){
-          html += '<div class="flow-arrow"><svg width="16" height="14" viewBox="0 0 16 14"><path d="M8 0 V10 M2 6 L8 12 L14 6" stroke="var(--emerald)" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+          html += '<div class="flow-arrow"><svg width="16" height="14" viewBox="0 0 16 14"><path d="M8 0 V10 M2 6 L8 12 L14 6" stroke="var(--rubric)" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
         }
         var cls = "flow-box" + (step.variant ? " " + step.variant : "");
         html += '<div class="' + cls + '">' + step.text + "</div>";
@@ -83,15 +164,36 @@
       return html;
     }
 
+    // Рубрики-марки: рисуем, а не берём глиф. Один штрих, один вес.
+    var MARKS = {
+      rosette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.6v4M12 17.4v4M2.6 12h4M17.4 12h4M5.3 5.3l2.9 2.9M15.8 15.8l2.9 2.9M18.7 5.3l-2.9 2.9M8.2 15.8l-2.9 2.9"/></svg>',
+      pin:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21v-7"/><path d="M7.5 3.5h9l-1.2 6.2 2.4 2.3v2H6.3v-2l2.4-2.3z"/></svg>',
+      mind:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 4.2c-2.2 0-3.6 1.4-3.8 3-1.6.4-2.6 1.7-2.6 3.3 0 1 .4 1.9 1.1 2.5-.3.5-.5 1.1-.5 1.8 0 1.9 1.5 3.4 3.4 3.4.9 0 1.7-.3 2.4-.9"/><path d="M12 4.2c2.2 0 3.6 1.4 3.8 3 1.6.4 2.6 1.7 2.6 3.3 0 1-.4 1.9-1.1 2.5.3.5.5 1.1.5 1.8 0 1.9-1.5 3.4-3.4 3.4-.9 0-1.7-.3-2.4-.9"/><path d="M12 4.2V20"/></svg>',
+      note:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5.5 3.5h13v17h-13z"/><path d="M8.6 8h6.8M8.6 11.6h6.8M8.6 15.2h4.2"/></svg>',
+      audio:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4.5 14.5v-2.8a7.5 7.5 0 0 1 15 0v2.8"/><path d="M4.5 13.4h2.1v5.1H5.6a1.1 1.1 0 0 1-1.1-1.1z"/><path d="M19.5 13.4h-2.1v5.1h1a1.1 1.1 0 0 0 1.1-1.1z"/></svg>',
+      arrow:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 12h15M13.5 6.5 19.8 12l-6.3 5.5"/></svg>',
+      down:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 4v15M6.5 13.5 12 19.8l5.5-6.3"/></svg>',
+      tick:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m4.5 12.5 5 5 10-11"/></svg>'
+    };
+    function mark(name){ return MARKS[name] || MARKS.rosette; }
+    function markFor(hint){
+      var s = String(hint || "");
+      if(s.indexOf("📌") > -1) return "pin";
+      if(s.indexOf("🧠") > -1) return "mind";
+      if(s.indexOf("📝") > -1 || s.indexOf("📓") > -1) return "note";
+      return "rosette";
+    }
+
     function renderBlock(b){
       switch(b.type){
         case "eyebrow":
-          return '<p class="eyebrow">' + b.text + "</p>";
+          // Рубрика поднимается в колонтитул (см. render), над заголовком её нет.
+          return "";
         case "title":
           var tag = b.tag || "h2";
           return "<" + tag + ">" + b.text + "</" + tag + ">";
         case "iconBadge":
-          return '<div class="icon-badge">' + b.icon + "</div>";
+          return '<div class="icon-badge" aria-hidden="true">' + mark(markFor(b.icon)) + "</div>";
         case "slogan":
           return '<p class="slogan">' + b.text + "</p>";
         case "lede":
@@ -99,10 +201,10 @@
         case "hint":
           return '<p class="prompt-hint" style="margin-top:4px;">' + b.text + "</p>";
         case "audioLink":
-          return '<a class="audio-link" href="' + b.href + '" data-audio-link="1"><span class="audio-icon">' + (b.icon || "🎧") + '</span><span>' + b.label + '</span><span class="audio-arrow">→</span></a>';
+          return '<a class="audio-link" href="' + b.href + '" data-audio-link="1"><span class="audio-icon" aria-hidden="true">' + mark("audio") + '</span><span>' + b.label + '</span><span class="audio-arrow" aria-hidden="true">' + mark("arrow") + '</span></a>';
         case "quoteCard":
           return '<div class="card">' +
-            (b.ar ? '<p class="quote-ar">' + b.ar + "</p>" : "") +
+            (b.ar ? '<p class="quote-ar" lang="ar" dir="rtl">' + b.ar + "</p>" : "") +
             (b.ru ? '<p class="quote-ru">' + b.ru + "</p>" : "") +
             (b.src ? '<p class="quote-src">' + b.src + "</p>" : "") +
             "</div>";
@@ -113,7 +215,7 @@
         case "flowDiagram":
           return '<div class="card">' + renderFlowMarkup(b) + "</div>";
         case "notebookCallout":
-          return '<div class="notebook-callout"><span class="icon">' + b.icon + '</span><div><p>' + b.intro + "</p>" +
+          return '<div class="notebook-callout"><span class="icon" aria-hidden="true">' + mark(markFor(b.icon)) + '</span><div><p>' + b.intro + "</p>" +
             (b.items ? '<ul>' + b.items.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul>" : "") +
             (b.outro ? '<p style="margin-top:8px;">' + b.outro + "</p>" : "") +
             "</div></div>";
@@ -141,7 +243,7 @@
     }
 
     function renderExcerptBox(id, text){
-      return '<div class="excerpt-box" id="excerpt_' + id + '"><p class="excerpt-label">Выдержка из текста</p><p class="excerpt-text">' + text + '</p><p class="excerpt-time">Тайм-код: —</p></div>';
+      return '<div class="excerpt-box" id="excerpt_' + id + '"><p class="excerpt-label">Выдержка из текста</p><p class="excerpt-text">' + text + '</p></div>';
     }
 
     // ---------- question-type screen renderers ----------
@@ -150,23 +252,25 @@
 
     TYPES["single-choice"] = {
       render: function(screen){
-        var html = '<div class="option-list" id="widget_' + screen.id + '">';
+        var html = '<div class="option-list" role="radiogroup" id="widget_' + screen.id + '">';
         screen.options.forEach(function(opt){
-          html += '<button class="option" data-value="' + opt.value + '"><span class="dot"></span>' + opt.label + "</button>";
+          html += '<button class="option" type="button" role="radio" aria-checked="false" data-value="' + opt.value + '"><span class="dot" aria-hidden="true"></span>' + opt.label + "</button>";
         });
         html += "</div>";
         if(screen.checkable){
           html += '<button class="btn-check" id="check_' + screen.id + '">Проверить</button>';
           if(screen.excerpt) html += renderExcerptBox(screen.id, screen.excerpt);
         }
-        html += '<p class="error-msg" id="err_' + screen.id + '"></p>';
+        html += '<p class="error-msg" role="alert" id="err_' + screen.id + '"></p>';
         return html;
       },
       bind: function(screen){
         var container = document.getElementById("widget_" + screen.id);
         function markSelection(){
           container.querySelectorAll(".option").forEach(function(b){
-            b.classList.toggle("selected", b.getAttribute("data-value") === state.answers[screen.id]);
+            var on = b.getAttribute("data-value") === state.answers[screen.id];
+            b.classList.toggle("selected", on);
+            b.setAttribute("aria-checked", on ? "true" : "false");
           });
         }
         function applyFeedback(){
@@ -177,14 +281,19 @@
             else if(v === state.answers[screen.id]) btn.classList.add("wrong-mark");
           });
           var exc = document.getElementById("excerpt_" + screen.id);
-          if(exc) exc.classList.add("show");
+          if(exc){
+            // Показать до привязки: у скрытого блока нет геометрии, и скобку нечем мерить.
+            exc.classList.add("show");
+            tie(screen.id, container.querySelector(".option.correct-mark") || container);
+          }
         }
         markSelection();
         container.querySelectorAll(".option").forEach(function(btn){
           btn.addEventListener("click", function(){
             state.answers[screen.id] = btn.getAttribute("data-value");
-            container.querySelectorAll(".option").forEach(function(b){ b.classList.remove("selected", "correct-mark", "wrong-mark"); });
+            container.querySelectorAll(".option").forEach(function(b){ b.classList.remove("selected", "correct-mark", "wrong-mark"); b.setAttribute("aria-checked", "false"); });
             btn.classList.add("selected");
+            btn.setAttribute("aria-checked", "true");
             var exc = document.getElementById("excerpt_" + screen.id);
             if(exc) exc.classList.remove("show");
             hideError(screen.id);
@@ -193,13 +302,17 @@
           });
         });
         if(screen.checkable){
-          if(state.checked[screen.id]) applyFeedback();
+          if(state.checked[screen.id]){
+            applyFeedback();
+            settle(screen.id);
+          }
           document.getElementById("check_" + screen.id).addEventListener("click", function(){
             if(!state.answers[screen.id]){ showError(screen.id, screen.errorRequired || MSG_REQUIRED); return; }
             hideError(screen.id);
             state.checked[screen.id] = true;
             save();
             applyFeedback();
+          settle(screen.id);
           });
         }
       },
@@ -222,15 +335,15 @@
           html += '<div class="tf-item" data-i="' + i + '">' +
             '<p class="tf-statement">' + item.statement + "</p>" +
             '<div class="tf-buttons">' +
-              '<button class="tf-btn" data-i="' + i + '" data-val="true">Верно</button>' +
-              '<button class="tf-btn" data-i="' + i + '" data-val="false">Неверно</button>' +
+              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="true">Верно<span class="mk" aria-hidden="true">' + mark("tick") + '</span></button>' +
+              '<button class="tf-btn" type="button" aria-pressed="false" data-i="' + i + '" data-val="false">Неверно<span class="mk" aria-hidden="true">' + mark("tick") + '</span></button>' +
             "</div>" +
             (item.excerpt ? renderExcerptBox(screen.id + "_" + i, item.excerpt) : "") +
             "</div>";
         });
         html += "</div>";
         html += '<button class="btn-check" id="check_' + screen.id + '">Проверить</button>';
-        html += '<p class="error-msg" id="err_' + screen.id + '"></p>';
+        html += '<p class="error-msg" role="alert" id="err_' + screen.id + '"></p>';
         return html;
       },
       bind: function(screen){
@@ -264,7 +377,10 @@
             });
           }
         });
-        if(state.checked[screen.id]) applyFeedback();
+        if(state.checked[screen.id]){
+          applyFeedback();
+          settle(screen.id);
+        }
 
         container.querySelectorAll(".tf-btn").forEach(function(btn){
           btn.addEventListener("click", function(){
@@ -278,6 +394,7 @@
             if(exc) exc.classList.remove("show");
             item.querySelectorAll(".tf-btn").forEach(function(b){ b.classList.remove("right", "wrong", "chosen"); });
             btn.classList.add("chosen");
+            item.querySelectorAll(".tf-btn").forEach(function(b){ b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
             save();
           });
         });
@@ -287,6 +404,7 @@
           state.checked[screen.id] = true;
           save();
           applyFeedback();
+          settle(screen.id);
         });
       },
       validate: function(screen){
@@ -316,7 +434,7 @@
         html += "</div>";
         html += '<button class="btn-check" id="check_' + screen.id + '">Проверить</button>';
         if(screen.excerpt) html += renderExcerptBox(screen.id, screen.excerpt);
-        html += '<p class="error-msg" id="err_' + screen.id + '"></p>';
+        html += '<p class="error-msg" role="alert" id="err_' + screen.id + '"></p>';
         return html;
       },
       bind: function(screen){
@@ -349,8 +467,12 @@
           state.checked[screen.id] = true;
           save();
           applyFeedback();
+          settle(screen.id);
         });
-        if(state.checked[screen.id]) applyFeedback();
+        if(state.checked[screen.id]){
+          applyFeedback();
+          settle(screen.id);
+        }
       },
       validate: function(screen){
         var order = state.answers[screen.id] || {};
@@ -380,7 +502,7 @@
         });
         html += "</div>";
         html += '<button class="btn-check" id="check_' + screen.id + '">Проверить</button>';
-        html += '<p class="error-msg" id="err_' + screen.id + '"></p>';
+        html += '<p class="error-msg" role="alert" id="err_' + screen.id + '"></p>';
         if(screen.summary){
           html += '<div class="triptych" id="summary_' + screen.id + '" style="display:none;">';
           screen.summary.forEach(function(it){
@@ -426,8 +548,12 @@
           state.checked[screen.id] = true;
           save();
           applyFeedback();
+          settle(screen.id);
         });
-        if(state.checked[screen.id]) applyFeedback();
+        if(state.checked[screen.id]){
+          applyFeedback();
+          settle(screen.id);
+        }
       },
       validate: function(screen){
         var fillState = state.answers[screen.id] || {};
@@ -449,12 +575,12 @@
       render: function(screen){
         var html = '<div class="check-list" id="widget_' + screen.id + '">';
         screen.items.forEach(function(item, i){
-          html += '<div class="check-item" data-i="' + i + '"><div class="check-box"><i>&#10003;</i></div><div class="check-text">' + item.label + "</div></div>";
+          html += '<div class="check-item" role="checkbox" tabindex="0" aria-checked="false" data-i="' + i + '"><div class="check-box" aria-hidden="true">' + mark("tick") + '</div><div class="check-text">' + item.label + "</div></div>";
         });
         html += "</div>";
         html += '<button class="btn-check" id="check_' + screen.id + '">Проверить</button>';
         if(screen.excerpt) html += renderExcerptBox(screen.id, screen.excerpt);
-        html += '<p class="error-msg" id="err_' + screen.id + '"></p>';
+        html += '<p class="error-msg" role="alert" id="err_' + screen.id + '"></p>';
         return html;
       },
       bind: function(screen){
@@ -469,14 +595,22 @@
             else if(isChosen) div.classList.add("wrong-mark");
           });
           var exc = document.getElementById("excerpt_" + screen.id);
-          if(exc) exc.classList.add("show");
+          if(exc){
+            exc.classList.add("show");
+            tie(screen.id, container.querySelector(".check-item.correct-mark") || container);
+          }
         }
         container.querySelectorAll(".check-item").forEach(function(div){
           var i = div.getAttribute("data-i");
           div.classList.toggle("selected", !!chosen[i]);
+          div.setAttribute("aria-checked", chosen[i] ? "true" : "false");
+          div.addEventListener("keydown", function(e){
+            if(e.key === " " || e.key === "Enter"){ e.preventDefault(); div.click(); }
+          });
           div.addEventListener("click", function(){
             chosen[i] = !chosen[i];
             div.classList.toggle("selected", !!chosen[i]);
+            div.setAttribute("aria-checked", chosen[i] ? "true" : "false");
             div.classList.remove("correct-mark", "wrong-mark");
             var exc = document.getElementById("excerpt_" + screen.id);
             if(exc) exc.classList.remove("show");
@@ -491,8 +625,12 @@
           state.checked[screen.id] = true;
           save();
           applyFeedback();
+          settle(screen.id);
         });
-        if(state.checked[screen.id]) applyFeedback();
+        if(state.checked[screen.id]){
+          applyFeedback();
+          settle(screen.id);
+        }
       },
       validate: function(screen){
         var chosen = state.answers[screen.id] || {};
@@ -535,14 +673,15 @@
 
     TYPES["result"] = {
       render: function(screen){
-        var html = '<div class="result-hero"><p class="eyebrow">' + screen.completedLabel + '</p><div class="result-score" id="scoreOut">0 / 0</div><p class="result-label">' + screen.resultLabel + "</p></div>";
+        var html = '<div class="result-hero"><h2>' + screen.completedLabel + '</h2>' +
+          '<p class="result-line" role="status"><span class="result-score" id="scoreOut">0 / 0</span> ' + screen.resultLabel + "</p></div>";
         if(screen.note){
           var notes = Array.isArray(screen.note) ? screen.note : [screen.note];
           html += '<div class="card">' + notes.map(function(n){ return '<p class="lede" style="margin-bottom:0;">' + n + "</p>"; }).join("") + "</div>";
         }
         html += '<div class="download-row">';
         screen.downloads.forEach(function(d){
-          html += '<button class="btn-download" id="download_' + d.id + '">' + d.label + "</button>";
+          html += '<button class="btn-download" id="download_' + d.id + '">' + d.label + '<span class="mk" aria-hidden="true">' + mark("down") + "</span></button>";
         });
         html += "</div>";
         return html;
@@ -568,10 +707,10 @@
 
     function showFallback(filename, text){
       var overlay = document.createElement("div");
-      overlay.style.cssText = "position:fixed; inset:0; background:var(--bg); z-index:999; padding:20px; overflow:auto;";
+      overlay.style.cssText = "position:fixed; inset:0; background:var(--night); color:var(--ink); z-index:999; padding:20px; overflow:auto;";
       overlay.innerHTML =
-        '<p style="font-size:13px; color:var(--ink-faint); margin-bottom:10px;">Скачивание недоступно в этом окне. Выделите и скопируйте текст ниже (' + filename + '):</p>' +
-        '<textarea readonly style="width:100%; min-height:60vh; font-family:monospace; font-size:12.5px;"></textarea>' +
+        '<p style="font-size:13px; color:var(--ink-3); letter-spacing:.02em; margin-bottom:10px;">Скачивание недоступно в этом окне. Выделите и скопируйте текст ниже (' + filename + '):</p>' +
+        '<textarea readonly style="width:100%; min-height:60vh; background:var(--night-raise); color:var(--ink); border:1px solid var(--rule); border-radius:2px; padding:12px; font-family:var(--app); font-size:13px; line-height:1.55;"></textarea>' +
         '<button class="btn-download" style="margin-top:12px; width:100%;">Закрыть</button>';
       overlay.querySelector("textarea").value = text;
       overlay.querySelector("button").addEventListener("click", function(){ document.body.removeChild(overlay); });
@@ -660,14 +799,36 @@
     var current = 0;
     var progressFill = document.getElementById("progressFill");
     var stepLabel = document.getElementById("stepLabel");
+    var stepTotal = document.getElementById("stepTotal");
+    var runhead = document.getElementById("runhead");
+    var chainEl = document.getElementById("chain");
+
+    // Иснад: откуда пришло знание. Стоит на каждом экране главы.
+    if(chainEl){
+      var chain = (CHAPTER.meta && CHAPTER.meta.chain) || [];
+      chainEl.textContent = chain.join(" → ");
+    }
+    if(stepTotal){ stepTotal.textContent = pad(screens.length); }
+
+    function pad(n){ return (n < 10 ? "0" : "") + n; }
+
+    // Рубрика экрана поднимается в колонтитул, а не стоит над заголовком.
+    function rubricOf(screen){
+      var blocks = screen.blocks || [];
+      for(var i = 0; i < blocks.length; i++){
+        if(blocks[i].type === "eyebrow") return blocks[i].text;
+      }
+      return "";
+    }
     var nextBtn = document.getElementById("nextBtn");
     var backBtn = document.getElementById("backBtn");
 
     function render(){
       screenEls.forEach(function(s, i){ s.classList.toggle("active", i === current); });
       var pct = Math.round((current / (screenEls.length - 1)) * 100);
-      progressFill.style.width = pct + "%";
-      stepLabel.textContent = (current + 1) + " / " + screenEls.length;
+      progressFill.style.transform = "scaleX(" + (pct / 100) + ")";
+      stepLabel.textContent = pad(current + 1);
+      if(runhead) runhead.textContent = rubricOf(screens[current]);
       backBtn.style.visibility = current === 0 ? "hidden" : "visible";
       if(current === screenEls.length - 1){
         calculateScore();

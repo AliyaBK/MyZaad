@@ -3,25 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B1E2E">
 <title>MyZaad</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Golos+Text:wght@400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="step-label" id="stepLabel">1 / 1</div>
-  </div>
-  <div id="app"></div>
+
+<div class="sheet">
+  <header class="isnad">
+    <p class="chain" id="chain"></p>
+    <p class="runhead" id="runhead"></p>
+    <p class="folio"><span id="stepLabel">01</span><span class="folio-rule"></span><span id="stepTotal">14</span></p>
+  </header>
+  <div class="gauge"><span class="gauge-fill" id="progressFill"></span></div>
+
+  <main id="app"></main>
 </div>
 
-<div class="btn-bar">
-  <button class="btn btn-ghost" id="backBtn">Назад</button>
-  <button class="btn btn-primary" id="nextBtn">Начать</button>
+<div class="colophon">
+  <div class="colophon-inner">
+    <button class="act act-back" id="backBtn">Назад</button>
+    <button class="act act-go" id="nextBtn">Начать</button>
+  </div>
 </div>
 
 <script src="engine.js"></script>

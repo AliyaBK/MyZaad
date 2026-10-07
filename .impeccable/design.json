@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T00:00:00Z",
+  "title": "Design System: MyZaad",
+  "extensions": {
+    "colorMeta": {
+      "night": { "role": "neutral", "displayName": "Night", "canonical": "#0B1E2E", "tonalRamp": ["#04101A", "#071722", "#0B1E2E", "#10303F", "#17465A", "#2C6E88", "#67A5BC", "#C3DEE8"] },
+      "night-deep": { "role": "neutral", "displayName": "Night Deep", "canonical": "#071722", "tonalRamp": ["#030B12", "#071722", "#0A2231", "#0E2F42", "#154558", "#2A6B86", "#64A2BA", "#C1DCE7"] },
+      "night-raise": { "role": "neutral", "displayName": "Night Raise", "canonical": "#0F2838", "tonalRamp": ["#05121C", "#0A1E2B", "#0F2838", "#153649", "#1D4A62", "#306F8D", "#6AA6BE", "#C5DFE9"] },
+      "night-plate": { "role": "neutral", "displayName": "Night Plate", "canonical": "#10303F", "tonalRamp": ["#061520", "#0B2230", "#10303F", "#163E51", "#1F5368", "#327991", "#6CADC0", "#C7E2EA"] },
+      "ink": { "role": "neutral", "displayName": "Sandstone Ink", "canonical": "#EFE6D6", "tonalRamp": ["#2A251C", "#473F2F", "#665A43", "#877959", "#A99A77", "#C7BB9E", "#EFE6D6", "#FAF5EC"] },
+      "ink-2": { "role": "neutral", "displayName": "Sage Ink", "canonical": "#A8B8B0", "tonalRamp": ["#1C2422", "#2E3A37", "#43534E", "#5A6D67", "#748781", "#8EA19A", "#A8B8B0", "#D6E0DC"] },
+      "ink-3": { "role": "neutral", "displayName": "Slate Ink", "canonical": "#74898A", "tonalRamp": ["#141C1D", "#223031", "#324446", "#44595B", "#5A7072", "#74898A", "#96A9AA", "#CDD8D8"] },
+      "lamp": { "role": "primary", "displayName": "Lamp Amber", "canonical": "#F9BC81", "tonalRamp": ["#3A2008", "#5A3310", "#7C481B", "#9E5F28", "#BE7A3D", "#D99B5D", "#F9BC81", "#FDE0C4"] },
+      "lamp-deep": { "role": "primary", "displayName": "Lamp Deep", "canonical": "#B57135", "tonalRamp": ["#2B1807", "#44270D", "#5F3914", "#7D4D1D", "#9A5E27", "#B57135", "#D08F55", "#EDC496"] },
+      "rubric": { "role": "secondary", "displayName": "Cinnabar", "canonical": "#D4764A", "tonalRamp": ["#33160C", "#4F2312", "#6B3219", "#8B4322", "#AC572F", "#C4653C", "#D4764A", "#EEB190"] },
+      "rubric-dim": { "role": "secondary", "displayName": "Cinnabar Dim", "canonical": "#7E3C26", "tonalRamp": ["#1F0C06", "#33150B", "#4A2012", "#642C19", "#7E3C26", "#9C5134", "#C07A57", "#E4B49B"] },
+      "dome": { "role": "tertiary", "displayName": "Dome Green", "canonical": "#5E9A6E", "tonalRamp": ["#0E1E13", "#17321F", "#21472C", "#2D5E3A", "#3D7A4D", "#4E8A5E", "#5E9A6E", "#A7CDB1"] },
+      "dome-dim": { "role": "tertiary", "displayName": "Dome Dim", "canonical": "#2A4F39", "tonalRamp": ["#091409", "#122313", "#1B3825", "#2A4F39", "#3A6A4B", "#4E8761", "#78A98A", "#B5D3C0"] },
+      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "rgba(239,230,214,.14)", "tonalRamp": ["rgba(239,230,214,.04)", "rgba(239,230,214,.07)", "rgba(239,230,214,.10)", "rgba(239,230,214,.14)", "rgba(239,230,214,.20)", "rgba(239,230,214,.32)", "rgba(239,230,214,.55)", "rgba(239,230,214,.90)"] },
+      "rule-soft": { "role": "neutral", "displayName": "Rule Soft", "canonical": "rgba(239,230,214,.07)", "tonalRamp": ["rgba(239,230,214,.03)", "rgba(239,230,214,.05)", "rgba(239,230,214,.07)", "rgba(239,230,214,.10)", "rgba(239,230,214,.14)", "rgba(239,230,214,.24)", "rgba(239,230,214,.45)", "rgba(239,230,214,.80)"] },
+      "rule-lamp": { "role": "primary", "displayName": "Rule Lamp", "canonical": "rgba(249,188,129,.34)", "tonalRamp": ["rgba(249,188,129,.08)", "rgba(249,188,129,.14)", "rgba(249,188,129,.22)", "rgba(249,188,129,.34)", "rgba(249,188,129,.48)", "rgba(249,188,129,.64)", "rgba(249,188,129,.82)", "rgba(249,188,129,1)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The one opening heading per screen; Literata 500, text-wrap: balance." },
+      "headline": { "displayName": "Headline", "purpose": "Screen title inside a flow of blocks." },
+      "title": { "displayName": "Title", "purpose": "Subheadings and the result line's scale partner." },
+      "lede": { "displayName": "Lede", "purpose": "Opening set paragraph, Literata 300, text-wrap: pretty, measure 34em." },
+      "body": { "displayName": "Body (apparatus)", "purpose": "All UI copy, option rows, statements, controls. Tabular lining figures are global here." },
+      "body-set": { "displayName": "Body Set", "purpose": "Quotations, citations, principles, prompts, the marginal excerpt; usually italic." },
+      "arabic": { "displayName": "Arabic", "purpose": "Qur'anic and hadith text in Amiri, dir=rtl, right-aligned, 1.95 line-height." },
+      "label": { "displayName": "Label", "purpose": "Rubric labels, state words, captions, source credits; uppercase and tracked." },
+      "runhead": { "displayName": "Running Head", "purpose": "The screen's rubric in the isnad strip, cinnabar, uppercase 0.16em." },
+      "folio": { "displayName": "Folio", "purpose": "The NN — NN step counter; tabular, current step in full ink." },
+      "figure": { "displayName": "Figure", "purpose": "The final score on the result screen, Literata 34px tabular." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-house", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "The only easing in the system; every transition and the excerpt entrance use it." },
+      { "name": "duration-house", "value": "320ms", "purpose": "The only duration; transitions, the excerpt entrance, and the scripted scroll glide." },
+      { "name": "slide-in", "value": "@keyframes slide-in { from { opacity: 0; transform: translateX(-34px); } to { opacity: 1; transform: none; } }", "purpose": "The signature one-axis entrance of the margin excerpt and of revealed answer sheets. Never played in reverse." },
+      { "name": "glide", "value": "requestAnimationFrame over 320ms, eased 1 - (1 - t)^3", "purpose": "Hand-animated scroll correction after a check, because behavior:'smooth' is silently unreliable in embedded webviews." },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { animation: none; transition-duration: 1ms !important; }", "purpose": "Drops the entrance and the gauge transition and clamps all transitions." }
+    ],
+    "breakpoints": [
+      { "name": "margin", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Colophon Forward Action",
+      "kind": "button",
+      "refersTo": "button-action",
+      "description": "The one lamp on the screen: the single live action, in the fixed full-bleed colophon.",
+      "html": "<div class=\"ds-colophon\"><button class=\"ds-act-back\">Назад</button><button class=\"ds-act-go\">Далее</button></div>",
+      "css": ".ds-colophon { display: flex; align-items: stretch; background: var(--night, #0B1E2E); border-top: 1px solid var(--rule, rgba(239,230,214,.14)); font-family: var(--app, 'Golos Text', system-ui, sans-serif); } .ds-act-back, .ds-act-go { background: none; border: 0; cursor: pointer; font: inherit; padding: 19px 14px; letter-spacing: .05em; transition: color 320ms cubic-bezier(.16,1,.3,1), background 320ms cubic-bezier(.16,1,.3,1); } .ds-act-back { color: var(--ink-3, #74898A); border-right: 1px solid var(--rule, rgba(239,230,214,.14)); min-width: 92px; padding-left: 0; text-align: left; } .ds-act-back:hover { color: var(--ink, #EFE6D6); } .ds-act-go { flex: 1; color: var(--lamp, #F9BC81); text-align: center; letter-spacing: .14em; text-transform: uppercase; font-size: 13px; } .ds-act-go:hover { background: var(--night-raise, #0F2838); } .ds-act-go:focus-visible, .ds-act-back:focus-visible { outline: 1px solid var(--lamp, #F9BC81); outline-offset: 3px; }"
+    },
+    {
+      "name": "Check Button",
+      "kind": "button",
+      "refersTo": "button-check",
+      "description": "The amber-ruled «Проверить» action; disables itself once the answer has been checked.",
+      "html": "<button class=\"ds-btn-check\">Проверить</button> <button class=\"ds-btn-check\" disabled>Проверить</button>",
+      "css": ".ds-btn-check { display: block; width: 100%; margin-bottom: 10px; padding: 12px; background: none; cursor: pointer; border: 1px solid var(--rule-lamp, rgba(249,188,129,.34)); border-radius: 2px; color: var(--lamp, #F9BC81); font-family: var(--app, 'Golos Text', system-ui, sans-serif); font-size: 13.5px; letter-spacing: .09em; text-transform: uppercase; transition: background 320ms cubic-bezier(.16,1,.3,1), border-color 320ms cubic-bezier(.16,1,.3,1); } .ds-btn-check:hover { background: var(--night-raise, #0F2838); border-color: var(--lamp, #F9BC81); } .ds-btn-check:focus-visible { outline: 1px solid var(--lamp, #F9BC81); outline-offset: 3px; } .ds-btn-check[disabled] { border-color: var(--rule, rgba(239,230,214,.14)); color: var(--ink-3, #74898A); cursor: default; background: none; }"
+    },
+    {
+      "name": "Option Row (single choice)",
+      "kind": "custom",
+      "refersTo": "option-row",
+      "description": "A ruled list row with a hairline-stroked dot; the verdict adds a word label flush right, never colour alone.",
+      "html": "<div class=\"ds-option-list\"><button class=\"ds-option\" type=\"button\" role=\"radio\" aria-checked=\"false\"><span class=\"ds-dot\"></span>Пост в Ша'бане</button><button class=\"ds-option ds-selected\" type=\"button\" role=\"radio\" aria-checked=\"true\"><span class=\"ds-dot\"></span>Подготовка сердца</button><button class=\"ds-option ds-correct\" type=\"button\" role=\"radio\" aria-checked=\"false\"><span class=\"ds-dot\"></span>Чтение Корана</button><button class=\"ds-option ds-wrong\" type=\"button\" role=\"radio\" aria-checked=\"false\"><span class=\"ds-dot\"></span>Ночные бдения</button></div>",
+      "css": ".ds-option-list { border-top: 1px solid var(--rule, rgba(239,230,214,.14)); font-family: var(--app, 'Golos Text', system-ui, sans-serif); } .ds-option { display: flex; align-items: flex-start; gap: 12px; width: 100%; text-align: left; background: none; border: 0; border-bottom: 1px solid var(--rule-soft, rgba(239,230,214,.07)); padding: 14px 2px; cursor: pointer; color: var(--ink, #EFE6D6); font: inherit; font-size: 15px; line-height: 1.5; position: relative; transition: color 320ms cubic-bezier(.16,1,.3,1), background 320ms cubic-bezier(.16,1,.3,1); } .ds-option:last-child { border-bottom: 1px solid var(--rule, rgba(239,230,214,.14)); } .ds-option:hover { background: var(--night-raise, #0F2838); } .ds-option:focus-visible { outline: 1px solid var(--lamp, #F9BC81); outline-offset: 3px; } .ds-dot { width: 13px; height: 13px; flex-shrink: 0; margin-top: 4px; border: 1px solid var(--ink-3, #74898A); border-radius: 50%; transition: border-color 320ms cubic-bezier(.16,1,.3,1), box-shadow 320ms cubic-bezier(.16,1,.3,1); } .ds-option.ds-selected .ds-dot { border-color: var(--lamp, #F9BC81); box-shadow: inset 0 0 0 3px var(--lamp, #F9BC81); } .ds-option.ds-correct { color: var(--dome, #5E9A6E); } .ds-option.ds-correct .ds-dot { border-color: var(--dome, #5E9A6E); box-shadow: inset 0 0 0 3px var(--dome, #5E9A6E); } .ds-option.ds-correct::after { content: 'верно'; margin-left: auto; padding-left: 10px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--dome, #5E9A6E); } .ds-option.ds-wrong { color: var(--rubric, #D4764A); } .ds-option.ds-wrong .ds-dot { border-color: var(--rubric, #D4764A); box-shadow: inset 0 0 0 3px var(--rubric, #D4764A); } .ds-option.ds-wrong::after { content: 'ваш выбор'; margin-left: auto; padding-left: 10px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--rubric, #D4764A); }"
+    },
+    {
+      "name": "Verdict Pair (true / false)",
+      "kind": "button",
+      "refersTo": "verdict-button",
+      "description": "Two equal hairline-ruled buttons; right goes dome with a drawn tick, wrong goes cinnabar with a line-through.",
+      "html": "<div class=\"ds-tf\"><button class=\"ds-tf-btn ds-right\" type=\"button\" aria-pressed=\"true\">Верно<span class=\"ds-mk\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><path d=\"m4.5 12.5 5 5 10-11\"/></svg></span></button><button class=\"ds-tf-btn ds-wrong\" type=\"button\" aria-pressed=\"false\">Неверно</button></div>",
+      "css": ".ds-tf { display: flex; gap: 9px; font-family: var(--app, 'Golos Text', system-ui, sans-serif); } .ds-tf-btn { flex: 1; padding: 9px 10px; background: none; cursor: pointer; border: 1px solid var(--rule, rgba(239,230,214,.14)); border-radius: 0; font: inherit; font-size: 13.5px; letter-spacing: .02em; color: var(--ink-2, #A8B8B0); transition: border-color 320ms cubic-bezier(.16,1,.3,1), color 320ms cubic-bezier(.16,1,.3,1); } .ds-tf-btn:hover { border-color: var(--ink-3, #74898A); color: var(--ink, #EFE6D6); } .ds-tf-btn:focus-visible { outline: 1px solid var(--lamp, #F9BC81); outline-offset: 3px; } .ds-tf-btn.ds-chosen { border-color: var(--lamp, #F9BC81); color: var(--lamp, #F9BC81); } .ds-tf-btn.ds-right { border-color: var(--dome, #5E9A6E); color: var(--dome, #5E9A6E); } .ds-tf-btn.ds-wrong { border-color: var(--rubric, #D4764A); color: var(--rubric, #D4764A); text-decoration: line-through; } .ds-mk { display: inline-flex; vertical-align: -2px; width: 13px; height: 13px; margin-left: 5px; } .ds-mk svg { width: 100%; height: 100%; }"
+    },
+    {
+      "name": "Select Field",
+      "kind": "input",
+      "refersTo": "select-field",
+      "description": "The ordering field: the only element with a tonal body, a 2px radius, and a drawn caret.",
+      "html": "<select class=\"ds-select\"><option>1. Намерение</option><option>2. Пост</option></select><select class=\"ds-select ds-select-correct\"><option>2. Пост</option></select>",
+      "css": ".ds-select { width: 100%; margin-bottom: 10px; padding: 11px 12px; background-color: var(--night-raise, #0F2838); color: var(--ink, #EFE6D6); border: 1px solid var(--rule, rgba(239,230,214,.14)); border-radius: 2px; font-family: var(--app, 'Golos Text', system-ui, sans-serif); font-size: 14.5px; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-3, #74898A) 50%), linear-gradient(135deg, var(--ink-3, #74898A) 50%, transparent 50%); background-position: calc(100% - 17px) 50%, calc(100% - 12px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; } .ds-select:hover { border-color: var(--ink-3, #74898A); } .ds-select:focus-visible { border-color: var(--lamp, #F9BC81); outline: none; } .ds-select.ds-select-correct { border-color: var(--dome, #5E9A6E); color: var(--dome, #5E9A6E); } .ds-select.ds-select-wrong { border-color: var(--rubric, #D4764A); color: var(--rubric, #D4764A); }"
+    },
+    {
+      "name": "Band",
+      "kind": "card",
+      "refersTo": null,
+      "description": "The container idiom that replaces the card: two hairlines, no sides, no fill, no radius, no shadow.",
+      "html": "<div class=\"ds-band\"><p class=\"ds-quote-ar\" dir=\"rtl\">وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَى</p><p class=\"ds-quote-ru\">«Берите с собой провизию, но, поистине, лучшая провизия — богобоязненность»</p><p class=\"ds-quote-src\">Сура Аль-Бакара</p></div>",
+      "css": ".ds-band { border-top: 1px solid var(--rule, rgba(239,230,214,.14)); border-bottom: 1px solid var(--rule, rgba(239,230,214,.14)); padding: 16px 0; margin: 0 0 20px; } .ds-quote-ar { font-family: var(--ar, Amiri, serif); font-size: 21px; line-height: 1.95; direction: rtl; text-align: right; color: var(--ink, #EFE6D6); margin: 0 0 12px; } .ds-quote-ru { font-family: var(--set, Literata, Georgia, serif); font-size: 16px; line-height: 1.6; font-style: italic; color: var(--ink, #EFE6D6); margin: 0; } .ds-quote-src { font-family: var(--app, 'Golos Text', system-ui, sans-serif); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3, #74898A); margin: 8px 0 0; }"
+    },
+    {
+      "name": "Isnad Strip and Gauge",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "The running head: attribution chain, the screen's rubric in cinnabar, a tabular folio counter, and a 1px gauge that is the entire progress indicator.",
+      "html": "<header class=\"ds-isnad\"><p class=\"ds-chain\">шейх Мухаммад Ад-Дубейси → устаз Ибрахим Братов → Ша'бан</p><p class=\"ds-runhead\">Подготовка</p><p class=\"ds-folio\"><span class=\"ds-folio-now\">04</span><span class=\"ds-folio-rule\"></span><span>14</span></p></header><div class=\"ds-gauge\"><span class=\"ds-gauge-fill\"></span></div>",
+      "css": ".ds-isnad { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px 16px; padding: 14px 0 8px; font-family: var(--app, 'Golos Text', system-ui, sans-serif); font-variant-numeric: tabular-nums lining-nums; } .ds-chain { grid-column: 1; margin: 0; font-size: 10.5px; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3, #74898A); line-height: 1.5; } .ds-runhead { grid-column: 1; margin: 0; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--rubric, #D4764A); font-weight: 500; min-height: 1.5em; } .ds-folio { grid-column: 2; grid-row: 1 / span 2; margin: 0; align-self: center; display: flex; align-items: center; gap: 7px; font-size: 12.5px; letter-spacing: .06em; color: var(--ink-2, #A8B8B0); } .ds-folio-now { color: var(--ink, #EFE6D6); } .ds-folio-rule { width: 14px; height: 1px; background: var(--rule, rgba(239,230,214,.14)); display: block; } .ds-gauge { height: 1px; background: var(--rule-soft, rgba(239,230,214,.07)); position: relative; } .ds-gauge-fill { position: absolute; inset: 0; background: var(--lamp-deep, #B57135); transform: scaleX(.28); transform-origin: left center; transition: transform 320ms cubic-bezier(.16,1,.3,1); }"
+    },
+    {
+      "name": "Margin Excerpt",
+      "kind": "custom",
+      "refersTo": "excerpt-margin",
+      "description": "The signature component: after a check, the lecture's own words enter the margin on one axis, tied to the answered row by a hairline, and never leave.",
+      "html": "<div class=\"ds-excerpt\"><p class=\"ds-excerpt-label\">Выдержка из текста</p><p class=\"ds-excerpt-text\">Ша'бан — месяц, в котором сердце готовят к Рамадану, а не месяц, в котором его торопят.</p></div>",
+      "css": ".ds-excerpt { margin: 22px 0 0; padding: 14px 0 14px 15px; border-left: 1px solid var(--rule-lamp, rgba(249,188,129,.34)); position: relative; animation: ds-slide-in 320ms cubic-bezier(.16,1,.3,1) both; } .ds-excerpt::before { content: ''; position: absolute; left: 0; top: -22px; width: 1px; height: 22px; background: var(--rule-lamp, rgba(249,188,129,.34)); } .ds-excerpt-label { font-family: var(--app, 'Golos Text', system-ui, sans-serif); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--rubric, #D4764A); margin: 0 0 7px; } .ds-excerpt-text { font-family: var(--set, Literata, Georgia, serif); font-size: 14.5px; line-height: 1.62; font-style: italic; color: var(--ink, #EFE6D6); margin: 0; } @keyframes ds-slide-in { from { opacity: 0; transform: translateX(-34px); } to { opacity: 1; transform: none; } } @media (min-width: 900px) { .ds-excerpt { margin-top: 0; padding: 0 0 0 18px; } .ds-excerpt::before { left: -44px; top: 0; width: 44px; height: 1px; } } @media (prefers-reduced-motion: reduce) { .ds-excerpt { animation: none; } }"
+    },
+    {
+      "name": "Drawn Marks",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The whole icon set: eight marks drawn on a 24px box at a single 1.3 stroke weight, inheriting currentColor. No glyphs, no icon font.",
+      "html": "<div class=\"ds-marks\"><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><circle cx=\"12\" cy=\"12\" r=\"3.4\"/><path d=\"M12 2.6v4M12 17.4v4M2.6 12h4M17.4 12h4M5.3 5.3l2.9 2.9M15.8 15.8l2.9 2.9M18.7 5.3l-2.9 2.9M8.2 15.8l-2.9 2.9\"/></svg></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><path d=\"M12 21v-7\"/><path d=\"M7.5 3.5h9l-1.2 6.2 2.4 2.3v2H6.3v-2l2.4-2.3z\"/></svg></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><path d=\"M5.5 3.5h13v17h-13z\"/><path d=\"M8.6 8h6.8M8.6 11.6h6.8M8.6 15.2h4.2\"/></svg></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><path d=\"M4.5 14.5v-2.8a7.5 7.5 0 0 1 15 0v2.8\"/><path d=\"M4.5 13.4h2.1v5.1H5.6a1.1 1.1 0 0 1-1.1-1.1z\"/><path d=\"M19.5 13.4h-2.1v5.1h1a1.1 1.1 0 0 0 1.1-1.1z\"/></svg></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><path d=\"M4 12h15M13.5 6.5 19.8 12l-6.3 5.5\"/></svg></span><span><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.3\"><path d=\"M12 4v15M6.5 13.5 12 19.8l5.5-6.3\"/></svg></span></div>",
+      "css": ".ds-marks { display: flex; gap: 14px; color: var(--rubric, #D4764A); } .ds-marks span { display: block; width: 26px; height: 26px; } .ds-marks svg { display: block; width: 100%; height: 100%; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Treatise Page",
+    "overview": "MyZaad is a page from a classical treatise, read after dark. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. Night (#0B1E2E) is not an accent or a \"dark mode\" — it is the ground the whole sheet is printed on, flat and unlit, with no panel ever a different shade of it except on hover. Everything else is ink, rule, and rubric: three inks, three hairline weights, one lamp.\n\nThe density is editorial, not app-like. There are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.\n\nThe rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind \"show explanation\" and disappears on the next screen. An earlier Linear/Stripe-like system (emerald on warm milk) preceded this one; its design document has been deleted, and nothing of it is authority here.",
+    "keyCharacteristics": [
+      "Night ground, flat: one background, no card fills, no gradients.",
+      "1px rules and rubric labels instead of containers.",
+      "Exactly one amber element per screen: the live action.",
+      "The source excerpt enters the margin and never leaves.",
+      "State is readable without colour: a word label plus a hairline mark.",
+      "Tabular lining figures globally; three type voices (set, apparatus, Arabic).",
+      "Night-only by agreement: no light theme ships."
+    ],
+    "rules": [
+      { "name": "The One Lamp Rule", "body": "Amber marks exactly one live action per screen. Everything else that could want attention takes cinnabar, ink, or a rule.", "section": "colors" },
+      { "name": "The Flat Field Rule", "body": "Night is the ground, not a layer. The only permitted tonal shift is {colors.night-raise} as a hover or field body; no card fills, no gradients, no tinted panels.", "section": "colors" },
+      { "name": "The Scribe's Two Signals Rule", "body": "Cinnabar means rubric-or-wrong; dome green means correct. Neither ever appears as a background wash, and neither carries meaning alone — a word label always accompanies it.", "section": "colors" },
+      { "name": "The Three Voices Rule", "body": "Literata is the text, Golos Text is the apparatus, Amiri is the Arabic. A string never changes voice to decorate itself; it changes voice because its role changed.", "section": "typography" },
+      { "name": "The Running-Head Rubric Rule", "body": "A screen's rubric belongs in the running head, set in cinnabar small caps. Nothing is set above a heading in the text column — the heading is the first thing in the column, always.", "section": "typography" },
+      { "name": "The Tabular Figure Rule", "body": "font-variant-numeric: tabular-nums lining-nums is global on body. Counters, scores, and step numbers must not shift width as they change.", "section": "typography" },
+      { "name": "The Hairline Separation Rule", "body": "Blocks are separated by a 1px rule and a rubric label, never by a card, a fill, or a shadow. Band edges take {colors.rule}; dividers inside a list take {colors.rule-soft}.", "section": "layout" },
+      { "name": "The Margin Rule", "body": "Once the source excerpt enters the margin it stays for the rest of the chapter. Nothing in this system opens and then closes.", "section": "layout" },
+      { "name": "The Hairline Gauge Rule", "body": "Progress is a 1px rule filling from the left. No bar, no track chrome, no percentage label.", "section": "layout" },
+      { "name": "The No-Shadow Rule", "body": "Nothing in this world casts a shadow. If an element needs to separate, give it a rule; if it needs to come forward, give it the lamp.", "section": "elevation" },
+      { "name": "The 2px Ceiling Rule", "body": "2px is the maximum radius in this world, and it is a concession to form fields, not a style. Everything else is square.", "section": "shapes" },
+      { "name": "The One Stroke Weight Rule", "body": "Every rule in the system is 1px and every drawn mark is 1.3 on a 24px box. There is no second line weight to reach for.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep amber for exactly one live action per screen; give every other emphasis to cinnabar, ink, or a rule.",
+      "Do separate blocks with a 1px rule plus a cinnabar rubric label — the band idiom (border-top/border-bottom, padding: 16px 0, no fill).",
+      "Do put a screen's rubric in the running head, and let the heading be the first thing in the text column.",
+      "Do say the state in words as well as colour: a tracked uppercase label plus a 1px marginal stroke accompany every dome or cinnabar verdict.",
+      "Do set the text in Literata, the apparatus in Golos Text, and Arabic in Amiri with dir=\"rtl\".",
+      "Do keep every rule at 1px and every drawn mark at 1.3 stroke on a 24px box, inheriting currentColor.",
+      "Do animate on one axis for 320ms with cubic-bezier(.16,1,.3,1), and let what appeared stay.",
+      "Do cap the set column at 34em and keep tabular lining figures on every number.",
+      "Do honour prefers-reduced-motion by removing the entrance and clamping transitions."
+    ],
+    "donts": [
+      "Don't introduce a card: no filled panel, no boxed question, no container with four borders and a radius.",
+      "Don't exceed 2px radius, and don't use 2px anywhere but form fields.",
+      "Don't add a box-shadow. There is no elevation vocabulary here to extend.",
+      "Don't set anything above a heading in the text column — no kicker, no eyebrow, no label line. The eyebrow block type is suppressed in CSS and lifted to the running head on purpose.",
+      "Don't replace the 1px gauge with a progress bar, a track, or a percentage.",
+      "Don't let a revealed excerpt close, collapse, or disappear on navigation, and don't deliver the source in a modal or an accordion.",
+      "Don't use emoji, an icon font, or a Unicode character as an icon; draw it into the MARKS SVG set at 1.3 stroke.",
+      "Don't fill a surface with cinnabar, dome green, or amber — all three are strokes, letters, and 1px marks on the night ground.",
+      "Don't add a second background tone; {colors.night-raise} is for hover and select bodies only.",
+      "Don't ship a light theme. This world is night-only by agreement, pending a decision after the first pass."
+    ]
+  }
+}
