@@ -684,6 +684,8 @@ p{margin:0 0 14px;}
   margin:0 0 12px;
 }
 .plan .lede{max-width:34em;margin-bottom:34px;}
+.plan .lede p{margin:0 0 14px;}
+.plan .lede p:last-child{margin-bottom:0;}
 
 .plan-head{
   font-family:var(--app);
