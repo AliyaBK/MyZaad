@@ -33,6 +33,11 @@
   --rule-soft:    rgba(239,230,214,.07);
   --rule-lamp:    rgba(249,188,129,.34);
 
+  /* выделение и полоса прокрутки — у дня они свои */
+  --select-bg:    #B57135;
+  --select-ink:   #120A04;
+  --scroll-thumb: #2B3A3F;
+
   --set:  "Literata", Georgia, "Times New Roman", serif;
   --app:  "Golos Text", system-ui, -apple-system, sans-serif;
   --ar:   "Amiri", "Scheherazade New", serif;
@@ -41,6 +46,43 @@
   --gutter: 20px;
   --ease: cubic-bezier(.16,1,.3,1);
   --t: 320ms;
+}
+
+/*
+ * День — тот же мир, перевёрнутый на бумагу: мрамор и песчаник, набор
+ * чернилами, рубрики киноварью. Палитра взята у конспекта, который был
+ * бумажным с самого начала, чтобы светлых миров не стало два.
+ *
+ * Имена токенов остались ночными намеренно: --night значит «поверхность»,
+ * --night-raise — «поверхность под курсором». Переименование задело бы
+ * каждое правило в файле ради одного слова.
+ */
+:root[data-theme="day"]{
+  --night:        #F7F1E1;
+  --night-deep:   #EFE7D4;
+  --night-raise:  #EFE7D4;
+  --night-plate:  #E8DFC8;
+
+  --ink:          #0B1E2E;
+  --ink-2:        #4A5A60;
+  --ink-3:        #65746F;
+
+  --lamp:         #8A5A2B;
+  --lamp-deep:    #B07E3C;
+
+  --rubric:       #A8502F;
+  --rubric-dim:   #C98B6E;
+
+  --dome:         #2A5C3C;
+  --dome-dim:     #8FB69C;
+
+  --rule:         rgba(11,30,46,.20);
+  --rule-soft:    rgba(11,30,46,.10);
+  --rule-lamp:    rgba(138,90,43,.42);
+
+  --select-bg:    #E3CFAE;
+  --select-ink:   #0B1E2E;
+  --scroll-thumb: #C8BFA6;
 }
 
 *{box-sizing:border-box;}
@@ -60,10 +102,10 @@ body{
   -webkit-font-smoothing:antialiased;
   padding-bottom: calc(96px + env(safe-area-inset-bottom));
 }
-::selection{background:var(--lamp-deep);color:#120A04;}
+::selection{background:var(--select-bg);color:var(--select-ink);}
 ::-webkit-scrollbar{width:10px;}
 ::-webkit-scrollbar-track{background:var(--night);}
-::-webkit-scrollbar-thumb{background:#2B3A3F;border:3px solid var(--night);}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border:3px solid var(--night);}
 ::-webkit-scrollbar-thumb:hover{background:var(--lamp-deep);}
 :focus{outline:none;}
 :focus-visible{outline:1px solid var(--lamp);outline-offset:3px;}
@@ -78,7 +120,7 @@ a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
 }
 .isnad{
   display:grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   align-items:baseline;
   gap: 2px 16px;
   padding: calc(14px + env(safe-area-inset-top)) 0 8px;
@@ -116,6 +158,25 @@ a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
 }
 .folio-rule{width:14px;height:1px;background:var(--rule);display:block;}
 #stepLabel{color:var(--ink);}
+
+/*
+ * Смена темы. Надпись называет не нынешнее состояние, а то, что получишь,
+ * нажав, — и это же сказано словами в aria-label, где догадываться нельзя.
+ * Набрана как колонтитул рядом: та же высота строки, тот же разряд.
+ */
+.theme-switch{
+  grid-column:3;
+  grid-row:1 / span 2;
+  align-self:center;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  border-bottom:1px solid var(--rule);
+  padding:0 0 2px;
+  transition:color var(--t) var(--ease), border-color var(--t) var(--ease);
+}
+.theme-switch:hover{color:var(--lamp);border-bottom-color:var(--rule-lamp);}
 
 .gauge{height:1px;background:var(--rule-soft);position:relative;}
 .gauge-fill{
@@ -904,6 +965,21 @@ p{margin:0 0 14px;}
     cursor:url("cursor-dhow.png") 1 4, default;
     cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
     cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
+  }
+
+  /* На бумаге сине-серый дау утонул бы: день берёт чернила и киноварь. */
+  :root[data-theme="day"]{
+    cursor:url("cursor-dhow-day.png") 1 4, auto;
+    cursor:image-set(url("cursor-dhow-day.png") 1x, url("cursor-dhow-day@2x.png") 2x) 1 4, auto;
+  }
+  :root[data-theme="day"] :is(a[href], button, label, summary, select,
+  [role="button"], [role="radio"], [role="checkbox"]){
+    cursor:url("cursor-dhow-day-hot.png") 0 3, pointer;
+    cursor:image-set(url("cursor-dhow-day-hot.png") 1x, url("cursor-dhow-day-hot@2x.png") 2x) 0 3, pointer;
+  }
+  :root[data-theme="day"] :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
+    cursor:url("cursor-dhow-day.png") 1 4, default;
+    cursor:image-set(url("cursor-dhow-day.png") 1x, url("cursor-dhow-day@2x.png") 2x) 1 4, default;
   }
 
   /* Ввод и правка текста остаются за системой. */

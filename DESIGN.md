@@ -215,6 +215,13 @@ A flat night field carrying three inks, a reserved lamp, and two scribal signal 
 - **Slate Ink** (`{colors.ink-3}`): the isnad chain, source credits, captions, hints, disabled text, the back action, unchecked control strokes.
 - **Rule / Rule Soft / Rule Lamp** (`{colors.rule}`, `{colors.rule-soft}`, `{colors.rule-lamp}`): the three ruling weights — band edge, intra-list divider, and amber ruling (the margin tie, the check and reveal borders, the memorise banner).
 
+### Day (light theme)
+The night world is what the app is; day is the same world turned onto paper, for reading in daylight. Its palette is not invented — it is the konspekt's, which was paper from the start, so the project has one light world rather than two: `--night` → `#F7F1E1`, `--night-raise` → `#EFE7D4`, `--ink` → `#0B1E2E`, `--ink-2` → `#4A5A60`, `--ink-3` → `#65746F`, `--lamp` → `#8A5A2B`, `--rubric` → `#A8502F`, `--dome` → `#2A5C3C`, rules to `rgba(11,30,46,.20)` / `.10`.
+
+The token *names* stay nocturnal on purpose: `--night` means "the surface", `--night-raise` means "the surface under the cursor". Renaming them would touch every rule in the file for the sake of one word. The swap lives on `:root[data-theme="day"]`, so every component inherits it without a single component-level override.
+
+Day is opt-in and remembered, never automatic: one device carries a light system theme around the clock while the chapter is read at night, and the reverse. The switch sits in the `.isnad` header of both the contents page and the chapter — a word, not an icon, set like the folio beside it, naming what you *get* by pressing rather than where you are. The theme attribute is written by a two-line inline script in `<head>` so the page cannot flash night before becoming day. The konspekt is excluded: it was always paper and has no switch.
+
 ### Named Rules
 **The One Lamp Rule.** Amber marks exactly one live action per screen. Everything else that could want attention takes cinnabar, ink, or a rule.
 

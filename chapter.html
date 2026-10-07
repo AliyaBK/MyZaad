@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Golos+Text:wght@400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>/* тема ставится до первой отрисовки, иначе страница моргнёт ночью */
+try{if(localStorage.getItem("myzaad_theme")==="day")document.documentElement.setAttribute("data-theme","day");}catch(e){}</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,6 +23,7 @@
     <p class="chain" id="chain"></p>
     <p class="runhead" id="runhead"></p>
     <p class="folio"><span id="stepLabel">01</span><span class="folio-rule"></span><span id="stepTotal">14</span></p>
+    <button class="theme-switch" id="themeSwitch" type="button">День</button>
   </header>
   <div class="gauge"><span class="gauge-fill" id="progressFill"></span></div>
 
@@ -57,5 +60,6 @@
   document.body.appendChild(script);
 })();
 </script>
+<script src="theme.js"></script>
 </body>
 </html>
