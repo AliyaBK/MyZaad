@@ -868,3 +868,39 @@ p{margin:0 0 14px;}
   border-left:1px solid var(--rule-lamp);
 }
 .result-line{display:block;}
+
+/* -------------------------------------------------------------- курсор */
+/*
+ * Дау вместо стрелки: читатель идёт по материалу, везя с собой провизию.
+ * Нос лодки стоит в горячей точке, поэтому клик попадает туда, куда смотрит
+ * нос, а не в середину корпуса. Над тем, что можно нажать, лодка теплеет и
+ * уходит на пиксель вперёд. Ни волн, ни следа, ни движения само по себе.
+ * На касании курсора нет вовсе — правило включается только для точного
+ * указателя. Если картинка не загрузится, останется обычный курсор системы.
+ */
+@media (hover: hover) and (pointer: fine){
+  html{
+    cursor:url("cursor-dhow.png") 1 4, auto;
+    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
+    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
+  }
+
+  a[href], button, label, summary, select,
+  [role="button"], [role="radio"], [role="checkbox"]{
+    cursor:url("cursor-dhow-hot.png") 0 3, pointer;
+    cursor:-webkit-image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
+    cursor:image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
+  }
+
+  /* Отвечено — нажимать больше нечего, лодка остывает обратно. */
+  .btn-check[disabled], button[disabled], [aria-disabled="true"]{
+    cursor:url("cursor-dhow.png") 1 4, default;
+    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
+    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
+  }
+
+  /* Ввод и правка текста остаются за системой. */
+  input:not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]{
+    cursor:text;
+  }
+}

@@ -323,6 +323,14 @@ At ≥900px it occupies the margin column spanning all rows, positioned by a scr
 
 Below 900px it stays in flow with a vertical hairline tie whose height is measured from the answered row's bottom (floor 14px), and the page glides just far enough that the colophon does not cover it (`scroll-margin-bottom: 96px`). Ties are re-measured on resize and on breakpoint change. It enters once, on one axis, and never closes.
 
+### The Dhow Cursor
+زاد is the provision taken on a journey, so the pointer itself is a dhow: a 24×21 PNG (plus a 2× asset, served through `image-set()`) drawn from the same silhouette as the course-progress boat. At rest it is muted blue-gray `#8DA09F` hull under a `#C5D1CD` sail; over anything clickable it warms to an `#EFE6D6` sail over a `#F9BC81` hull. There is no wake, no water line, no glow and no motion of its own.
+
+The hotspot sits on the bow — `1 4` at rest, `0 3` over interactive elements, which is also the whole of the hover "shift": the dhow nudges one pixel forward along its heading. It is never the hull's centre, so clicking stays precise.
+
+The rule lives behind `@media (hover: hover) and (pointer: fine)`, so touch devices never see it, and every declaration keeps a native keyword fallback (`auto`, `pointer`, `default`) for when the image cannot load. Text fields keep the system I-beam; a disabled «Проверить» drops back to the resting dhow. The konspekt sheet is a paper world and keeps the system cursor.
+
+
 ## Do's and Don'ts
 
 ### Do:
