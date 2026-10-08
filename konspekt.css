@@ -216,3 +216,23 @@ body{
 #kGuideWrap{display:none;}
 body.guide-on #kGuideWrap{display:block;}
 @media print{ .k-opt{display:none;} }
+
+/* ------------------------------------------------------------- переносы */
+/*
+ * На бумаге переносы нужнее всего: колонка узкая, строка некуда деться.
+ * Словарь берётся из lang="ru" на <html>. Заголовки, прописные подписи
+ * и арабская вязь переносу не подлежат.
+ */
+body{
+  hyphens:auto;
+  -webkit-hyphens:auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+
+.k-sheet h1, .k-sheet h3, .k-rule, .k-rule span,
+.k-src, .k-meta dt, .k-tf-mark, .k-col-title,
+.k-back, .k-print, .k-opt,
+.k-ar, .k-quote p.k-ar{
+  hyphens:none;
+  -webkit-hyphens:none;
+}

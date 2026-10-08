@@ -987,3 +987,32 @@ p{margin:0 0 14px;}
     cursor:text;
   }
 }
+
+/* ------------------------------------------------------------- переносы */
+/*
+ * Колонка узкая, слова в русском длинные — правый край рвётся клочьями,
+ * особенно на телефоне. Переносы расставляет сам браузер по словарю,
+ * а словарь он берёт из lang="ru" на <html>: без этого атрибута правило
+ * молчит, поэтому трогать его нельзя.
+ *
+ * Переносим только сплошной текст. Заголовок с переносом выглядит
+ * сломанным, прописная подпись в разряд — тем более, а арабская вязь
+ * живёт по своим правилам переноса, которых у браузера нет.
+ */
+body{
+  hyphens:auto;
+  -webkit-hyphens:auto;
+  /* Не дробить короткое: слово от шести букв, не меньше трёх по краям. */
+  hyphenate-limit-chars: 6 3 3;
+}
+
+h1, h2, h3,
+.chain, .runhead, .folio, .path, .theme-switch, .plan-head,
+.cycle-rubric, .cycle-audio, .prov-head, .quote-src, .citation-src,
+.excerpt-label, .diagram-caption,
+.btn-check, .btn-reveal, .btn-download, .btn-sheet, .act-go, .act-back,
+.quote-ar, .ar-inline,
+.option::after, .check-item::after{
+  hyphens:none;
+  -webkit-hyphens:none;
+}

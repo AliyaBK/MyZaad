@@ -257,6 +257,13 @@ Day is opt-in and remembered, never automatic: one device carries a light system
 
 **The Tabular Figure Rule.** `font-variant-numeric: tabular-nums lining-nums` is global on body. Counters, scores, and step numbers must not shift width as they change.
 
+### Hyphenation
+Russian words are long and the measure is narrow, so the right edge frays, worst of all on a phone. `hyphens: auto` on `body` lets the browser break them by dictionary; the dictionary is chosen by `lang="ru"` on `<html>`, so that attribute is load-bearing and must not be dropped. `hyphenate-limit-chars: 6 3 3` keeps it from splitting short words or leaving two letters stranded.
+
+Only running text is hyphenated. Headings, the uppercase apparatus (`.chain`, `.runhead`, `.folio`, `.path`, rubrics, source lines, the feedback labels drawn with `::after`), the buttons, and Arabic are set to `hyphens: none` — a broken heading reads as damage, letterspaced capitals worse, and Arabic breaks by rules the browser does not have. The konspekt carries the same pair, where it matters most: on paper the line has nowhere to go.
+
+Where a dictionary is missing the declaration is simply inert, so the fallback is exactly today's ragged edge — no layout risk either way.
+
 ## Layout
 
 A single centred sheet, `max-width: 61em`, padded by a gutter of 20px that opens to 32px at 900px. The set column is measured, not fluid: `--measure: 34em` caps reading width.
