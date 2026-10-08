@@ -262,7 +262,7 @@ Russian words are long and the measure is narrow, so the right edge frays, worst
 
 Only running text is hyphenated. Headings, the uppercase apparatus (`.chain`, `.runhead`, `.folio`, `.path`, rubrics, source lines, the feedback labels drawn with `::after`), the buttons, and Arabic are set to `hyphens: none` — a broken heading reads as damage, letterspaced capitals worse, and Arabic breaks by rules the browser does not have. The konspekt carries the same pair, where it matters most: on paper the line has nowhere to go.
 
-Where a dictionary is missing the declaration is simply inert, so the fallback is exactly today's ragged edge — no layout risk either way.
+Confirmed rendering on the live site. Where a dictionary is missing the declaration is simply inert, so the fallback is exactly today's ragged edge — no layout risk either way.
 
 ## Layout
 
