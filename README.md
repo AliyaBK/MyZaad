@@ -1,6 +1,10 @@
 # Zaaduna
 
-**→ [aliyabk.github.io/Zaaduna](https://aliyabk.github.io/Zaaduna/)**
+**→ [zaaduna-app.netlify.app](https://zaaduna-app.netlify.app/)**
+
+Тот же сайт по прежнему адресу: [aliyabk.github.io/MyZaad](https://aliyabk.github.io/MyZaad/).
+Репозиторий называется `MyZaad` по прежнему имени платформы; переименовать его
+значит сломать ссылку у всех, кому её уже дали.
 
 Платформа, где собраны вопросы по циклам лекций крупных учёных в переводе
 и изложении устазов. Прослушанная лекция превращается в пройденную главу:
