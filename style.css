@@ -28,6 +28,10 @@
   --line-soft:    rgba(30,42,51,.10);
   --gold-line:    rgba(182,139,85,.55);
   --on-navy:      #FFFFFF;
+  /* Тумблер: дорожка темнее подложки, бегунок светлее её. */
+  --switch-track: #EAE1CF;
+  --switch-knob:  #FFFFFF;
+  --switch-ink:   #B68B55;
   --select-ink:   #FAF8F2;
   --scroll-thumb: #C9D2DE;
 
@@ -69,6 +73,9 @@
   --line-soft:    rgba(237,235,227,.10);
   --gold-line:    rgba(210,174,92,.55);
   --on-navy:      #14181C;
+  --switch-track: #2A3A4E;
+  --switch-knob:  #F2EFE6;
+  --switch-ink:   #1A355C;
   --select-ink:   #14181C;
   --scroll-thumb: #38424C;
   }
@@ -90,6 +97,9 @@
   --line-soft:    rgba(237,235,227,.10);
   --gold-line:    rgba(210,174,92,.55);
   --on-navy:      #14181C;
+  --switch-track: #2A3A4E;
+  --switch-knob:  #F2EFE6;
+  --switch-ink:   #1A355C;
   --select-ink:   #14181C;
   --scroll-thumb: #38424C;
 }
@@ -193,23 +203,65 @@ a{color:var(--navy);text-underline-offset:3px;text-decoration-thickness:1px;}
 #stepLabel{color:var(--ink);}
 
 /*
- * Смена темы. Надпись называет не нынешнее состояние, а то, что получишь,
- * нажав, — и это же сказано словами в aria-label, где догадываться нельзя.
- * Набрана как колонтитул рядом: та же высота строки, тот же разряд.
+ * Смена темы. Тумблер, а не слово: солнце и месяц по краям показывают,
+ * между чем выбор, бегунок — где ты сейчас. Надписи нет, поэтому роль
+ * и состояние объявлены через role="switch" и aria-checked, а словами
+ * положение названо в aria-label.
+ *
+ * Положение бегунка CSS выводит сам — из настройки системы или из
+ * data-theme, — чтобы он не прыгал, дожидаясь скрипта. Набор для тёмной
+ * темы повторён дважды по той же причине, что и токены: media и атрибут
+ * одним селектором не соединить.
  */
 .theme-switch{
-  grid-column:4;
-  grid-row:1 / span 2;
+  grid-column:4;grid-row:1 / span 2;
   align-self:center;
-  font-size:11px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--ink-faint);
-  border-bottom:1px solid var(--line);
-  padding:0 0 2px;
-  transition:color var(--t) var(--ease), border-color var(--t) var(--ease);
+  display:inline-flex;align-items:center;gap:8px;
+  padding:0;
 }
-.theme-switch:hover{color:var(--navy);border-bottom-color:var(--gold-line);}
+.ts-side{display:none;color:var(--ink-faint);transition:color var(--t) var(--ease);}
+.ts-side svg{display:block;width:14px;height:14px;}
+.ts-sun{color:var(--gold);}
+
+.ts-track{
+  position:relative;display:block;
+  width:44px;height:24px;flex:0 0 auto;
+  border-radius:12px;
+  background:var(--switch-track);
+  transition:background var(--t) var(--ease);
+}
+.ts-knob{
+  position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--switch-knob);
+  color:var(--switch-ink);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform var(--t) var(--ease);
+}
+.ts-k{display:none;}
+.ts-k svg{display:block;width:11px;height:11px;}
+.ts-k-sun{display:flex;}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .ts-knob{transform:translateX(20px);}
+  :root:not([data-theme="light"]) .ts-k-sun{display:none;}
+  :root:not([data-theme="light"]) .ts-k-moon{display:flex;}
+  :root:not([data-theme="light"]) .ts-moon{color:var(--gold);}
+  :root:not([data-theme="light"]) .ts-sun{color:var(--ink-faint);}
+}
+:root[data-theme="dark"] .ts-knob{transform:translateX(20px);}
+:root[data-theme="dark"] .ts-k-sun{display:none;}
+:root[data-theme="dark"] .ts-k-moon{display:flex;}
+:root[data-theme="dark"] .ts-moon{color:var(--gold);}
+:root[data-theme="dark"] .ts-sun{color:var(--ink-faint);}
+
+@media (min-width:560px){
+  .ts-side{display:block;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ts-knob{transition:none;}
+}
 
 .gauge{height:1px;background:var(--line-soft);position:relative;}
 .gauge-fill{
@@ -833,18 +885,29 @@ p{margin:0 0 14px;}
 .rules b{color:var(--ink);font-weight:500;}
 
 /* циклы: ряды с линовкой, доступный помечен янтарной волосинкой */
-.cycles{list-style:none;margin:0 0 34px;padding:0;border-top:1px solid var(--line);}
+/*
+ * Цикл — отдельный блок в волосяной рамке: так видно, где он начинается
+ * и где кончается, не полагаясь на одну линейку между соседями. Рамка
+ * именно волосяная, без заливки — заливка превратила бы оглавление
+ * в набор плиток, а это список, который читают сверху вниз.
+ *
+ * Открытый цикл отмечен золотой полосой по левому краю; у готовящегося
+ * она в цвет линовки, поэтому рамка одна и та же, а разница — в кромке.
+ */
+.cycles{list-style:none;margin:0 0 34px;padding:0;display:grid;gap:12px;}
 .cycle{
   position:relative;
-  padding:20px 0 20px 16px;
-  border-bottom:1px solid var(--line-soft);
+  padding:18px 18px 18px 20px;
+  border:1px solid var(--line);
+  border-radius:2px;
+  overflow:hidden;
 }
-.cycle:last-child{border-bottom:1px solid var(--line);}
 .cycle::before{
-  content:"";position:absolute;left:0;top:20px;bottom:20px;width:1px;
+  content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
   background:var(--line);
 }
-.cycle.open::before{background:var(--navy);}
+.cycle.open::before{background:var(--gold);}
+.cycle.open{border-color:var(--gold-line);}
 .cycle-rubric{
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-faint);margin:0 0 6px;
@@ -893,19 +956,97 @@ p{margin:0 0 14px;}
 .plan-ayah{margin:0 0 34px;}
 
 /* ---------------------------------------- порядок работы: лекция → действие */
-.path{
-  display:flex;flex-wrap:wrap;align-items:center;
-  gap:6px 0;
-  margin:0 0 30px;
-  font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-faint);
+/* --------------------------------------------------- словарь и дорожка */
+/*
+ * Два слова, с которых всё начинается: арабское написание, русская
+ * транслитерация в скобках и перевод. Набрано списком определений,
+ * потому что это он и есть.
+ */
+/* Имя платформы несёт логотип, смысл — эта пара строк под ним. */
+.brand-title{
+  font-family:var(--set);
+  font-size:clamp(23px, 6.4vw, 30px);
+  font-weight:500;letter-spacing:-.015em;line-height:1.2;
+  color:var(--ink);
+  margin:0 0 6px;
 }
-.path span{display:inline-flex;align-items:center;}
-/* Связка принадлежит предыдущему шагу: при переносе строка начинается словом. */
-.path span:not(:last-child)::after{
-  content:"";display:block;
-  width:16px;height:1px;margin:0 10px;
-  background:var(--line);
+.brand-tagline{
+  font-size:14.5px;line-height:1.5;
+  color:var(--navy);
+  margin:0 0 24px;
+}
+
+.gloss{margin:0 0 26px;}
+.gloss div{
+  /* Две колонки, чтобы переводы встали друг под другом, как в словаре. */
+  display:grid;grid-template-columns:auto 1fr;gap:0 10px;align-items:baseline;
+  padding:8px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.gloss div:first-child{border-top:1px solid var(--line-soft);}
+.gloss dt{display:flex;align-items:baseline;gap:7px;margin:0;}
+.gloss dt .ar-inline{font-size:1.5em;color:var(--navy);line-height:1.2;}
+.gloss dt i{font-style:normal;font-size:13px;letter-spacing:.04em;color:var(--ink-faint);}
+.gloss dd{margin:0;font-size:15px;line-height:1.5;color:var(--ink);}
+.gloss dd::before{content:"— ";color:var(--ink-faint);}
+
+/*
+ * Порядок работы с главой. Это схема, а не фраза: шаг пронумерован,
+ * от шага к шагу ведёт золотая линия с наконечником. На узком экране
+ * цепочка идёт вниз, на широком разворачивается поперёк.
+ *
+ * Линию рисует фон самой строки, а наконечник — её ::after, потому что
+ * ::before уже занят номером, а третьего псевдоэлемента у строки нет.
+ */
+.path{
+  list-style:none;margin:0 0 30px;padding:0;
+  counter-reset:step;
+}
+.path li{
+  counter-increment:step;
+  position:relative;
+  padding:0 0 22px 30px;
+  font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  line-height:1.45;
+  color:var(--ink-soft);
+}
+.path li::before{
+  content:counter(step, decimal-leading-zero);
+  position:absolute;left:0;top:0;
+  font-size:10.5px;letter-spacing:.04em;
+  color:var(--navy);
+}
+.path li:last-child{padding-bottom:0;color:var(--navy);}
+
+/* Рельс — ::after строки, наконечник — ::after её span: фоном строки
+   линию рисовать нельзя, иначе выходит, что текст лежит на золоте. */
+.path li:not(:last-child)::after{
+  content:"";
+  position:absolute;left:6px;top:16px;bottom:8px;
+  width:1px;background:var(--gold-line);
+}
+.path li:not(:last-child) span::after{
+  content:"";
+  position:absolute;left:3.5px;bottom:3px;
+  width:6px;height:6px;
+  border-right:1px solid var(--gold);
+  border-bottom:1px solid var(--gold);
+  transform:rotate(45deg);
+}
+
+@media (min-width:700px){
+  .path{display:flex;flex-wrap:wrap;align-items:flex-start;}
+  .path li{padding:0 30px 0 0;flex:0 1 auto;}
+  .path li:last-child{padding-right:0;}
+  .path li::before{position:static;display:block;margin-bottom:5px;}
+  .path li:not(:last-child)::after{
+    left:auto;right:16px;top:18px;bottom:auto;
+    width:14px;height:1px;
+  }
+  .path li:not(:last-child) span::after{
+    left:auto;right:14px;bottom:auto;top:15px;
+    transform:rotate(-45deg);
+  }
 }
 .plan .lede-close{margin:0 0 34px;}
 
@@ -1077,6 +1218,7 @@ h1, h2, h3,
 .excerpt-label, .diagram-caption,
 .btn-check, .btn-reveal, .btn-download, .btn-sheet, .act-go, .act-back,
 .quote-ar, .ar-inline,
+.nm, .cycle-teacher, .k-teacher,
 .option::after, .check-item::after{
   hyphens:none;
   -webkit-hyphens:none;

@@ -214,7 +214,14 @@ body{
 .k-opt input{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;}
 #kGuideWrap{display:none;}
 body.guide-on #kGuideWrap{display:block;}
-@media print{ .k-opt{display:none;} }
+.k-print-hint{
+  max-width:780px;
+  margin:0 auto;
+  padding:0 var(--pad, 18px) 14px;
+  font-size:13px;line-height:1.5;
+  color:var(--ink-soft);
+}
+@media print{ .k-opt{display:none;} .k-print-hint{display:none;} }
 
 /* ------------------------------------------------------------- переносы */
 /*
@@ -231,6 +238,7 @@ body{
 .k-sheet h1, .k-sheet h3, .k-rule, .k-rule span,
 .k-src, .k-meta dt, .k-tf-mark, .k-col-title,
 .k-back, .k-print, .k-opt,
+.nm, .k-teacher,
 .k-ar, .k-quote p.k-ar{
   hyphens:none;
   -webkit-hyphens:none;

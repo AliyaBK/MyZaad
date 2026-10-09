@@ -29,7 +29,11 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
 <div class="sheet">
   <header class="isnad">
     <p class="runhead">Оглавление</p>
-    <button class="theme-switch" id="themeSwitch" type="button">День</button>
+    <button class="theme-switch" id="themeSwitch" type="button" role="switch" aria-checked="false">
+      <span class="ts-side ts-sun" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 .9v1.7M8 13.4V15.1M15.1 8h-1.7M2.6 8H.9M13.02 2.98l-1.2 1.2M4.18 11.82l-1.2 1.2M13.02 13.02l-1.2-1.2M4.18 4.18l-1.2-1.2"/></svg></span>
+      <span class="ts-track" aria-hidden="true"><span class="ts-knob"><span class="ts-k ts-k-sun"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 .9v1.7M8 13.4V15.1M15.1 8h-1.7M2.6 8H.9M13.02 2.98l-1.2 1.2M4.18 11.82l-1.2 1.2M13.02 13.02l-1.2-1.2M4.18 4.18l-1.2-1.2"/></svg></span><span class="ts-k ts-k-moon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4 6 6 0 1 0 13.6 9.9Z"/></svg></span></span></span>
+      <span class="ts-side ts-moon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4 6 6 0 1 0 13.6 9.9Z"/></svg></span>
+    </button>
   </header>
   <div class="gauge"></div>
 
@@ -40,15 +44,29 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
         <img id="brandLogo" src="assets/logo-full.png" width="400" height="429" alt="Zaaduna" decoding="async">
       </picture>
     </h1>
-    <p class="brand-line">Заадуна — провизия для Рамадана <span class="ar-inline" lang="ar" dir="rtl">زادُنا</span></p>
+    <p class="brand-title">Провизия для пути</p>
+    <p class="brand-tagline">Слушайте. Осмысляйте. Применяйте.</p>
+    <dl class="gloss">
+      <div>
+        <dt><span class="ar-inline" lang="ar" dir="rtl">زاد</span> <i>(заад)</i></dt>
+        <dd>провизия, которую берут в дорогу</dd>
+      </div>
+      <div>
+        <dt><span class="ar-inline" lang="ar" dir="rtl">زادُنا</span> <i>(заадуна)</i></dt>
+        <dd>наша провизия</dd>
+      </div>
+    </dl>
     <div class="lede">
-      <p><span class="ar-inline" lang="ar" dir="rtl">زاد</span> — провизия, которую берут в дорогу.</p>
-      <p>Zaaduna — платформа, где собраны вопросы по циклам лекций крупных учёных в переводе и изложении устазов на русском.</p>
+      <p>Zaaduna — платформа для осмысленного изучения исламских знаний через книги и лекции учёных и преподавателей. Вопросы помогают проверить понимание изученного, вернуться к первоисточнику и применить полученные знания на практике.</p>
     </div>
 
-    <p class="path" aria-label="Порядок работы с главой">
-      <span>Лекция</span><span>Проверка понимания</span><span>Возвращение к словам устаза</span><span>Размышление</span><span>Действие</span>
-    </p>
+    <ol class="path" aria-label="Порядок работы с главой">
+      <li><span>Лекция</span></li>
+      <li><span>Проверка понимания</span></li>
+      <li><span>Возвращение к словам устаза</span></li>
+      <li><span>Размышление</span></li>
+      <li><span>Действие</span></li>
+    </ol>
 
     <div class="card plan-ayah">
       <p class="quote-ar" lang="ar" dir="rtl">وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَىٰ</p>

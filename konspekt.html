@@ -25,6 +25,7 @@ localStorage.removeItem(k);});}catch(e){}</script>
   <label class="k-opt"><input type="checkbox" id="kGuideOn"> Печатать «Как проходить главу»</label>
   <button class="k-print" id="kPrint">Сохранить в PDF</button>
 </div>
+<p class="k-print-hint" id="kPrintHint" hidden></p>
 
 <article class="k-sheet">
   <header class="k-head">
@@ -59,7 +60,39 @@ localStorage.removeItem(k);});}catch(e){}</script>
 (function(){
   var params = new URLSearchParams(window.location.search);
   var chapterId = params.get("ch") || "1";
-  document.getElementById("kPrint").addEventListener("click", function(){ window.print(); });
+  /*
+   * Печать на телефоне. В окне Telegram системного диалога печати нет
+   * вовсе, поэтому лист открывается во внешнем браузере — там он
+   * печатается и сохраняется в PDF как обычно. В мобильном браузере
+   * window.print() иногда молча ничего не делает, и тогда остаётся
+   * путь через меню самого браузера; подсказку показываем заранее,
+   * а не после неудачи, потому что неудачу эту не поймать.
+   */
+  var tg = window.Telegram && window.Telegram.WebApp;
+  var vTelegram = !!(tg && ((tg.initData && tg.initData.length) ||
+                            (tg.platform && tg.platform !== "unknown")));
+  var kasanie = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  var hint = document.getElementById("kPrintHint");
+
+  function podskazka(text){
+    if(!hint) return;
+    hint.textContent = text;
+    hint.hidden = false;
+  }
+
+  if(vTelegram){
+    podskazka("Телеграм не умеет печатать. Нажмите «Сохранить в PDF» — лист откроется в браузере, оттуда печать и сохранение работают.");
+  }else if(kasanie){
+    podskazka("Если окно печати не откроется, сохраните лист через меню браузера: «Поделиться» → «Напечатать» → «Сохранить в PDF».");
+  }
+
+  document.getElementById("kPrint").addEventListener("click", function(){
+    if(vTelegram && tg.openLink){ tg.openLink(window.location.href); return; }
+    if(typeof window.print === "function"){
+      try{ window.print(); return; }catch(e){}
+    }
+    podskazka("Этот браузер не открывает окно печати. Сохраните лист через его меню: «Поделиться» → «Напечатать» → «Сохранить в PDF».");
+  });
 
   // Инструкция к приложению печатается только по просьбе; выбор запоминается.
   var box = document.getElementById("kGuideOn");

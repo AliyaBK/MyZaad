@@ -37,7 +37,11 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     <p class="chain" id="chain"></p>
     <p class="runhead" id="runhead"></p>
     <p class="folio"><span id="stepLabel">01</span><span class="folio-rule"></span><span id="stepTotal">14</span></p>
-    <button class="theme-switch" id="themeSwitch" type="button">День</button>
+    <button class="theme-switch" id="themeSwitch" type="button" role="switch" aria-checked="false">
+      <span class="ts-side ts-sun" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 .9v1.7M8 13.4V15.1M15.1 8h-1.7M2.6 8H.9M13.02 2.98l-1.2 1.2M4.18 11.82l-1.2 1.2M13.02 13.02l-1.2-1.2M4.18 4.18l-1.2-1.2"/></svg></span>
+      <span class="ts-track" aria-hidden="true"><span class="ts-knob"><span class="ts-k ts-k-sun"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.1"/><path d="M8 .9v1.7M8 13.4V15.1M15.1 8h-1.7M2.6 8H.9M13.02 2.98l-1.2 1.2M4.18 11.82l-1.2 1.2M13.02 13.02l-1.2-1.2M4.18 4.18l-1.2-1.2"/></svg></span><span class="ts-k ts-k-moon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4 6 6 0 1 0 13.6 9.9Z"/></svg></span></span></span>
+      <span class="ts-side ts-moon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 9.9A6 6 0 0 1 6.1 2.4 6 6 0 1 0 13.6 9.9Z"/></svg></span>
+    </button>
   </header>
   <div class="gauge"><span class="gauge-fill" id="progressFill"></span></div>
 

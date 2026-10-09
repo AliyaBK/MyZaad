@@ -177,12 +177,12 @@ components:
 
 Zaaduna is a page from a classical treatise. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. The ground — paper by day, near-black by night — is flat, with no panel ever a different shade of it except on hover. Everything else is ink, rule and rubric, carried by two colours: navy leads, gold draws the lines. The boat on the logo gives the pairing, hull in gold under navy sails.
 
-The density is editorial, not app-like. There are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.
+The density is editorial, not app-like. Inside a chapter there are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.
 
 The rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind "show explanation" and disappears on the next screen. Two earlier systems preceded this one — a green-on-warm-milk product UI, then a night treatise lit by a single amber lamp; neither is authority here, and a snapshot of the second sits in `old/` for comparison only.
 
 **Key Characteristics:**
-- Night ground, flat: one background, no card fills, no gradients.
+- One flat ground: a single background, no fills behind blocks, no gradients.
 - 1px rules and rubric labels instead of containers.
 - Exactly one amber element per screen: the live action.
 - The source excerpt enters the margin and never leaves.
@@ -207,7 +207,7 @@ Gold is not a text colour. `#B68B55` on `#FAF8F2` measures about 3:1, which fail
 
 ### Neutral
 - **Bg** (`#FAF8F2` / `#14181C`): the ground of every surface, the fixed colophon included, so the colophon reads as the foot of the sheet rather than a bar.
-- **Card** (`#FFFFFF` / `#1D2227`): reserved for inset contexts; the page itself uses no cards.
+- **Card** (`#FFFFFF` / `#1D2227`): reserved for inset contexts; no surface is filled with it today.
 - **Ink / Ink Soft / Ink Faint** (`#1E2A33` `#55606A` `#8A929A` / `#EDEBE3` `#A9B2BB` `#737C85`): set text, secondary apparatus, and the quietest register — isnad chain, source credits, captions, disabled text.
 - **Line / Line Soft** (`#E2DDD0`, `rgba(30,42,51,.10)` / `#303840`, `rgba(237,235,227,.10)`): band edge and intra-list divider.
 - **On Navy** (`#FFFFFF` / `#14181C`): text laid on a navy fill. It flips in dark mode because navy itself becomes light there; without it the correct answer would be pale text on a pale field.
@@ -312,7 +312,9 @@ Icons are a hand-drawn inline SVG set (`MARKS` in `engine.js`) on a 24px box at 
 - **Hover / Focus:** colour and background transition at 320ms on the house ease. Focus is a global 1px amber outline at 3px offset via `:focus-visible`; `:focus` itself is suppressed.
 
 ### Cards / Containers
-There are no cards. The container idiom is the **band**: `border-top` and `border-bottom` in `{colors.rule}`, `padding: 16px 0`, `margin-bottom: 20px`; no side borders, no fill, no radius, no shadow. Bands run full width of the column so the rule reads as ruling, not as a box. (A legacy `.card` class name survives in markup; what it styles is a band.)
+Inside a chapter the container idiom is the **band**: `border-top` and `border-bottom` in `{colors.line}`, `padding: 16px 0`, `margin-bottom: 20px`; no side borders, no fill, no radius, no shadow. Bands run full width of the column so the rule reads as ruling, not as a box. (A legacy `.card` class name survives in markup; what it styles is a band.)
+
+The **one framed block** in the system is the cycle on the contents page: a 1px border on all four sides, `border-radius: 2px`, and a 2px edge down the left — gold when the cycle is open, line-coloured when it is still being prepared. The contents page is a list of separate things a reader chooses between, and a frame says where one ends and the next begins more plainly than a divider can. The frame stays hairline and unfilled on purpose: a fill would turn the list into tiles, and it is still a list read top to bottom. Nothing inside a chapter takes a frame — a boxed question is still the quiz posture this system rejects.
 
 ### Inputs / Fields
 - **Select (ordering):** `{colors.night-raise}` body, 1px `{colors.rule}` border, 2px radius, `padding: 11px 12px`, native appearance stripped, caret drawn from two slate gradient triangles. Focus turns the border amber; correct turns border and text dome green; wrong turns them cinnabar.
@@ -354,7 +356,7 @@ The rule lives behind `@media (hover: hover) and (pointer: fine)`, so touch devi
 - **Do** honour `prefers-reduced-motion` by removing the entrance and clamping transitions.
 
 ### Don't:
-- **Don't** introduce a card: no filled panel, no boxed question, no container with four borders and a radius.
+- **Don't** introduce a filled panel or a boxed question. The four-sided hairline frame is reserved for the cycle on the contents page and goes nowhere else; inside a chapter, boundary comes from ruling.
 - **Don't** exceed 2px radius, and don't use 2px anywhere but form fields.
 - **Don't** add a `box-shadow`. There is no elevation vocabulary here to extend.
 - **Don't** set anything above a heading in the text column — no kicker, no eyebrow, no label line. The `eyebrow` block type is suppressed in CSS and lifted to the running head on purpose.

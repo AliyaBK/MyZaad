@@ -48,12 +48,13 @@
 
     var btn = document.getElementById("themeSwitch");
     if(btn){
-      // Надпись называет не нынешнее состояние, а то, что получишь, нажав.
-      var toDark = theme !== "dark";
-      var label = toDark ? "Включить тёмную тему" : "Включить светлую тему";
-      btn.textContent = toDark ? "Ночь" : "День";
+      // Положение бегунка рисует CSS; скрипту остаётся назвать состояние
+      // словами — у тумблера нет подписи, и без этого он нем для чтеца.
+      var isDark = theme === "dark";
+      var label = isDark ? "Тёмная тема включена" : "Тёмная тема выключена";
+      btn.setAttribute("aria-checked", isDark ? "true" : "false");
       btn.setAttribute("aria-label", label);
-      btn.setAttribute("title", label);
+      btn.setAttribute("title", isDark ? "Включить светлую тему" : "Включить тёмную тему");
     }
   }
 
