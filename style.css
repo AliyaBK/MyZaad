@@ -217,7 +217,11 @@ a{color:var(--navy);text-underline-offset:3px;text-decoration-thickness:1px;}
   grid-column:4;grid-row:1 / span 2;
   align-self:center;
   display:inline-flex;align-items:center;gap:8px;
-  padding:0;
+  /* Сама пилюля 24 пикселя в высоту — для пальца этого мало. Отступы
+     растят область нажатия до 44, отрицательные поля возвращают кнопку
+     на прежнее место, так что в вёрстке ничего не сдвигается. */
+  padding:10px 8px;
+  margin:-10px -8px;
 }
 .ts-side{display:none;color:var(--ink-faint);transition:color var(--t) var(--ease);}
 .ts-side svg{display:block;width:14px;height:14px;}
