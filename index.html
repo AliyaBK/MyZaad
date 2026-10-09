@@ -139,10 +139,10 @@ if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)
     var st = JSON.parse(raw);
     if(st.maxScore){
       el.textContent = "Глава 1 — пройдена, " + st.score + " из " + st.maxScore;
-      el.className = "done";
+      el.classList.add("done");
     } else if(st.answers && Object.keys(st.answers).length){
       el.textContent = "Глава 1 — начата";
-      el.className = "started";
+      el.classList.add("started");
     }
   }catch(e){}
 })();

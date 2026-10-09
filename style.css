@@ -927,6 +927,10 @@ p{margin:0 0 14px;}
 /* Строка состояния главы — это и вход в неё: подчёркивание говорит,
    что по ней можно перейти, а не просто прочитать. */
 .cycle-chapter{
+  /* Строка была 16 пикселей в высоту — для попадания мышью этого мало,
+     поэтому у ссылки свои отступы: цель вырастает, набор не съезжает. */
+  display:inline-block;
+  padding:4px 0;
   color:var(--navy);text-decoration:none;
   border-bottom:1px solid var(--gold-line);
   transition:border-color var(--t) var(--ease);
@@ -934,13 +938,17 @@ p{margin:0 0 14px;}
 .cycle-chapter:hover{border-bottom-color:var(--gold);}
 .cycle-state .done{color:var(--navy);}
 .cycle-state .started{color:var(--navy);}
+/* Ссылка видна ссылкой сразу: синяя, с золотой чертой. Прежде она была
+   серой с еле заметной линией, и понять, что по ней переходят, можно
+   было только наведя курсор. */
 .cycle-audio{
   display:inline-block;margin-top:10px;
   font-size:12.5px;letter-spacing:.02em;
-  color:var(--ink-faint);text-decoration:none;
-  border-bottom:1px solid var(--line);
+  color:var(--navy);text-decoration:none;
+  border-bottom:1px solid var(--gold-line);
+  transition:border-color var(--t) var(--ease);
 }
-.cycle-audio:hover{color:var(--navy);border-bottom-color:var(--gold-line);}
+.cycle-audio:hover{border-bottom-color:var(--gold);}
 
 .plan-foot{font-size:13px;line-height:1.55;color:var(--ink-faint);max-width:40em;margin:0;}
 
@@ -1153,52 +1161,52 @@ p{margin:0 0 14px;}
  */
 @media (hover: hover) and (pointer: fine){
   html{
-    cursor:url("cursor-dhow-light.png") 11 1, auto;
-    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 11 1, auto;
+    cursor:url("cursor-dhow-light.png") 1 1, auto;
+    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 1, auto;
   }
 
   a[href], button, label, summary, select,
   [role="button"], [role="radio"], [role="checkbox"]{
-    cursor:url("cursor-dhow-light-hot.png") 11 1, pointer;
-    cursor:image-set(url("cursor-dhow-light-hot.png") 1x, url("cursor-dhow-light-hot@2x.png") 2x) 11 1, pointer;
+    cursor:url("cursor-dhow-light-hot.png") 1 1, pointer;
+    cursor:image-set(url("cursor-dhow-light-hot.png") 1x, url("cursor-dhow-light-hot@2x.png") 2x) 1 1, pointer;
   }
 
   .btn-check[disabled], button[disabled], [aria-disabled="true"]{
-    cursor:url("cursor-dhow-light.png") 11 1, default;
-    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 11 1, default;
+    cursor:url("cursor-dhow-light.png") 1 1, default;
+    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 1, default;
   }
 
   /* Тёмная тема: на тёмном фоне нужны и другая обводка, и другие паруса. */
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      cursor:url("cursor-dhow-dark.png") 11 1, auto;
-      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 11 1, auto;
+      cursor:url("cursor-dhow-dark.png") 1 1, auto;
+      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
     }
 
     :root:not([data-theme="light"]) :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
-      cursor:url("cursor-dhow-dark-hot.png") 11 1, pointer;
-      cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 11 1, pointer;
+      cursor:url("cursor-dhow-dark-hot.png") 1 1, pointer;
+      cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 1 1, pointer;
     }
 
     :root:not([data-theme="light"]) :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
-      cursor:url("cursor-dhow-dark.png") 11 1, default;
-      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 11 1, default;
+      cursor:url("cursor-dhow-dark.png") 1 1, default;
+      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, default;
     }
   }
 
   :root[data-theme="dark"]{
-    cursor:url("cursor-dhow-dark.png") 11 1, auto;
-    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 11 1, auto;
+    cursor:url("cursor-dhow-dark.png") 1 1, auto;
+    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
   }
 
   :root[data-theme="dark"] :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
-    cursor:url("cursor-dhow-dark-hot.png") 11 1, pointer;
-    cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 11 1, pointer;
+    cursor:url("cursor-dhow-dark-hot.png") 1 1, pointer;
+    cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 1 1, pointer;
   }
 
   :root[data-theme="dark"] :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
-    cursor:url("cursor-dhow-dark.png") 11 1, default;
-    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 11 1, default;
+    cursor:url("cursor-dhow-dark.png") 1 1, default;
+    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, default;
   }
 
   /* Ввод и правка текста остаются за системой. */
