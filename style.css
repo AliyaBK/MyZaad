@@ -518,7 +518,7 @@ p{margin:0 0 14px;}
   transition:border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
 }
 .option.selected .dot{border-color:var(--navy);box-shadow:inset 0 0 0 3px var(--navy);}
-.option.selected{color:var(--ink);}
+.option.selected{background:var(--navy-tint);color:var(--ink);}
 /*
  * Верно — синяя заливка, неверно — золотая рамка и подложка. Цвет здесь
  * никогда не работает один: рядом всегда знак и слово, иначе ответ не
@@ -534,6 +534,7 @@ p{margin:0 0 14px;}
 
 /* Отмеченная строка выходит заливкой в поля, но текст остаётся на месте:
    отрицательное поле ровно компенсировано отступом. */
+.option.selected, .check-item.selected,
 .option.correct-mark, .option.wrong-mark,
 .check-item.correct-mark, .check-item.wrong-mark{
   margin-left:-12px;margin-right:-12px;
@@ -562,7 +563,7 @@ p{margin:0 0 14px;}
   transition:border-color var(--t) var(--ease), color var(--t) var(--ease), font-weight var(--t) var(--ease);
 }
 .tf-btn:hover{border-color:var(--ink-faint);color:var(--ink);}
-.tf-btn.chosen{border-color:var(--navy);color:var(--navy);}
+.tf-btn.chosen{background:var(--navy-tint);border-color:var(--navy);color:var(--navy);font-weight:500;}
 /* Кнопки сами называются «Верно» и «Неверно», поэтому вердикт здесь
    говорит знак, а не второе такое же слово: иначе подпись двоится. */
 .tf-btn.right{background:var(--navy);border-color:var(--navy);color:var(--on-navy);font-weight:600;}
@@ -647,6 +648,7 @@ p{margin:0 0 14px;}
   transition:border-color var(--t) var(--ease), background var(--t) var(--ease);
 }
 .check-box svg{width:10px;height:10px;display:block;}
+.check-item.selected{background:var(--navy-tint);}
 .check-item.selected .check-box{background:var(--navy);border-color:var(--navy);color:var(--bg);}
 /* Здесь пометка говорит о самом пункте, а не о читателе, поэтому слова
    остались прежними — «есть» и «нет» в лекции. Знак добавлен к ним. */
