@@ -21,7 +21,10 @@ localStorage.removeItem(k);});}catch(e){}</script>
 <body>
 
 <div class="k-bar">
-  <a class="k-back" href="chapter.html?ch=1">К главе</a>
+  <nav class="k-nav">
+    <a class="k-back" href="index.html">Оглавление</a>
+    <a class="k-back" id="kToChapter" href="chapter.html?ch=1">К главе</a>
+  </nav>
   <label class="k-opt"><input type="checkbox" id="kGuideOn"> Печатать «Как проходить главу»</label>
   <button class="k-print" id="kPrint">Сохранить в PDF</button>
 </div>
@@ -103,7 +106,7 @@ localStorage.removeItem(k);});}catch(e){}</script>
   try{ box.checked = localStorage.getItem("zaaduna_konspekt_guide") === "1"; }catch(e){}
   applyGuide();
   box.addEventListener("change", applyGuide);
-  document.querySelector(".k-back").setAttribute("href", "chapter.html?ch=" + chapterId);
+  document.getElementById("kToChapter").setAttribute("href", "chapter.html?ch=" + chapterId);
 
   var data = document.createElement("script");
   data.src = "chapter" + chapterId + "-data.js";

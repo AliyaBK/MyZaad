@@ -43,8 +43,9 @@ body{
   background:var(--paper-2);
   border-bottom:1px solid var(--line);
 }
+.k-nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 .k-back{
-  font-size:13px;letter-spacing:.04em;color:var(--ink-soft);
+  font-size:13px;letter-spacing:.04em;color:var(--navy);
   text-decoration:none;border-bottom:1px solid var(--line);
 }
 .k-back:hover{color:var(--ink);}
