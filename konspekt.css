@@ -10,6 +10,7 @@
   --paper-2:    #F2EFE6;
   --navy:       #1A355C;
   --gold:       #B68B55;
+  --gold-tint:  #F6EDD8;
   --ink:        #1E2A33;
   --ink-soft:   #55606A;
   --ink-faint:  #697179;   /* лист печатают: мелкому кеглю нужен запас по контрасту */
@@ -33,7 +34,7 @@ body{
   font-variant-numeric:tabular-nums lining-nums;
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:#E3CFAE;}
+::selection{background:var(--gold-tint);}
 
 /* --------------------------------------------------------------- панель */
 .k-bar{

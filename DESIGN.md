@@ -177,7 +177,7 @@ components:
 
 Zaaduna is a page from a classical treatise. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. The ground — paper by day, near-black by night — is flat, with no panel ever a different shade of it except on hover. Everything else is ink, rule and rubric, carried by two colours: navy leads, gold draws the lines. The boat on the logo gives the pairing, hull in gold under navy sails.
 
-The density is editorial, not app-like. Inside a chapter there are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.
+The density is editorial, not app-like. Inside a chapter there are no cards; a block earns its boundary from a 1px rule and a small navy rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent: 2px on fields the browser would otherwise render as native chrome and on the cycle frame, and a single 12px pill for the theme switch, which is round because every toggle in the world is. There are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.
 
 The rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind "show explanation" and disappears on the next screen. Two earlier systems preceded this one — a green-on-warm-milk product UI, then a night treatise lit by a single amber lamp; neither is authority here, and a snapshot of the second sits in `old/` for comparison only.
 
@@ -240,10 +240,22 @@ Light is the base. Dark arrives from `prefers-color-scheme`, so the page matches
 - **Body** (400, 16px, 1.6, tabular lining figures): all apparatus copy, option rows, statements, controls.
 - **Body Set** (400, 15–15.5px, 1.6, often italic): quotations, citations, principles, prompts, and the marginal excerpt — italic marks "these are the words themselves".
 - **Arabic** (400, 21px, 1.95): Arabic quotation, RTL, right-aligned.
-- **Label** (400, 10.5–11px, 0.10–0.14em, uppercase): rubric labels, state words («ВЕРНО», «ВАШ ВЫБОР», «В ЛЕКЦИИ ЕСТЬ», «В ЛЕКЦИИ НЕТ»), captions, source credits.
-- **Runhead** (500, 11.5px, 0.16em, uppercase, cinnabar): the screen's rubric in the running head.
+- **Label** (400, 10.5–11px, 0.10–0.14em, uppercase): rubric labels, state words («✓ ВЕРНО», «✗ НЕВЕРНО», «В ЛЕКЦИИ ЕСТЬ», «В ЛЕКЦИИ НЕТ»), captions, source credits. 11px is the floor for anything a reader clicks.
+- **Runhead** (500, 11.5px, 0.16em, uppercase, navy): the screen's rubric in the running head.
 - **Folio** (400, 12.5px, 0.06em, tabular): the `01 — 14` counter, current step in full ink.
+- **Apparatus Wide** (400, 14.5px, 1.55): cycle descriptions, the provision note, the closing lede.
+- **Apparatus Mid** (400, 14px, 1.5): the tagline, download rows, the error line.
+- **Apparatus Control** (400, 13.5px, 1.4): the check and reveal controls.
+- **Apparatus Quiet** (400, 13px, 1.5): states, hints, notes, the result line.
+- **Sheet Title** (500, 25px, 1.15): the chapter title on the printed sheet, fluid to 33px.
+- **Sheet Head** (500, 18px, 1.2): a section head on the printed sheet.
+- **Sheet Arabic** (400, 20px, 1.95): Arabic quotation on paper.
 - **Figure** (400, 34px, −0.025em, tabular): the final score.
+
+### The Printed Sheet
+The konspekt carries three steps of its own — Sheet Title, Sheet Head and Sheet Arabic above — because it is a separate medium: read on paper, at arm's length, printed in points rather than pixels. Everything else on the sheet uses the apparatus steps. It has no dark theme, because printed sheets are light, and no theme switch.
+
+Each apparatus step owns a job. A new size needs a new job, not a new preference.
 
 ### Named Rules
 **The Three Voices Rule.** Literata is the text, Golos Text is the apparatus, Amiri is the Arabic. A string never changes voice to decorate itself; it changes voice because its role changed.
@@ -289,7 +301,7 @@ No shadows anywhere. The system has no shadow vocabulary and none should be inve
 
 ## Shapes
 
-Rectilinear and unrounded. Radius never exceeds 2px, and 2px appears only on form fields (`select`, the check and reveal buttons, the 14px checkbox) where a hard 0 would read as unstyled native chrome. Colophon actions and list rows have no radius at all. The only curve in the system is the 13px radio dot, a full circle.
+Rectilinear and unrounded. Two radii exist and no others: **2px** on form fields (`select`, the check and reveal buttons, the 14px checkbox) and on the cycle frame, where a hard 0 would read as unstyled native chrome; and **12px** on the theme switch track, a pill, because a toggle that is not pill-shaped is not read as a toggle. Colophon actions and list rows have no radius at all. The round shapes are the 13px radio dot and the 18px switch knob, both full circles.
 
 Borders are the primary form device and are always exactly 1px. Four border idioms recur: the **band** (top and bottom rule, no sides) for quotations and callouts; the **marginal stroke** (left border only) for principles, prompts, and the excerpt; the **ruled list** (top rule on the list, soft rule between rows, full rule under the last) for options, checks, true/false items, and downloads; and the **tie** (a 1px bracket, 44px horizontal in the margin layout, a measured vertical in flow) joining the excerpt to its row. Marginal state marks are 1px vertical strokes offset −12px into the gutter.
 
@@ -345,7 +357,7 @@ The hotspot is `1 1`, the top-left corner, exactly where a standard arrow's is, 
 
 ### Do:
 - **Do** keep amber for exactly one live action per screen; give every other emphasis to cinnabar, ink, or a rule.
-- **Do** separate blocks with a 1px rule plus a cinnabar rubric label — the band idiom (`border-top`/`border-bottom`, `padding: 16px 0`, no fill).
+- **Do** separate blocks with a 1px rule plus a navy rubric label — the band idiom (`border-top`/`border-bottom`, `padding: 16px 0`, no fill).
 - **Do** put a screen's rubric in the running head, and let the heading be the first thing in the text column.
 - **Do** say the state in words as well as colour: a tracked uppercase label plus a 1px marginal stroke accompany every dome or cinnabar verdict.
 - **Do** set the text in Literata, the apparatus in Golos Text, and Arabic in Amiri with `dir="rtl"`.

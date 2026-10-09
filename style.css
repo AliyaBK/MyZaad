@@ -860,14 +860,9 @@ p{margin:0 0 14px;}
 
 /* =========================================================== оглавление */
 .plan main{padding:26px 0 48px;}
-.plan h1{
-  font-family:var(--set);
-  font-size:clamp(32px, 9vw, 46px);
-  font-weight:500;
-  letter-spacing:-.025em;
-  line-height:1.1;
-  margin:0 0 12px;
-}
+/* В заголовке главной стоит логотип, не набранное слово: шрифтовые
+   свойства здесь ничего не красили и убраны. */
+.plan h1{margin:0 0 12px;}
 .plan .lede{max-width:34em;margin-bottom:34px;}
 .plan .lede p{margin:0 0 14px;}
 .plan .lede p:last-child{margin-bottom:0;}
@@ -1002,7 +997,7 @@ p{margin:0 0 14px;}
 /* Имя платформы несёт логотип, смысл — эта пара строк под ним. */
 .brand-title{
   font-family:var(--set);
-  font-size:clamp(23px, 6.4vw, 30px);
+  font-size:clamp(23px, 5.9vw, 29px);
   font-weight:500;letter-spacing:-.015em;line-height:1.2;
   color:var(--ink);
   margin:0 0 6px;

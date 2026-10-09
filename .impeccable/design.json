@@ -1,49 +1,490 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T00:00:00Z",
-  "title": "Design System: MyZaad",
+  "generatedAt": "2026-10-09T00:00:00Z",
+  "title": "Design System: Zaaduna",
   "extensions": {
     "colorMeta": {
-      "night": { "role": "neutral", "displayName": "Night", "canonical": "#0B1E2E", "tonalRamp": ["#04101A", "#071722", "#0B1E2E", "#10303F", "#17465A", "#2C6E88", "#67A5BC", "#C3DEE8"] },
-      "night-deep": { "role": "neutral", "displayName": "Night Deep", "canonical": "#071722", "tonalRamp": ["#030B12", "#071722", "#0A2231", "#0E2F42", "#154558", "#2A6B86", "#64A2BA", "#C1DCE7"] },
-      "night-raise": { "role": "neutral", "displayName": "Night Raise", "canonical": "#0F2838", "tonalRamp": ["#05121C", "#0A1E2B", "#0F2838", "#153649", "#1D4A62", "#306F8D", "#6AA6BE", "#C5DFE9"] },
-      "night-plate": { "role": "neutral", "displayName": "Night Plate", "canonical": "#10303F", "tonalRamp": ["#061520", "#0B2230", "#10303F", "#163E51", "#1F5368", "#327991", "#6CADC0", "#C7E2EA"] },
-      "ink": { "role": "neutral", "displayName": "Sandstone Ink", "canonical": "#EFE6D6", "tonalRamp": ["#2A251C", "#473F2F", "#665A43", "#877959", "#A99A77", "#C7BB9E", "#EFE6D6", "#FAF5EC"] },
-      "ink-2": { "role": "neutral", "displayName": "Sage Ink", "canonical": "#A8B8B0", "tonalRamp": ["#1C2422", "#2E3A37", "#43534E", "#5A6D67", "#748781", "#8EA19A", "#A8B8B0", "#D6E0DC"] },
-      "ink-3": { "role": "neutral", "displayName": "Slate Ink", "canonical": "#74898A", "tonalRamp": ["#141C1D", "#223031", "#324446", "#44595B", "#5A7072", "#74898A", "#96A9AA", "#CDD8D8"] },
-      "lamp": { "role": "primary", "displayName": "Lamp Amber", "canonical": "#F9BC81", "tonalRamp": ["#3A2008", "#5A3310", "#7C481B", "#9E5F28", "#BE7A3D", "#D99B5D", "#F9BC81", "#FDE0C4"] },
-      "lamp-deep": { "role": "primary", "displayName": "Lamp Deep", "canonical": "#B57135", "tonalRamp": ["#2B1807", "#44270D", "#5F3914", "#7D4D1D", "#9A5E27", "#B57135", "#D08F55", "#EDC496"] },
-      "rubric": { "role": "secondary", "displayName": "Cinnabar", "canonical": "#D4764A", "tonalRamp": ["#33160C", "#4F2312", "#6B3219", "#8B4322", "#AC572F", "#C4653C", "#D4764A", "#EEB190"] },
-      "rubric-dim": { "role": "secondary", "displayName": "Cinnabar Dim", "canonical": "#7E3C26", "tonalRamp": ["#1F0C06", "#33150B", "#4A2012", "#642C19", "#7E3C26", "#9C5134", "#C07A57", "#E4B49B"] },
-      "dome": { "role": "tertiary", "displayName": "Dome Green", "canonical": "#5E9A6E", "tonalRamp": ["#0E1E13", "#17321F", "#21472C", "#2D5E3A", "#3D7A4D", "#4E8A5E", "#5E9A6E", "#A7CDB1"] },
-      "dome-dim": { "role": "tertiary", "displayName": "Dome Dim", "canonical": "#2A4F39", "tonalRamp": ["#091409", "#122313", "#1B3825", "#2A4F39", "#3A6A4B", "#4E8761", "#78A98A", "#B5D3C0"] },
-      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "rgba(239,230,214,.14)", "tonalRamp": ["rgba(239,230,214,.04)", "rgba(239,230,214,.07)", "rgba(239,230,214,.10)", "rgba(239,230,214,.14)", "rgba(239,230,214,.20)", "rgba(239,230,214,.32)", "rgba(239,230,214,.55)", "rgba(239,230,214,.90)"] },
-      "rule-soft": { "role": "neutral", "displayName": "Rule Soft", "canonical": "rgba(239,230,214,.07)", "tonalRamp": ["rgba(239,230,214,.03)", "rgba(239,230,214,.05)", "rgba(239,230,214,.07)", "rgba(239,230,214,.10)", "rgba(239,230,214,.14)", "rgba(239,230,214,.24)", "rgba(239,230,214,.45)", "rgba(239,230,214,.80)"] },
-      "rule-lamp": { "role": "primary", "displayName": "Rule Lamp", "canonical": "rgba(249,188,129,.34)", "tonalRamp": ["rgba(249,188,129,.08)", "rgba(249,188,129,.14)", "rgba(249,188,129,.22)", "rgba(249,188,129,.34)", "rgba(249,188,129,.48)", "rgba(249,188,129,.64)", "rgba(249,188,129,.82)", "rgba(249,188,129,1)"] }
+      "navy": {
+        "role": "primary",
+        "displayName": "Navy",
+        "canonical": "#1A355C",
+        "darkCanonical": "#7FA6D6",
+        "purpose": "Every live action and every rubric: buttons, links, the running head, list markers, the selected control, the focus ring, and the correct-answer fill.",
+        "tonalRamp": [
+          "#091220",
+          "#0A131F",
+          "#162E50",
+          "#19304D",
+          "#1A355C",
+          "#264E87",
+          "#2A5283",
+          "#3873C7",
+          "#3E79C1",
+          "#789FD9",
+          "#7CA4D5",
+          "#7FA6D6",
+          "#B7CCEB",
+          "#B9CFE9",
+          "#E3EBF7",
+          "#E4ECF6"
+        ]
+      },
+      "navy-dark": {
+        "role": "primary",
+        "displayName": "Navy Deep",
+        "canonical": "#12274A",
+        "darkCanonical": "#A9C4E6",
+        "purpose": "The third triptych stroke and any navy that must sit against navy.",
+        "tonalRamp": [
+          "#081121",
+          "#091320",
+          "#12274A",
+          "#142B52",
+          "#17304F",
+          "#224A8B",
+          "#275186",
+          "#326CCD",
+          "#3977C6",
+          "#749BDD",
+          "#79A3D8",
+          "#A9C4E6",
+          "#B5CAED",
+          "#B8CEEA",
+          "#E2EAF8",
+          "#E3ECF7"
+        ]
+      },
+      "navy-tint": {
+        "role": "neutral",
+        "displayName": "Navy Tint",
+        "canonical": "#E8EDF3",
+        "darkCanonical": "#1B2736",
+        "purpose": "The only tonal step in the system: row and button hover, the body of a select field.",
+        "tonalRamp": [
+          "#0E141B",
+          "#1B2736",
+          "#223144",
+          "#233243",
+          "#3A5374",
+          "#3B5472",
+          "#557BAA",
+          "#577CA8",
+          "#8BA5C5",
+          "#8DA6C4",
+          "#C2CFE0",
+          "#C3D0E0",
+          "#E7ECF3",
+          "#E8EDF3"
+        ]
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Gold",
+        "canonical": "#B68B55",
+        "darkCanonical": "#D2AE5C",
+        "purpose": "Rules and borders only. The 2px frame on a wrong answer, the gauge fill, the dhow's hull, the margin tie. Never set as text on the page ground.",
+        "tonalRamp": [
+          "#1D150C",
+          "#201909",
+          "#47351F",
+          "#503E16",
+          "#795B34",
+          "#886A26",
+          "#B2854D",
+          "#B68B55",
+          "#C89C37",
+          "#D2AE5C",
+          "#CBAC86",
+          "#D9BB77",
+          "#E3D3BF",
+          "#EBDBB7",
+          "#F4EEE6",
+          "#F7F1E3"
+        ]
+      },
+      "gold-tint": {
+        "role": "secondary",
+        "displayName": "Gold Tint",
+        "canonical": "#F6EDD8",
+        "darkCanonical": "#2C2617",
+        "purpose": "The wash behind a wrong answer — the one place a signal colour becomes a fill.",
+        "tonalRamp": [
+          "#1B170E",
+          "#211A08",
+          "#2C2617",
+          "#433A23",
+          "#534013",
+          "#72623C",
+          "#8D6C21",
+          "#A79158",
+          "#CF9F30",
+          "#C3B48D",
+          "#DEBE72",
+          "#DFD7C3",
+          "#EEDDB4",
+          "#F6EDD8",
+          "#F3F0E8",
+          "#F8F2E2"
+        ]
+      },
+      "bg": {
+        "role": "neutral",
+        "displayName": "Ground",
+        "canonical": "#FAF8F2",
+        "darkCanonical": "#14181C",
+        "purpose": "The ground of every surface, the fixed colophon included.",
+        "tonalRamp": [
+          "#111418",
+          "#1D190B",
+          "#14181C",
+          "#2A333C",
+          "#4A3E1C",
+          "#485765",
+          "#7D6A30",
+          "#6A7F95",
+          "#B89C47",
+          "#9AA8B7",
+          "#CFBC82",
+          "#C9D1D9",
+          "#E5DBBD",
+          "#EAEDF0",
+          "#F5F1E5",
+          "#FAF8F2"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card",
+        "canonical": "#FFFFFF",
+        "darkCanonical": "#1D2227",
+        "purpose": "Reserved for inset contexts; no surface is filled with it today.",
+        "tonalRamp": [
+          "#141414",
+          "#111417",
+          "#1D2227",
+          "#2B333B",
+          "#333333",
+          "#4A5763",
+          "#575757",
+          "#6D7F92",
+          "#808080",
+          "#A8A8A8",
+          "#9CA8B5",
+          "#CAD1D8",
+          "#D1D1D1",
+          "#EDEDED",
+          "#EBEDF0",
+          "#FFFFFF"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#1E2A33",
+        "darkCanonical": "#EDEBE3",
+        "purpose": "All set text, headings, quotations.",
+        "tonalRamp": [
+          "#0F151A",
+          "#191710",
+          "#1E2A33",
+          "#263540",
+          "#3E3A28",
+          "#405A6D",
+          "#6A6244",
+          "#5E84A1",
+          "#9B9064",
+          "#92ACBF",
+          "#BBB495",
+          "#C5D3DD",
+          "#DBD7C7",
+          "#EDEBE3",
+          "#E9EEF2",
+          "#F1EFE9"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#55606A",
+        "darkCanonical": "#A9B2BB",
+        "purpose": "Secondary apparatus: descriptions, verdict buttons at rest, the result line.",
+        "tonalRamp": [
+          "#121417",
+          "#121517",
+          "#2D3339",
+          "#4D5760",
+          "#4D5761",
+          "#55606A",
+          "#717F8E",
+          "#71808E",
+          "#9EA8B2",
+          "#9FA9B2",
+          "#A9B2BB",
+          "#CCD1D6",
+          "#EBEDEF"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Ink Faint",
+        "canonical": "#697179",
+        "darkCanonical": "#7E8791",
+        "purpose": "The quietest register: the isnad chain, source credits, captions, disabled text. Both values clear WCAG AA against their ground.",
+        "tonalRamp": [
+          "#131416",
+          "#2F3337",
+          "#50565E",
+          "#51575D",
+          "#697179",
+          "#757F8A",
+          "#768089",
+          "#7E8791",
+          "#A1A8AF",
+          "#A2A8AE",
+          "#CED1D4",
+          "#CDD1D5",
+          "#ECEDEE",
+          "#ECEDEF"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "#E2DDD0",
+        "darkCanonical": "#303840",
+        "purpose": "Band edge and frame.",
+        "tonalRamp": [
+          "#111417",
+          "#191710",
+          "#2C333A",
+          "#3F3827",
+          "#303840",
+          "#4A5763",
+          "#6B6042",
+          "#6D7F92",
+          "#9E8D61",
+          "#9CA8B5",
+          "#BDB194",
+          "#CBD1D8",
+          "#DCD6C6",
+          "#E2DDD0",
+          "#EBEDF0",
+          "#F1EFE9"
+        ]
+      },
+      "on-navy": {
+        "role": "neutral",
+        "displayName": "On Navy",
+        "canonical": "#FFFFFF",
+        "darkCanonical": "#14181C",
+        "purpose": "Text laid on a navy fill. It flips in dark mode because navy itself becomes light there.",
+        "tonalRamp": [
+          "#141414",
+          "#111418",
+          "#14181C",
+          "#2A333C",
+          "#333333",
+          "#485765",
+          "#575757",
+          "#6A7F95",
+          "#808080",
+          "#A8A8A8",
+          "#9AA8B7",
+          "#C9D1D9",
+          "#D1D1D1",
+          "#EDEDED",
+          "#EAEDF0",
+          "#FFFFFF"
+        ]
+      },
+      "switch-track": {
+        "role": "neutral",
+        "displayName": "Switch Track",
+        "canonical": "#EAE1CF",
+        "darkCanonical": "#2A3A4E",
+        "purpose": "The theme toggle's track, one step away from the ground so the knob reads.",
+        "tonalRamp": [
+          "#0E141B",
+          "#1C170C",
+          "#243142",
+          "#473A1F",
+          "#2A3A4E",
+          "#3D5471",
+          "#796235",
+          "#597BA6",
+          "#B1904E",
+          "#8EA5C2",
+          "#CAB486",
+          "#C3D0DF",
+          "#E3D7BF",
+          "#EAE1CF",
+          "#E8EDF3",
+          "#F4EFE6"
+        ]
+      },
+      "switch-knob": {
+        "role": "neutral",
+        "displayName": "Switch Knob",
+        "canonical": "#FFFFFF",
+        "darkCanonical": "#F2EFE6",
+        "purpose": "The theme toggle's knob.",
+        "tonalRamp": [
+          "#141414",
+          "#1B180E",
+          "#333333",
+          "#433B23",
+          "#575757",
+          "#72643B",
+          "#808080",
+          "#A89457",
+          "#A8A8A8",
+          "#C4B68D",
+          "#D1D1D1",
+          "#E0D8C3",
+          "#EDEDED",
+          "#F2EFE6",
+          "#F3F0E8",
+          "#FFFFFF"
+        ]
+      },
+      "switch-ink": {
+        "role": "neutral",
+        "displayName": "Switch Ink",
+        "canonical": "#B68B55",
+        "darkCanonical": "#1A355C",
+        "purpose": "The sun or moon inside the knob.",
+        "tonalRamp": [
+          "#091220",
+          "#1D150C",
+          "#162E50",
+          "#47351F",
+          "#1A355C",
+          "#264E87",
+          "#795B34",
+          "#3873C7",
+          "#B2854D",
+          "#B68B55",
+          "#789FD9",
+          "#CBAC86",
+          "#B7CCEB",
+          "#E3D3BF",
+          "#E3EBF7",
+          "#F4EEE6"
+        ]
+      },
+      "scroll-thumb": {
+        "role": "neutral",
+        "displayName": "Scroll Thumb",
+        "canonical": "#C9D2DE",
+        "darkCanonical": "#38424C",
+        "purpose": "The scrollbar thumb.",
+        "tonalRamp": [
+          "#111417",
+          "#0F1419",
+          "#27313F",
+          "#2B333B",
+          "#38424C",
+          "#42546C",
+          "#4A5764",
+          "#617B9E",
+          "#6C7F93",
+          "#93A5BD",
+          "#9BA8B5",
+          "#C6D0DC",
+          "#CAD1D8",
+          "#C9D2DE",
+          "#E9EDF1",
+          "#EAEDF0"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "The one opening heading per screen; Literata 500, text-wrap: balance." },
-      "headline": { "displayName": "Headline", "purpose": "Screen title inside a flow of blocks." },
-      "title": { "displayName": "Title", "purpose": "Subheadings and the result line's scale partner." },
-      "lede": { "displayName": "Lede", "purpose": "Opening set paragraph, Literata 300, text-wrap: pretty, measure 34em." },
-      "body": { "displayName": "Body (apparatus)", "purpose": "All UI copy, option rows, statements, controls. Tabular lining figures are global here." },
-      "body-set": { "displayName": "Body Set", "purpose": "Quotations, citations, principles, prompts, the marginal excerpt; usually italic." },
-      "arabic": { "displayName": "Arabic", "purpose": "Qur'anic and hadith text in Amiri, dir=rtl, right-aligned, 1.95 line-height." },
-      "label": { "displayName": "Label", "purpose": "Rubric labels, state words, captions, source credits; uppercase and tracked." },
-      "runhead": { "displayName": "Running Head", "purpose": "The screen's rubric in the isnad strip, cinnabar, uppercase 0.16em." },
-      "folio": { "displayName": "Folio", "purpose": "The NN — NN step counter; tabular, current step in full ink." },
-      "figure": { "displayName": "Figure", "purpose": "The final score on the result screen, Literata 34px tabular." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "The one opening heading per screen; Literata 500, text-wrap: balance."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Screen title inside a flow of blocks."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Subheadings and the result line's scale partner."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Opening set paragraph, Literata 300, text-wrap: pretty, measure 34em."
+      },
+      "body": {
+        "displayName": "Body (apparatus)",
+        "purpose": "All UI copy, option rows, statements, controls. Tabular lining figures are global here."
+      },
+      "body-set": {
+        "displayName": "Body Set",
+        "purpose": "Quotations, citations, principles, prompts, the marginal excerpt; usually italic."
+      },
+      "arabic": {
+        "displayName": "Arabic",
+        "purpose": "Qur'anic and hadith text in Amiri, dir=rtl, right-aligned, 1.95 line-height."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rubric labels, state words, captions, source credits; uppercase and tracked."
+      },
+      "runhead": {
+        "displayName": "Running Head",
+        "purpose": "The screen's rubric in the isnad strip, cinnabar, uppercase 0.16em."
+      },
+      "folio": {
+        "displayName": "Folio",
+        "purpose": "The NN — NN step counter; tabular, current step in full ink."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "The final score on the result screen, Literata 34px tabular."
+      }
     },
     "shadows": [],
     "motion": [
-      { "name": "ease-house", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "The only easing in the system; every transition and the excerpt entrance use it." },
-      { "name": "duration-house", "value": "320ms", "purpose": "The only duration; transitions, the excerpt entrance, and the scripted scroll glide." },
-      { "name": "slide-in", "value": "@keyframes slide-in { from { opacity: 0; transform: translateX(-34px); } to { opacity: 1; transform: none; } }", "purpose": "The signature one-axis entrance of the margin excerpt and of revealed answer sheets. Never played in reverse." },
-      { "name": "glide", "value": "requestAnimationFrame over 320ms, eased 1 - (1 - t)^3", "purpose": "Hand-animated scroll correction after a check, because behavior:'smooth' is silently unreliable in embedded webviews." },
-      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { animation: none; transition-duration: 1ms !important; }", "purpose": "Drops the entrance and the gauge transition and clamps all transitions." }
+      {
+        "name": "ease-house",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "The only easing in the system; every transition and the excerpt entrance use it."
+      },
+      {
+        "name": "duration-house",
+        "value": "320ms",
+        "purpose": "The only duration; transitions, the excerpt entrance, and the scripted scroll glide."
+      },
+      {
+        "name": "slide-in",
+        "value": "@keyframes slide-in { from { opacity: 0; transform: translateX(-34px); } to { opacity: 1; transform: none; } }",
+        "purpose": "The signature one-axis entrance of the margin excerpt and of revealed answer sheets. Never played in reverse."
+      },
+      {
+        "name": "glide",
+        "value": "requestAnimationFrame over 320ms, eased 1 - (1 - t)^3",
+        "purpose": "Hand-animated scroll correction after a check, because behavior:'smooth' is silently unreliable in embedded webviews."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce) { animation: none; transition-duration: 1ms !important; }",
+        "purpose": "Drops the entrance and the gauge transition and clamps all transitions."
+      }
     ],
     "breakpoints": [
-      { "name": "margin", "value": "900px" }
+      {
+        "name": "switch-label",
+        "value": "560px"
+      },
+      {
+        "name": "path-row",
+        "value": "700px"
+      },
+      {
+        "name": "margin",
+        "value": "900px"
+      }
     ]
   },
   "components": [
@@ -121,53 +562,53 @@
     }
   ],
   "narrative": {
-    "northStar": "The Night Treatise Page",
-    "overview": "MyZaad is a page from a classical treatise, read after dark. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. Night (#0B1E2E) is not an accent or a \"dark mode\" — it is the ground the whole sheet is printed on, flat and unlit, with no panel ever a different shade of it except on hover. Everything else is ink, rule, and rubric: three inks, three hairline weights, one lamp.\n\nThe density is editorial, not app-like. There are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.\n\nThe rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind \"show explanation\" and disappears on the next screen. An earlier Linear/Stripe-like system (emerald on warm milk) preceded this one; its design document has been deleted, and nothing of it is authority here.",
+    "northStar": "The Treatise Page, Two Colours",
+    "overview": "Zaaduna is a page from a classical treatise. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined by a hairline. The ground — paper by day, near-black by night — is flat. Everything else is ink, rule and rubric, carried by two colours: navy leads, gold draws the lines. The boat on the logo gives the pairing, hull in gold under navy sails.",
     "keyCharacteristics": [
-      "Night ground, flat: one background, no card fills, no gradients.",
-      "1px rules and rubric labels instead of containers.",
-      "Exactly one amber element per screen: the live action.",
-      "The source excerpt enters the margin and never leaves.",
-      "State is readable without colour: a word label plus a hairline mark.",
-      "Tabular lining figures globally; three type voices (set, apparatus, Arabic).",
-      "Night-only by agreement: no light theme ships."
+      "Two colours and a neutral scale; a third hue is a defect, including green for right and red for wrong.",
+      "Gold draws, fills and frames; it never spells. Gold text on the page ground fails contrast at about 3:1.",
+      "Light is the base; dark arrives from prefers-color-scheme, and a switch in the header overrides the system.",
+      "One flat ground: no fills behind blocks, no gradients, no shadows anywhere.",
+      "The source excerpt is the signature component — the lecture's own words beside the answered row.",
+      "A verdict is never colour alone: a navy fill with a tick and a word, or a gold frame with a cross and a word.",
+      "The dhow appears as the cursor while reading and as the course-progress boat; clicking is left to the system pointer."
     ],
     "rules": [
-      { "name": "The One Lamp Rule", "body": "Amber marks exactly one live action per screen. Everything else that could want attention takes cinnabar, ink, or a rule.", "section": "colors" },
-      { "name": "The Flat Field Rule", "body": "Night is the ground, not a layer. The only permitted tonal shift is {colors.night-raise} as a hover or field body; no card fills, no gradients, no tinted panels.", "section": "colors" },
-      { "name": "The Scribe's Two Signals Rule", "body": "Cinnabar means rubric-or-wrong; dome green means correct. Neither ever appears as a background wash, and neither carries meaning alone — a word label always accompanies it.", "section": "colors" },
-      { "name": "The Three Voices Rule", "body": "Literata is the text, Golos Text is the apparatus, Amiri is the Arabic. A string never changes voice to decorate itself; it changes voice because its role changed.", "section": "typography" },
-      { "name": "The Running-Head Rubric Rule", "body": "A screen's rubric belongs in the running head, set in cinnabar small caps. Nothing is set above a heading in the text column — the heading is the first thing in the column, always.", "section": "typography" },
-      { "name": "The Tabular Figure Rule", "body": "font-variant-numeric: tabular-nums lining-nums is global on body. Counters, scores, and step numbers must not shift width as they change.", "section": "typography" },
-      { "name": "The Hairline Separation Rule", "body": "Blocks are separated by a 1px rule and a rubric label, never by a card, a fill, or a shadow. Band edges take {colors.rule}; dividers inside a list take {colors.rule-soft}.", "section": "layout" },
-      { "name": "The Margin Rule", "body": "Once the source excerpt enters the margin it stays for the rest of the chapter. Nothing in this system opens and then closes.", "section": "layout" },
-      { "name": "The Hairline Gauge Rule", "body": "Progress is a 1px rule filling from the left. No bar, no track chrome, no percentage label.", "section": "layout" },
-      { "name": "The No-Shadow Rule", "body": "Nothing in this world casts a shadow. If an element needs to separate, give it a rule; if it needs to come forward, give it the lamp.", "section": "elevation" },
-      { "name": "The 2px Ceiling Rule", "body": "2px is the maximum radius in this world, and it is a concession to form fields, not a style. Everything else is square.", "section": "shapes" },
-      { "name": "The One Stroke Weight Rule", "body": "Every rule in the system is 1px and every drawn mark is 1.3 on a 24px box. There is no second line weight to reach for.", "section": "shapes" }
+      "The Two Colour Rule. Navy and gold, plus neutrals.",
+      "The Gold Is A Line Rule. Gold draws, fills and frames; it does not spell.",
+      "The Never Colour Alone Rule. Correct is a navy fill and a tick and the word; wrong is a gold frame and a cross and the word, with the correct answer still marked beside it.",
+      "The Flat Field Rule. The only permitted tonal shift is navy-tint as hover or field body.",
+      "The Hairline Separation Rule. Inside a chapter, blocks are separated by a 1px rule and a rubric label, never by a card or a fill.",
+      "The One Frame Rule. A four-sided hairline frame is reserved for the cycle on the contents page and goes nowhere else.",
+      "The Three Voices Rule. Literata is the text, Golos Text is the apparatus, Amiri is the Arabic.",
+      "The Running-Head Rubric Rule. A screen's rubric belongs in the running head; nothing is set above a heading in the text column.",
+      "The Tabular Figure Rule. Counters, scores and step numbers must not shift width as they change.",
+      "The Eleven Pixel Floor. Functional text a reader clicks is never set below 11px.",
+      "The Margin Excerpt Rule. After a check, the lecture's own words appear beside the answered row and never close.",
+      "The Proper Noun Rule. Running text is hyphenated by dictionary; names, headings, uppercase apparatus and Arabic are not."
     ],
     "dos": [
-      "Do keep amber for exactly one live action per screen; give every other emphasis to cinnabar, ink, or a rule.",
-      "Do separate blocks with a 1px rule plus a cinnabar rubric label — the band idiom (border-top/border-bottom, padding: 16px 0, no fill).",
-      "Do put a screen's rubric in the running head, and let the heading be the first thing in the text column.",
-      "Do say the state in words as well as colour: a tracked uppercase label plus a 1px marginal stroke accompany every dome or cinnabar verdict.",
-      "Do set the text in Literata, the apparatus in Golos Text, and Arabic in Amiri with dir=\"rtl\".",
-      "Do keep every rule at 1px and every drawn mark at 1.3 stroke on a 24px box, inheriting currentColor.",
-      "Do animate on one axis for 320ms with cubic-bezier(.16,1,.3,1), and let what appeared stay.",
-      "Do cap the set column at 34em and keep tabular lining figures on every number.",
-      "Do honour prefers-reduced-motion by removing the entrance and clamping transitions."
+      "Let a block earn its boundary from a 1px rule and a small rubric label.",
+      "Use navy for anything a reader acts on, and let weight and placement carry rank.",
+      "Pair every signal colour with a glyph and a word.",
+      "Keep figures tabular so counters and scores sit still.",
+      "Set the lecture's own words in italic Literata so they read as quotation, not as commentary.",
+      "Declare a plain url() cursor before image-set(), so a browser that cannot parse the second keeps the first.",
+      "Give a small target its own padding rather than trusting the line box.",
+      "State the theme on <html> before first paint, so the page cannot flash the wrong ground.",
+      "Keep the konspekt light always: it is printed."
     ],
     "donts": [
-      "Don't introduce a card: no filled panel, no boxed question, no container with four borders and a radius.",
-      "Don't exceed 2px radius, and don't use 2px anywhere but form fields.",
-      "Don't add a box-shadow. There is no elevation vocabulary here to extend.",
-      "Don't set anything above a heading in the text column — no kicker, no eyebrow, no label line. The eyebrow block type is suppressed in CSS and lifted to the running head on purpose.",
-      "Don't replace the 1px gauge with a progress bar, a track, or a percentage.",
-      "Don't let a revealed excerpt close, collapse, or disappear on navigation, and don't deliver the source in a modal or an accordion.",
-      "Don't use emoji, an icon font, or a Unicode character as an icon; draw it into the MARKS SVG set at 1.3 stroke.",
-      "Don't fill a surface with cinnabar, dome green, or amber — all three are strokes, letters, and 1px marks on the night ground.",
-      "Don't add a second background tone; {colors.night-raise} is for hover and select bodies only.",
-      "Don't ship a light theme. This world is night-only by agreement, pending a decision after the first pass."
+      "Don't introduce a third hue, and never green for right or red for wrong.",
+      "Don't set gold as text on the page ground.",
+      "Don't introduce a filled panel or a boxed question; the one frame belongs to the cycle on the contents page.",
+      "Don't add a shadow; the system has no shadow vocabulary.",
+      "Don't put a kicker or eyebrow above a heading in the text column.",
+      "Don't hide the source behind a 'show explanation' control.",
+      "Don't let the custom cursor do the pointing; the system pointer aims better.",
+      "Don't set functional text below 11px, inside a footer or anywhere else.",
+      "Don't hyphenate a personal name, a heading, or Arabic.",
+      "Don't let a progress scale promise a cycle that does not exist yet."
     ]
   }
 }
