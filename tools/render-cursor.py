@@ -1,112 +1,79 @@
 #!/usr/bin/env python3
 """
-Zaaduna — сборка курсора-дау.
+Zaaduna — сборка курсора из знака платформы.
 
-Единственное место, где живут геометрия и цвета лодки: отсюда выходят
-и SVG (читаемый исходник), и PNG (то, что реально показывает браузер).
-Сайту этот файл не нужен — он статический и собирается сам; скрипт
-запускают руками, когда лодку надо перерисовать:
+Курсор — тот же знак, что стоит в шапке главы, а не отдельный рисунок:
+одна лодка на всё приложение. Источник — assets/logo-mark.png и его
+тёмный вариант; они в 138 пикселей, этого хватает и на 64, и на 32,
+поэтому ничего не растягивается.
+
+Состояний два: в покое знак приглушён, над нажимаемым идёт в полную
+силу. Горячая точка ставится на верх мачты — это самая высокая точка
+рисунка, и клик попадает туда, куда смотришь.
+
+Сайту скрипт не нужен, он статический. Запускают руками, когда знак
+меняется:
 
     python tools/render-cursor.py
 
-Требуется Pillow. Растр делается с восьмикратным суперсэмплингом, потому
-что курсор в 32 пикселя не прощает грубых краёв.
+Требуется Pillow.
 """
 import os
-from PIL import Image, ImageDraw
+from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-VB = (1.4, 1.0, 21.2, 18.55)   # рамка, обрезанная по силуэту
-ART = (24, 21)                 # размер лодки при обычной плотности
-BOX = 32                       # холст: квадрат рисуют все системы
-SS = 8                         # суперсэмплинг
-
-# Контуры: ("M", x, y), ("L", x, y), ("Q", cx, cy, x, y), ("C", x1,y1,x2,y2,x,y)
-SAIL = [("M", 10.2, 1.8), ("Q", 15.8, 7.2, 17.6, 13.9), ("L", 11.4, 13.9)]
-HULL = [("M", 2.2, 4.6), ("C", 4, 9.4, 6.2, 12.6, 8.6, 14.1),
-        ("L", 20.4, 14.1), ("L", 21.8, 12.4),
-        ("C", 21.4, 16.2, 17.6, 18.6, 12.4, 18.6),
-        ("C", 7.6, 18.6, 3.6, 12, 2.2, 4.6)]
-
-STROKE_W = 0.5
-# Корпус золотой, паруса синие — как на логотипе. Обводка берёт цвет фона
-# своей темы, чтобы силуэт не пропадал над чужими пятнами.
-BG_LIGHT, BG_DARK = "#FAF8F2", "#14181C"
-STATES = {
-    # Светлая тема: в покое приглушённо, над нажимаемым — в полную силу.
-    "cursor-dhow-light":     dict(sail="#6E7E95", hull="#C3A77E", stroke=BG_LIGHT),
-    "cursor-dhow-light-hot": dict(sail="#1A355C", hull="#B68B55", stroke=BG_LIGHT),
-    # Тёмная тема: те же роли, но цвета берутся из её половины палитры.
-    "cursor-dhow-dark":      dict(sail="#5C7599", hull="#9A8352", stroke=BG_DARK),
-    "cursor-dhow-dark-hot":  dict(sail="#7FA6D6", hull="#D2AE5C", stroke=BG_DARK),
-}
-
-SVG = '''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="{vb}">
-  <g paint-order="stroke" stroke="{stroke}" stroke-width="{sw}" stroke-linejoin="round" stroke-linecap="round">
-    <path fill="{sail}" d="M10.2 1.8Q15.8 7.2 17.6 13.9L11.4 13.9Z"/>
-    <path fill="{hull}" d="M2.2 4.6C4 9.4 6.2 12.6 8.6 14.1L20.4 14.1L21.8 12.4C21.4 16.2 17.6 18.6 12.4 18.6C7.6 18.6 3.6 12 2.2 4.6Z"/>
-  </g>
-</svg>
-'''
+SIZES = ((1, 32, ""), (2, 64, "@2x"))
+REST_ALPHA = 0.62          # в покое лодка не спорит с текстом
+SOURCES = (
+    ("assets/logo-mark.png",      "cursor-dhow-light"),
+    ("assets/logo-mark-dark.png", "cursor-dhow-dark"),
+)
 
 
-def flatten(path, steps=96):
-    """Разворачивает кривые в многоугольник в координатах рамки."""
-    pts, cur = [], None
-    for seg in path:
-        k = seg[0]
-        if k in ("M", "L"):
-            cur = (seg[1], seg[2])
-            pts.append(cur)
-        elif k == "Q":
-            (x0, y0), (cx, cy), (x1, y1) = cur, (seg[1], seg[2]), (seg[3], seg[4])
-            for i in range(1, steps + 1):
-                t = i / steps
-                u = 1 - t
-                pts.append((u * u * x0 + 2 * u * t * cx + t * t * x1,
-                            u * u * y0 + 2 * u * t * cy + t * t * y1))
-            cur = (x1, y1)
-        elif k == "C":
-            x0, y0 = cur
-            cx1, cy1, cx2, cy2, x1, y1 = seg[1:]
-            for i in range(1, steps + 1):
-                t = i / steps
-                u = 1 - t
-                pts.append((u**3 * x0 + 3 * u * u * t * cx1 + 3 * u * t * t * cx2 + t**3 * x1,
-                            u**3 * y0 + 3 * u * u * t * cy1 + 3 * u * t * t * cy2 + t**3 * y1))
-            cur = (x1, y1)
-    return pts
+def prepare(path):
+    """Обрезает прозрачные поля и находит верх мачты."""
+    im = Image.open(os.path.join(ROOT, path))
+    im.load()
+    im = im.convert("RGBA")
+    im = im.crop(im.getchannel("A").getbbox())
+
+    px = im.getchannel("A").load()
+    mast = (0, 0)
+    for y in range(im.height):
+        row = [x for x in range(im.width) if px[x, y] > 40]
+        if row:
+            mast = (sum(row) // len(row), y)   # середина самого верхнего штриха
+            break
+    return im, mast
 
 
-def raster(colors, dens):
-    """dens=1 — лодка 24x21 в холсте 32x32; dens=2 — вдвое крупнее."""
-    art_w = ART[0] * dens
-    box = BOX * dens
-    s = art_w / VB[2] * SS
-    big = Image.new("RGBA", (box * SS, box * SS), (0, 0, 0, 0))
-    d = ImageDraw.Draw(big)
-    w = max(1, round(STROKE_W * s))
+def render(im, mast, size, alpha):
+    k = min(size / im.width, size / im.height)
+    w, h = max(1, round(im.width * k)), max(1, round(im.height * k))
+    small = im.resize((w, h), Image.LANCZOS)
 
-    def put(path, fill):
-        p = [((x - VB[0]) * s, (y - VB[1]) * s) for x, y in flatten(path)]
-        d.line(p + [p[0]], fill=colors["stroke"], width=w, joint="curve")  # paint-order: обводка под заливкой
-        d.polygon(p, fill=fill)
+    if alpha < 1:
+        small.putalpha(small.getchannel("A").point(lambda v: int(v * alpha)))
 
-    put(SAIL, colors["sail"])   # парус первым, корпус ложится сверху
-    put(HULL, colors["hull"])
-    return big.resize((box, box), Image.LANCZOS)
+    # Квадратный холст: 32 и 64 рисуют все системы без оговорок.
+    pad = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    pad.paste(small, (0, 0))
+    return pad, (round(mast[0] * k), round(mast[1] * k))
 
 
 def main():
-    vb = " ".join(str(v) for v in VB)
-    for name, colors in STATES.items():
-        svg = SVG.format(w=ART[0], h=ART[1], vb=vb, sw=STROKE_W, **colors)
-        with open(os.path.join(ROOT, name + ".svg"), "w", encoding="utf-8", newline="\n") as f:
-            f.write(svg)
-        for dens, suffix in ((1, ""), (2, "@2x")):
-            raster(colors, dens).save(os.path.join(ROOT, "%s%s.png" % (name, suffix)))
-        print(name, "— svg + png 32 и 64")
+    hotspots = set()
+    for path, name in SOURCES:
+        im, mast = prepare(path)
+        for dens, size, suffix in SIZES:
+            for alpha, tag in ((REST_ALPHA, ""), (1.0, "-hot")):
+                img, hs = render(im, mast, size, alpha)
+                img.save(os.path.join(ROOT, "%s%s%s.png" % (name, tag, suffix)))
+            if dens == 1:
+                hotspots.add(hs)
+        print(name, "— png 32 и 64, покой и наведение")
+    print("горячая точка при обычной плотности:", sorted(hotspots))
 
 
 if __name__ == "__main__":
