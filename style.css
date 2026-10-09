@@ -154,12 +154,29 @@ a{color:var(--navy);text-underline-offset:3px;text-decoration-thickness:1px;}
 }
 .brand-line .ar-inline{color:var(--navy);margin-left:4px;}
 
+/* Знак ведёт на оглавление, и теперь это сказано словом, а не только
+   подразумевается. Подпись набрана как колонтитул рядом с ней. */
 .brand-mark{
   grid-column:1;grid-row:1 / span 2;
   align-self:center;
-  display:block;line-height:0;
+  display:flex;align-items:center;gap:8px;
+  line-height:0;text-decoration:none;
 }
 .brand-mark img{display:block;height:28px;width:auto;}
+/* На узком экране подписи нет: она отнимает у цепочки иснада столько
+   места, что та ломается на шесть строк и шапка вырастает вдвое. Там
+   остаётся один знак, а слово «Оглавление» говорит кнопка внизу. */
+.brand-mark-label{
+  display:none;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  line-height:1.2;
+  color:var(--ink-faint);
+  transition:color var(--t) var(--ease);
+}
+@media (min-width:560px){
+  .brand-mark-label{display:block;}
+}
+.brand-mark:hover .brand-mark-label{color:var(--navy);}
 
 .isnad{
   display:grid;
