@@ -1150,18 +1150,16 @@ p{margin:0 0 14px;}
 
 /* -------------------------------------------------------------- курсор */
 /*
- * Дау вместо стрелки: читатель идёт по материалу, везя с собой провизию.
- * Корпус золотой, паруса синие — тот же силуэт, что на логотипе. Нос стоит
- * в горячей точке, поэтому клик попадает туда, куда смотрит нос, а не
- * в середину корпуса; над нажимаемым лодка идёт в полную силу и на пиксель
- * вперёд. Ни волн, ни следа, ни движения само по себе.
+ * Дау стоит там, где читают, и только там. На всём, что можно нажать,
+ * остаётся обычный указатель системы: по нему целятся не думая, а лодка
+ * с её мягкими очертаниями для этого не годилась — острого угла у знака
+ * нет, и попасть в строку было трудно. Так у каждого своё дело: знак
+ * сопровождает чтение, рука отвечает за действие.
  *
- * Картинка на состояние — PNG 32x32 (силуэт 24x21 в левом верхнем углу)
- * и 64x64 для плотных экранов. Обычный url() объявлен первым и работает
- * везде; image-set() ниже перекрывает его там, где понят. Браузер, который
- * его не разберёт, останется на первой строке, а не без курсора.
- *
- * На касании курсора нет вовсе — только для точного указателя.
+ * Рисунок — тот же знак, что в шапке главы, 32x32 и 64x64 для плотных
+ * экранов. Обычный url() объявлен первым и работает везде; image-set()
+ * ниже перекрывает его там, где понят, а где не понят — остаётся первая
+ * строка, а не пустота. На касании курсора нет вовсе.
  */
 @media (hover: hover) and (pointer: fine){
   html{
@@ -1169,53 +1167,30 @@ p{margin:0 0 14px;}
     cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 1, auto;
   }
 
+  /* Нажимаемое — системная рука, выгруженное из работы — обычная стрелка. */
   a[href], button, label, summary, select,
   [role="button"], [role="radio"], [role="checkbox"]{
-    cursor:url("cursor-dhow-light-hot.png") 1 1, pointer;
-    cursor:image-set(url("cursor-dhow-light-hot.png") 1x, url("cursor-dhow-light-hot@2x.png") 2x) 1 1, pointer;
+    cursor:pointer;
   }
-
   .btn-check[disabled], button[disabled], [aria-disabled="true"]{
-    cursor:url("cursor-dhow-light.png") 1 1, default;
-    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 1, default;
-  }
-
-  /* Тёмная тема: на тёмном фоне нужны и другая обводка, и другие паруса. */
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      cursor:url("cursor-dhow-dark.png") 1 1, auto;
-      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
-    }
-
-    :root:not([data-theme="light"]) :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
-      cursor:url("cursor-dhow-dark-hot.png") 1 1, pointer;
-      cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 1 1, pointer;
-    }
-
-    :root:not([data-theme="light"]) :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
-      cursor:url("cursor-dhow-dark.png") 1 1, default;
-      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, default;
-    }
-  }
-
-  :root[data-theme="dark"]{
-    cursor:url("cursor-dhow-dark.png") 1 1, auto;
-    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
-  }
-
-  :root[data-theme="dark"] :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
-    cursor:url("cursor-dhow-dark-hot.png") 1 1, pointer;
-    cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 1 1, pointer;
-  }
-
-  :root[data-theme="dark"] :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
-    cursor:url("cursor-dhow-dark.png") 1 1, default;
-    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, default;
+    cursor:default;
   }
 
   /* Ввод и правка текста остаются за системой. */
   input:not([type="checkbox"]):not([type="radio"]), textarea, [contenteditable="true"]{
     cursor:text;
+  }
+
+  /* На тёмном фоне у знака свой вариант. */
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      cursor:url("cursor-dhow-dark.png") 1 1, auto;
+      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
+    }
+  }
+  :root[data-theme="dark"]{
+    cursor:url("cursor-dhow-dark.png") 1 1, auto;
+    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 1, auto;
   }
 }
 

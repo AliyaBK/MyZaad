@@ -7,9 +7,9 @@ Zaaduna — сборка курсора из знака платформы.
 тёмный вариант; они в 138 пикселей, этого хватает и на 64, и на 32,
 поэтому ничего не растягивается.
 
-Состояний два: в покое знак приглушён, над нажимаемым идёт в полную
-силу. Горячая точка ставится на верх мачты — это самая высокая точка
-рисунка, и клик попадает туда, куда смотришь.
+Состояние одно: знак сопровождает чтение и приглушён, чтобы не спорить
+с текстом. На нажимаемом работает обычный указатель системы, своего
+рисунка там нет — по руке целятся не думая.
 
 Сайту скрипт не нужен, он статический. Запускают руками, когда знак
 меняется:
@@ -24,7 +24,7 @@ from PIL import Image
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SIZES = ((1, 32, ""), (2, 64, "@2x"))
-REST_ALPHA = 0.62          # в покое лодка не спорит с текстом
+REST_ALPHA = 0.62          # лодка не спорит с текстом, по которому идёт
 SOURCES = (
     ("assets/logo-mark.png",      "cursor-dhow-light"),
     ("assets/logo-mark-dark.png", "cursor-dhow-dark"),
@@ -67,13 +67,13 @@ def main():
     for path, name in SOURCES:
         im, mast = prepare(path)
         for dens, size, suffix in SIZES:
-            for alpha, tag in ((REST_ALPHA, ""), (1.0, "-hot")):
-                img, hs = render(im, mast, size, alpha)
-                img.save(os.path.join(ROOT, "%s%s%s.png" % (name, tag, suffix)))
+            img, hs = render(im, mast, size, REST_ALPHA)
+            img.save(os.path.join(ROOT, "%s%s.png" % (name, suffix)))
             if dens == 1:
                 hotspots.add(hs)
-        print(name, "— png 32 и 64, покой и наведение")
-    print("горячая точка при обычной плотности:", sorted(hotspots))
+        print(name, "— png 32 и 64")
+    print("верх мачты при обычной плотности:", sorted(hotspots),
+          "— но в стиле горячая точка стоит в 1 1, как у обычной стрелки")
 
 
 if __name__ == "__main__":
