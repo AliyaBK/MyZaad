@@ -1,5 +1,5 @@
 /*
- * MyZaad — конспект главы.
+ * Zaaduna — конспект главы.
  *
  * Лист собирается из того же chapterN-data.js, что ведёт саму главу, поэтому
  * новая глава получает конспект без единой правки здесь. Ответы читаются из
@@ -173,7 +173,7 @@
   function build(CHAPTER){
     var state = { answers: {}, score: 0, maxScore: 0 };
     try{
-      var raw = localStorage.getItem("myzaad_" + (CHAPTER.id || "chapter"));
+      var raw = localStorage.getItem("zaaduna_" + (CHAPTER.id || "chapter"));
       if(raw) state = JSON.parse(raw);
     }catch(e){}
 
@@ -184,7 +184,7 @@
       if(b.type === "lede") lede.push(b.text);
     });
 
-    document.title = (meta.docTitle || "MyZaad") + " — конспект";
+    document.title = (meta.docTitle || "Zaaduna") + " — конспект";
     el("kTitle").textContent = title;
     el("kTeacher").textContent = meta.teacher || "";
     el("kDate").textContent = new Date().toLocaleDateString("ru-RU");
@@ -227,5 +227,5 @@
     el("kFoot").textContent = (CHAPTER.screens[CHAPTER.screens.length - 1].note || []).join(" ");
   }
 
-  window.MyZaadKonspekt = { build: build };
+  window.ZaadunaKonspekt = { build: build };
 })();

@@ -1,0 +1,19 @@
+# Zaaduna — статический сайт без сборки: публикуется корень репозитория
+# как есть. Команды сборки нет намеренно — собирать нечего.
+[build]
+  publish = "."
+  command = ""
+
+# Шрифты и картинки неизменны между выкладками и могут лежать в кэше долго;
+# разметка и код должны проверяться каждый раз, иначе правка не доедет.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

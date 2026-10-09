@@ -5,7 +5,7 @@ primary_target: "index.html"
 related_targets: ["engine.js","style.css"]
 ---
 
-Scope: экран главы MyZaad (index.html + engine.js + style.css), один линейный поток из 14 экранов. Visitor mode: Operate.
+Scope: экран главы Zaaduna (index.html + engine.js + style.css), один линейный поток из 14 экранов. Visitor mode: Operate.
 
 Audience: слушатель, уже прошедший лекцию, вечером, телефон в одной руке, 10–20 минут. Среды равны: Telegram Mini App и обычная ссылка. Task: пройти главу, увидеть, что понял неверно, унести конспект. Constraints: текст и вопросы главы неприкосновенны, скачивание и прогресс сохраняются, атрибуция устаза на виду, новая глава добавляется одним chapterN-data.js.
 

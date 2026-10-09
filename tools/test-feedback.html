@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Zaaduna — проверка обратной связи</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  body{padding:20px;}
+  .t-row{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line-soft);font:13px/1.5 var(--app);}
+  .t-ok{color:var(--navy);font-weight:600;}
+  .t-no{color:var(--gold);font-weight:600;}
+  .t-sum{margin:16px 0 24px;font:600 15px var(--app);}
+  .t-stage{opacity:.35;pointer-events:none;}
+</style>
+</head>
+<body>
+
+<h2 style="font-size:19px;margin:0 0 4px">Обратная связь по ответам</h2>
+<p style="font:13px/1.5 var(--app);color:var(--ink-soft);margin:0 0 16px">
+  Главное, что здесь проверяется: отмеченный ответ никогда не опознаётся
+  по одному цвету — рядом всегда знак и слово. Дальтоник и чёрно-белая
+  печать должны прочитать результат так же, как все.
+</p>
+
+<p class="t-sum" id="sum">…</p>
+<div id="out"></div>
+
+<!-- Разметка повторяет то, что строит engine.js. -->
+<div class="t-stage" id="stage">
+  <div class="option-list">
+    <button class="option correct-mark"><span class="dot"></span>Правильный вариант</button>
+    <button class="option wrong-mark"><span class="dot"></span>Ошибочный вариант</button>
+  </div>
+  <div class="tf-buttons">
+    <button class="tf-btn right">Верно</button>
+    <button class="tf-btn wrong">Неверно</button>
+  </div>
+  <div class="check-list">
+    <div class="check-item correct-mark"><div class="check-box"></div><div class="check-text">Назван</div></div>
+    <div class="check-item wrong-mark"><div class="check-box"></div><div class="check-text">Не назван</div></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var results = [];
+  function check(name, cond, got){
+    results.push({name:name, ok:!!cond, got:got});
+  }
+  function after(sel, which){
+    var e = document.querySelector(sel);
+    if(!e) return "";
+    return getComputedStyle(e, which || "::after").content.replace(/^"|"$/g, "");
+  }
+  function style(sel, prop){
+    var e = document.querySelector(sel);
+    return e ? getComputedStyle(e)[prop] : "";
+  }
+  function rgb(v){ return (v || "").replace(/\s/g, ""); }
+
+  var navy = rgb(getComputedStyle(document.documentElement).getPropertyValue("--navy"));
+  function tokenRgb(name){
+    var p = document.createElement("span");
+    p.style.color = "var(" + name + ")";
+    document.body.appendChild(p);
+    var v = rgb(getComputedStyle(p).color);
+    p.remove();
+    return v;
+  }
+
+  // То, ради чего тест и написан: знак и слово на неверном ответе.
+  check("выбор: у неверного есть знак ✗",     after(".option.wrong-mark").indexOf("✗") === 0, after(".option.wrong-mark"));
+  check("выбор: у неверного есть слово",      /неверно/i.test(after(".option.wrong-mark")), after(".option.wrong-mark"));
+  check("выбор: у верного есть знак ✓",       after(".option.correct-mark").indexOf("✓") === 0, after(".option.correct-mark"));
+  check("выбор: у верного есть слово",        /верно/i.test(after(".option.correct-mark")), after(".option.correct-mark"));
+
+  check("верно/неверно: знак ✗ на ошибке",    after(".tf-btn.wrong", "::before").indexOf("✗") === 0, after(".tf-btn.wrong", "::before"));
+  check("верно/неверно: знак ✓ на ответе",    after(".tf-btn.right", "::before").indexOf("✓") === 0, after(".tf-btn.right", "::before"));
+
+  check("множественный: знак ✗",              after(".check-item.wrong-mark").indexOf("✗") === 0, after(".check-item.wrong-mark"));
+  check("множественный: знак ✓",              after(".check-item.correct-mark").indexOf("✓") === 0, after(".check-item.correct-mark"));
+
+  // Верный ответ — синяя заливка; неверный заливкой от неё отличается.
+  check("верный ответ залит синим",           rgb(style(".option.correct-mark", "backgroundColor")) === tokenRgb("--navy"), style(".option.correct-mark", "backgroundColor"));
+  check("неверный залит иначе",               rgb(style(".option.wrong-mark", "backgroundColor")) !== rgb(style(".option.correct-mark", "backgroundColor")), style(".option.wrong-mark", "backgroundColor"));
+  check("у неверного рамка 2px",              parseFloat(style(".option.wrong-mark", "outlineWidth")) >= 2, style(".option.wrong-mark", "outlineWidth"));
+
+  // Зелёного и красного в палитре больше нет.
+  var banned = ["--emerald", "--azure", "--terracotta", "--dome", "--rubric", "--lamp"];
+  banned.forEach(function(t){
+    var v = getComputedStyle(document.documentElement).getPropertyValue(t).trim();
+    check("токен " + t + " не объявлен", v === "", v || "(пусто)");
+  });
+
+  var bad = results.filter(function(r){ return !r.ok; });
+  document.getElementById("sum").innerHTML = bad.length
+    ? '<span class="t-no">ПРОВАЛЕНО: ' + bad.length + " из " + results.length + "</span>"
+    : '<span class="t-ok">ПРОЙДЕНО: все ' + results.length + "</span>";
+  document.getElementById("out").innerHTML = results.map(function(r){
+    return '<div class="t-row"><span class="' + (r.ok ? "t-ok" : "t-no") + '">' +
+      (r.ok ? "ок" : "нет") + "</span><span>" + r.name + "</span>" +
+      '<span style="margin-left:auto;color:var(--ink-faint)">' + r.got + "</span></div>";
+  }).join("");
+
+  window.TEST = { passed: bad.length === 0, total: results.length, failed: bad };
+})();
+</script>
+</body>
+</html>

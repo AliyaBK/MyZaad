@@ -1,55 +1,78 @@
 /*
- * MyZaad — выбор между ночью и днём.
+ * Zaaduna — светлая и тёмная тема.
  *
- * Ночь остаётся тем, что видно по умолчанию: это и есть мир приложения.
- * День — тот же мир на бумаге, для чтения при свете. Выбор делает читатель,
- * не система: на одном устройстве светлая тема стоит круглые сутки, а главу
- * читают вечером, и наоборот.
+ * Без сохранённого выбора тему задаёт система: так страница совпадает
+ * с тем, как у человека настроено всё остальное. Кнопка в шапке — это
+ * перекрытие: нажал один раз, и дальше выбор твой, пока не передумаешь.
  *
- * Сама тема ставится раньше этого файла — крошечной вставкой в <head>,
- * иначе страница успела бы моргнуть ночью перед тем, как стать днём.
- * Здесь остаётся кнопка и память о выборе.
+ * Атрибут data-theme ставится раньше этого файла, крошечной вставкой
+ * в <head>, иначе страница успела бы моргнуть чужим цветом. Здесь —
+ * кнопка, память о выборе и подмена логотипа.
  */
 (function(){
   "use strict";
 
-  var KEY = "myzaad_theme";
-  var PAINT = { day: "#F7F1E1", night: "#0B1E2E" };
+  var KEY = "zaaduna_theme";
+  var dark = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
-  function apply(theme){
-    var day = theme === "day";
+  function stored(){
+    try{
+      var v = localStorage.getItem(KEY);
+      return (v === "light" || v === "dark") ? v : null;
+    }catch(e){ return null; }
+  }
+
+  function system(){ return dark && dark.matches ? "dark" : "light"; }
+  function current(){ return stored() || system(); }
+
+  /*
+   * Пока выбор не сделан, нужный логотип подставляет <picture> сам, и
+   * второй файл не скачивается. Как только выбор есть, media-запрос
+   * начинает врать — тогда <source> убирается, и картинкой правит src.
+   */
+  function logo(theme){
+    var img = document.getElementById("brandLogo");
+    if(!img) return;
+    var src = img.parentNode && img.parentNode.querySelector("source");
+    if(src) src.parentNode.removeChild(src);
+    var base = img.getAttribute("src").replace(/-dark\.png$/, ".png");
+    img.setAttribute("src", theme === "dark" ? base.replace(/\.png$/, "-dark.png") : base);
+  }
+
+  function apply(theme, explicit){
     var root = document.documentElement;
-
-    if(day) root.setAttribute("data-theme", "day");
+    if(explicit) root.setAttribute("data-theme", theme);
     else root.removeAttribute("data-theme");
 
-    // Телефон красит свою полосу вокруг страницы по этому значению.
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute("content", day ? PAINT.day : PAINT.night);
+    if(explicit) logo(theme);
 
     var btn = document.getElementById("themeSwitch");
     if(btn){
       // Надпись называет не нынешнее состояние, а то, что получишь, нажав.
-      var label = day ? "Включить ночную тему" : "Включить светлую тему";
-      btn.textContent = day ? "Ночь" : "День";
+      var toDark = theme !== "dark";
+      var label = toDark ? "Включить тёмную тему" : "Включить светлую тему";
+      btn.textContent = toDark ? "Ночь" : "День";
       btn.setAttribute("aria-label", label);
       btn.setAttribute("title", label);
     }
   }
 
-  function stored(){
-    try{ return localStorage.getItem(KEY) === "day" ? "day" : "night"; }
-    catch(e){ return "night"; }
-  }
-
   function init(){
-    apply(stored());
+    apply(current(), !!stored());
+
+    // Пока читатель не выбрал сам, идём за системой, если она переключится.
+    if(dark && dark.addEventListener){
+      dark.addEventListener("change", function(){
+        if(!stored()) apply(system(), false);
+      });
+    }
+
     var btn = document.getElementById("themeSwitch");
     if(!btn) return;
     btn.addEventListener("click", function(){
-      var next = stored() === "day" ? "night" : "day";
+      var next = current() === "dark" ? "light" : "dark";
       try{ localStorage.setItem(KEY, next); }catch(e){}
-      apply(next);
+      apply(next, true);
     });
   }
 

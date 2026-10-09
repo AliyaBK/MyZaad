@@ -1,42 +1,39 @@
 /* ==========================================================================
-   MyZaad — «Поля»
+   Zaaduna — «Поля»
    Страница классического трактата: наборная полоса, рубрика в колонтитуле,
    выдержка из лекции на поле рядом со своей строкой.
    ========================================================================== */
 
 :root{
-  /* ночь — заливает всю поверхность, не акцент */
-  --night:        #0B1E2E;
-  --night-deep:   #071722;
-  --night-raise:  #0F2838;
-  --night-plate:  #10303F;
+  /*
+   * Палитра — два цвета и нейтральные, больше ничего. Тёмно-синий ведёт,
+   * золото отвечает за рамки и акценты: золотой текст на светлом фоне
+   * не проходит по контрасту (около 3:1), поэтому буквами говорит синий,
+   * а золото остаётся линией, подчёркиванием и заливкой.
+   */
+  --navy:        #1A355C;
+  --navy-dark:   #12274A;
+  --navy-tint:   #E8EDF3;
+  --gold:        #B68B55;
+  --gold-tint:   #F6EDD8;
 
-  /* письмо */
-  --ink:          #EFE6D6;
-  --ink-2:        #A8B8B0;
-  --ink-3:        #74898A;
+  --bg:          #FAF8F2;
+  --card:        #FFFFFF;
+  --ink:         #1E2A33;
+  --ink-soft:    #55606A;
+  --ink-faint:   #697179;   /* из брифа #8A929A давало 2.97:1 — ниже AA */
+  --line:        #E2DDD0;
 
-  /* лампа — ровно одно действие на экране */
-  --lamp:         #F9BC81;
-  --lamp-deep:    #B57135;
+  /* Производные: линовка тоньше основной линии, рамка — золото вполсилы. */
+  --line-soft:    rgba(30,42,51,.10);
+  --gold-line:    rgba(182,139,85,.55);
+  --on-navy:      #FFFFFF;
+  --select-ink:   #FAF8F2;
+  --scroll-thumb: #C9D2DE;
 
-  /* киноварь — рубрики и пометы */
-  --rubric:       #D4764A;
-  --rubric-dim:   #7E3C26;
-
-  /* купол — верно */
-  --dome:         #5E9A6E;
-  --dome-dim:     #2A4F39;
-
-  /* линовка */
-  --rule:         rgba(239,230,214,.14);
-  --rule-soft:    rgba(239,230,214,.07);
-  --rule-lamp:    rgba(249,188,129,.34);
-
-  /* выделение и полоса прокрутки — у дня они свои */
-  --select-bg:    #B57135;
-  --select-ink:   #120A04;
-  --scroll-thumb: #2B3A3F;
+  /* Поверхность под курсором и выделение держатся на тех же двух цветах. */
+  --surface-raise: var(--navy-tint);
+  --select-bg:     var(--navy);
 
   --set:  "Literata", Georgia, "Times New Roman", serif;
   --app:  "Golos Text", system-ui, -apple-system, sans-serif;
@@ -49,51 +46,63 @@
 }
 
 /*
- * День — тот же мир, перевёрнутый на бумагу: мрамор и песчаник, набор
- * чернилами, рубрики киноварью. Палитра взята у конспекта, который был
- * бумажным с самого начала, чтобы светлых миров не стало два.
- *
- * Имена токенов остались ночными намеренно: --night значит «поверхность»,
- * --night-raise — «поверхность под курсором». Переименование задело бы
- * каждое правило в файле ради одного слова.
+ * Тёмная тема. Без сохранённого выбора её задаёт система; кнопка в шапке
+ * перекрывает систему, и тогда на <html> стоит data-theme. Набор повторён
+ * дважды, потому что в CSS нет способа дать одному объявлению два адреса,
+ * один из которых лежит внутри media.
  */
-:root[data-theme="day"]{
-  --night:        #F7F1E1;
-  --night-deep:   #EFE7D4;
-  --night-raise:  #EFE7D4;
-  --night-plate:  #E8DFC8;
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+  --navy:        #7FA6D6;
+  --navy-dark:   #A9C4E6;
+  --navy-tint:   #1B2736;
+  --gold:        #D2AE5C;
+  --gold-tint:   #2C2617;
 
-  --ink:          #0B1E2E;
-  --ink-2:        #4A5A60;
-  --ink-3:        #65746F;
+  --bg:          #14181C;
+  --card:        #1D2227;
+  --ink:         #EDEBE3;
+  --ink-soft:    #A9B2BB;
+  --ink-faint:   #7E8791;   /* из брифа #737C85 давало 4.21:1 — ниже AA */
+  --line:        #303840;
 
-  --lamp:         #8A5A2B;
-  --lamp-deep:    #B07E3C;
+  --line-soft:    rgba(237,235,227,.10);
+  --gold-line:    rgba(210,174,92,.55);
+  --on-navy:      #14181C;
+  --select-ink:   #14181C;
+  --scroll-thumb: #38424C;
+  }
+}
+:root[data-theme="dark"]{
+  --navy:        #7FA6D6;
+  --navy-dark:   #A9C4E6;
+  --navy-tint:   #1B2736;
+  --gold:        #D2AE5C;
+  --gold-tint:   #2C2617;
 
-  --rubric:       #A8502F;
-  --rubric-dim:   #C98B6E;
+  --bg:          #14181C;
+  --card:        #1D2227;
+  --ink:         #EDEBE3;
+  --ink-soft:    #A9B2BB;
+  --ink-faint:   #7E8791;   /* из брифа #737C85 давало 4.21:1 — ниже AA */
+  --line:        #303840;
 
-  --dome:         #2A5C3C;
-  --dome-dim:     #8FB69C;
-
-  --rule:         rgba(11,30,46,.20);
-  --rule-soft:    rgba(11,30,46,.10);
-  --rule-lamp:    rgba(138,90,43,.42);
-
-  --select-bg:    #E3CFAE;
-  --select-ink:   #0B1E2E;
-  --scroll-thumb: #C8BFA6;
+  --line-soft:    rgba(237,235,227,.10);
+  --gold-line:    rgba(210,174,92,.55);
+  --on-navy:      #14181C;
+  --select-ink:   #14181C;
+  --scroll-thumb: #38424C;
 }
 
 *{box-sizing:border-box;}
 html{
   -webkit-text-size-adjust:100%;
-  scrollbar-color: var(--lamp-deep) var(--night);
+  scrollbar-color: var(--gold) var(--bg);
   scrollbar-width: thin;
 }
 body{
   margin:0;
-  background:var(--night);
+  background:var(--bg);
   color:var(--ink);
   font-family:var(--app);
   font-size:16px;
@@ -104,13 +113,13 @@ body{
 }
 ::selection{background:var(--select-bg);color:var(--select-ink);}
 ::-webkit-scrollbar{width:10px;}
-::-webkit-scrollbar-track{background:var(--night);}
-::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border:3px solid var(--night);}
-::-webkit-scrollbar-thumb:hover{background:var(--lamp-deep);}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border:3px solid var(--bg);}
+::-webkit-scrollbar-thumb:hover{background:var(--gold);}
 :focus{outline:none;}
-:focus-visible{outline:1px solid var(--lamp);outline-offset:3px;}
+:focus-visible{outline:1px solid var(--navy);outline-offset:3px;}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;}
-a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
+a{color:var(--navy);text-underline-offset:3px;text-decoration-thickness:1px;}
 
 /* --------------------------------------------------------------- колонтитул */
 .sheet{
@@ -118,34 +127,58 @@ a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
   margin:0 auto;
   padding: 0 var(--gutter);
 }
+/* ------------------------------------------------------------- логотип */
+/*
+ * Имя платформы показано самим логотипом, а не набрано шрифтом: в alt
+ * лежит «Zaaduna», поэтому заголовок остаётся заголовком и для чтеца.
+ * Тёмный вариант подставляет <picture> по настройке системы; когда
+ * читатель выбрал тему кнопкой, картинку меняет theme.js — media-запрос
+ * про его выбор ничего не знает.
+ */
+.brand{margin:0 0 10px;line-height:0;}
+.brand img{display:block;width:clamp(132px, 34vw, 168px);height:auto;}
+.brand-line{
+  font-size:14px;line-height:1.5;
+  color:var(--ink-soft);
+  margin:0 0 20px;
+}
+.brand-line .ar-inline{color:var(--navy);margin-left:4px;}
+
+.brand-mark{
+  grid-column:1;grid-row:1 / span 2;
+  align-self:center;
+  display:block;line-height:0;
+}
+.brand-mark img{display:block;height:28px;width:auto;}
+
 .isnad{
   display:grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items:baseline;
   gap: 2px 16px;
   padding: calc(14px + env(safe-area-inset-top)) 0 8px;
 }
 .chain{
-  grid-column:1;
+  grid-column:2;
   margin:0;
   font-size:11px;
   letter-spacing:.12em;
   text-transform:uppercase;
-  color:var(--ink-3);
+  color:var(--ink-faint);
   line-height:1.5;
 }
 .runhead{
-  grid-column:1;
+  grid-column:2;
   margin:0;
   font-size:11.5px;
   letter-spacing:.16em;
   text-transform:uppercase;
-  color:var(--rubric);
+  color:var(--navy);
   font-weight:500;
   min-height:1.5em;
 }
 .folio{
-  grid-column:2;
+  grid-column:3;
   grid-row:1 / span 2;
   margin:0;
   align-self:center;
@@ -154,9 +187,9 @@ a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
   gap:7px;
   font-size:12.5px;
   letter-spacing:.06em;
-  color:var(--ink-2);
+  color:var(--ink-soft);
 }
-.folio-rule{width:14px;height:1px;background:var(--rule);display:block;}
+.folio-rule{width:14px;height:1px;background:var(--line);display:block;}
 #stepLabel{color:var(--ink);}
 
 /*
@@ -165,23 +198,23 @@ a{color:var(--lamp);text-underline-offset:3px;text-decoration-thickness:1px;}
  * Набрана как колонтитул рядом: та же высота строки, тот же разряд.
  */
 .theme-switch{
-  grid-column:3;
+  grid-column:4;
   grid-row:1 / span 2;
   align-self:center;
   font-size:11px;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:var(--ink-3);
-  border-bottom:1px solid var(--rule);
+  color:var(--ink-faint);
+  border-bottom:1px solid var(--line);
   padding:0 0 2px;
   transition:color var(--t) var(--ease), border-color var(--t) var(--ease);
 }
-.theme-switch:hover{color:var(--lamp);border-bottom-color:var(--rule-lamp);}
+.theme-switch:hover{color:var(--navy);border-bottom-color:var(--gold-line);}
 
-.gauge{height:1px;background:var(--rule-soft);position:relative;}
+.gauge{height:1px;background:var(--line-soft);position:relative;}
 .gauge-fill{
   position:absolute;inset:0;
-  background:var(--lamp-deep);
+  background:var(--gold);
   transform:scaleX(0);
   transform-origin:left center;
   transition: transform var(--t) var(--ease);
@@ -234,12 +267,12 @@ p{margin:0 0 14px;}
   font-family:var(--set);
   font-style:italic;
   font-size:16px;
-  color:var(--rubric);
+  color:var(--navy);
   margin-bottom:18px;
 }
 .prompt-hint{
   font-size:13.5px;
-  color:var(--ink-3);
+  color:var(--ink-faint);
   line-height:1.55;
 }
 /* Рубрика экрана живёт в колонтитуле, над заголовком её нет — исключений нет. */
@@ -248,14 +281,14 @@ p{margin:0 0 14px;}
 .icon-badge{
   width:26px;height:26px;
   margin:0 0 14px;
-  color:var(--rubric);
+  color:var(--navy);
 }
 .icon-badge svg{display:block;width:100%;height:100%;}
 
 /* --------------------------------------------------------------- цитаты */
 .card{
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
   padding:16px 0;
   margin:0 0 20px;
 }
@@ -279,15 +312,15 @@ p{margin:0 0 14px;}
   font-size:11px;
   letter-spacing:.1em;
   text-transform:uppercase;
-  color:var(--ink-3);
+  color:var(--ink-faint);
   margin:8px 0 0;
 }
 .quote-list{margin:0 0 4px;padding-left:1.1em;}
-.quote-list ::marker,.quote-list li::marker,.notebook-callout li::marker{color:var(--rubric);}
+.quote-list ::marker,.quote-list li::marker,.notebook-callout li::marker{color:var(--navy);}
 .quote-list li{margin-bottom:5px;font-family:var(--set);font-size:15.5px;}
 
 .principle-box{
-  border-left:1px solid var(--rubric);
+  border-left:1px solid var(--navy);
   padding:2px 0 2px 16px;
   margin:0 0 20px;
 }
@@ -299,37 +332,37 @@ p{margin:0 0 14px;}
   margin:0;
 }
 .citation-box{
-  border-top:1px solid var(--rule);
+  border-top:1px solid var(--line);
   padding:14px 0 0;
   margin:0 0 20px;
 }
 .citation-text{font-family:var(--set);font-size:15.5px;line-height:1.6;margin:0 0 6px;}
-.citation-src{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0;}
+.citation-src{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin:0;}
 
 /* ------------------------------------------------------- схемы и выноски */
 .diagram-caption{
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink-3);margin:0 0 10px;
+  color:var(--ink-faint);margin:0 0 10px;
 }
 .flow-diagram{display:flex;flex-direction:column;align-items:stretch;gap:0;}
 .flow-box{
-  border:1px solid var(--rule);
+  border:1px solid var(--line);
   padding:11px 13px;
   font-size:14.5px;
   line-height:1.5;
   color:var(--ink);
 }
-.flow-box.accent{border-color:var(--rule-lamp);color:var(--lamp);}
-.flow-arrow{display:flex;justify-content:center;padding:6px 0;color:var(--rubric);}
+.flow-box.accent{border-color:var(--gold-line);color:var(--navy);}
+.flow-arrow{display:flex;justify-content:center;padding:6px 0;color:var(--navy);}
 .flow-arrow svg{display:block;}
 
 .notebook-callout{
   display:flex;gap:13px;
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
   padding:16px 0;margin:0 0 20px;
 }
-.notebook-callout .icon{color:var(--rubric);flex-shrink:0;line-height:1;}
+.notebook-callout .icon{color:var(--navy);flex-shrink:0;line-height:1;}
 .notebook-callout .icon svg{display:block;width:18px;height:18px;}
 .notebook-callout p{margin:0 0 6px;font-size:15px;line-height:1.55;}
 .notebook-callout ul{margin:6px 0 0;padding-left:1.1em;font-size:15px;}
@@ -341,21 +374,21 @@ p{margin:0 0 14px;}
   grid-template-columns:2.4em 1fr;
   gap:0 14px;
   padding:13px 0;
-  border-top:1px solid var(--rule-soft);
+  border-top:1px solid var(--line-soft);
 }
-.timeline-step:first-child{border-top:1px solid var(--rule);}
-.timeline-step:last-child{border-bottom:1px solid var(--rule);}
+.timeline-step:first-child{border-top:1px solid var(--line);}
+.timeline-step:last-child{border-bottom:1px solid var(--line);}
 .timeline-num{
   font-size:12px;
   letter-spacing:.06em;
-  color:var(--rubric);
+  color:var(--navy);
   padding-top:3px;
 }
 .timeline-title{font-weight:500;margin:0 0 3px;font-size:15px;}
-.timeline-desc{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5;}
+.timeline-desc{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.5;}
 
 .prompt-card{
-  border-left:1px solid var(--rule-lamp);
+  border-left:1px solid var(--gold-line);
   padding:2px 0 2px 16px;
   margin:0 0 16px;
 }
@@ -364,192 +397,210 @@ p{margin:0 0 14px;}
 
 .triptych{margin:0 0 20px;}
 .triptych-block{
-  border-top:1px solid var(--rule);
+  border-top:1px solid var(--line);
   padding:13px 0 13px 16px;
   position:relative;
 }
 .triptych-block::before{
-  content:"";position:absolute;left:0;top:13px;bottom:13px;width:1px;background:var(--rubric-dim);
+  content:"";position:absolute;left:0;top:13px;bottom:13px;width:1px;background:var(--gold);
 }
-.triptych-block.c1::before{background:var(--rubric);}
-.triptych-block.c2::before{background:var(--lamp-deep);}
-.triptych-block.c3::before{background:var(--dome-dim);}
-.triptych-block:last-child{border-bottom:1px solid var(--rule);}
+.triptych-block.c1::before{background:var(--navy);}
+.triptych-block.c2::before{background:var(--gold);}
+.triptych-block.c3::before{background:var(--navy-dark);}
+.triptych-block:last-child{border-bottom:1px solid var(--line);}
 .triptych-title{margin:0 0 3px;font-weight:500;font-size:15px;}
-.triptych-sub{margin:0;font-size:14px;color:var(--ink-2);line-height:1.5;}
+.triptych-sub{margin:0;font-size:14px;color:var(--ink-soft);line-height:1.5;}
 
 .audio-link{
   display:flex;align-items:center;gap:11px;
-  border-top:1px solid var(--rule);
-  border-bottom:1px solid var(--rule);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
   padding:14px 0;margin:0 0 20px;
-  text-decoration:none;color:var(--lamp);
+  text-decoration:none;color:var(--navy);
   font-size:14.5px;
   transition:color var(--t) var(--ease);
 }
 .audio-link:hover{color:var(--ink);}
 .audio-icon{display:flex;flex-shrink:0;}
 .audio-icon svg{display:block;width:17px;height:17px;}
-.audio-arrow{margin-left:auto;color:var(--ink-3);}
+.audio-arrow{margin-left:auto;color:var(--ink-faint);}
 .audio-arrow svg{display:block;width:15px;height:15px;}
 
 /* ------------------------------------------------------------- варианты */
-.option-list{margin:0 0 14px;border-top:1px solid var(--rule);}
+.option-list{margin:0 0 14px;border-top:1px solid var(--line);}
 .option{
   display:flex;align-items:flex-start;gap:12px;
   width:100%;text-align:left;
   padding:14px 2px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   font-size:15px;line-height:1.5;
   transition:color var(--t) var(--ease), background var(--t) var(--ease);
 }
-.option:last-child{border-bottom:1px solid var(--rule);}
-.option:hover{background:var(--night-raise);}
+.option:last-child{border-bottom:1px solid var(--line);}
+.option:hover{background:var(--surface-raise);}
 .option .dot{
   width:13px;height:13px;flex-shrink:0;margin-top:4px;
-  border:1px solid var(--ink-3);
+  border:1px solid var(--ink-faint);
   border-radius:50%;
   transition:border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
 }
-.option.selected .dot{border-color:var(--lamp);box-shadow:inset 0 0 0 3px var(--lamp);}
+.option.selected .dot{border-color:var(--navy);box-shadow:inset 0 0 0 3px var(--navy);}
 .option.selected{color:var(--ink);}
-.option.correct-mark{color:var(--dome);}
-.option.correct-mark .dot{border-color:var(--dome);box-shadow:inset 0 0 0 3px var(--dome);}
-.option.correct-mark::after{content:"верно";margin-left:auto;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dome);padding-left:10px;}
-.option.wrong-mark{color:var(--rubric);}
-.option.wrong-mark .dot{border-color:var(--rubric);box-shadow:inset 0 0 0 3px var(--rubric);}
-.option.wrong-mark::after{content:"ваш выбор";margin-left:auto;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--rubric);padding-left:10px;}
+/*
+ * Верно — синяя заливка, неверно — золотая рамка и подложка. Цвет здесь
+ * никогда не работает один: рядом всегда знак и слово, иначе ответ не
+ * прочитает ни дальтоник, ни тот, кто печатает лист начерно.
+ * Рамка нарисована outline со сдвигом внутрь, чтобы строка не прыгала.
+ */
+.option.correct-mark{background:var(--navy);color:var(--on-navy);}
+.option.correct-mark .dot{border-color:var(--on-navy);box-shadow:inset 0 0 0 3px var(--on-navy);}
+.option.correct-mark::after{content:"✓ верно";margin-left:auto;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--on-navy);padding-left:10px;white-space:nowrap;}
+.option.wrong-mark{background:var(--gold-tint);color:var(--ink);outline:2px solid var(--gold);outline-offset:-2px;}
+.option.wrong-mark .dot{border-color:var(--gold);box-shadow:inset 0 0 0 3px var(--gold);}
+.option.wrong-mark::after{content:"✗ неверно";margin-left:auto;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding-left:10px;white-space:nowrap;}
+
+/* Отмеченная строка выходит заливкой в поля, но текст остаётся на месте:
+   отрицательное поле ровно компенсировано отступом. */
+.option.correct-mark, .option.wrong-mark,
+.check-item.correct-mark, .check-item.wrong-mark{
+  margin-left:-12px;margin-right:-12px;
+  padding-left:14px;padding-right:14px;
+}
 
 /* --------------------------------------------------------- верно/неверно */
 .tf-item{
   padding:16px 0;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   position:relative;
 }
-.tf-item:first-child{border-top:1px solid var(--rule);}
-.tf-item:last-child{border-bottom:1px solid var(--rule);}
+.tf-item:first-child{border-top:1px solid var(--line);}
+.tf-item:last-child{border-bottom:1px solid var(--line);}
 .tf-statement{font-size:15px;line-height:1.55;margin:0 0 11px;}
 .tf-buttons{display:flex;gap:8px;}
 .tf-btn{
   flex:0 0 auto;
   min-width:94px;
   padding:7px 14px;
-  border:1px solid var(--rule);
+  border:1px solid var(--line);
   border-radius:2px;
   font-size:13px;
   letter-spacing:.02em;
-  color:var(--ink-2);
+  color:var(--ink-soft);
   transition:border-color var(--t) var(--ease), color var(--t) var(--ease), font-weight var(--t) var(--ease);
 }
-.tf-btn:hover{border-color:var(--ink-3);color:var(--ink);}
-.tf-btn.chosen{border-color:var(--lamp);color:var(--lamp);}
-.tf-btn.right{border-color:var(--dome);color:var(--dome);font-weight:600;}
+.tf-btn:hover{border-color:var(--ink-faint);color:var(--ink);}
+.tf-btn.chosen{border-color:var(--navy);color:var(--navy);}
+/* Кнопки сами называются «Верно» и «Неверно», поэтому вердикт здесь
+   говорит знак, а не второе такое же слово: иначе подпись двоится. */
+.tf-btn.right{background:var(--navy);border-color:var(--navy);color:var(--on-navy);font-weight:600;}
+.tf-btn.right::before{content:"✓ ";}
+.tf-btn.wrong{background:var(--gold-tint);border:2px solid var(--gold);color:var(--ink);padding:6px 13px;}
+.tf-btn.wrong::before{content:"✗ ";}
 .btn-download .mk{display:inline-flex;}
-.tf-btn.wrong{border-color:var(--rubric);color:var(--rubric);text-decoration:line-through;}
 .tf-item.correct::before,
 .tf-item.incorrect::before{
   content:"";position:absolute;left:-12px;top:16px;bottom:16px;width:1px;
 }
-.tf-item.correct::before{background:var(--dome);}
-.tf-item.incorrect::before{background:var(--rubric);}
+.tf-item.correct::before{background:var(--navy);}
+.tf-item.incorrect::before{background:var(--navy);}
 
 /* -------------------------------------------------------------- порядок */
 .order-row{margin-bottom:10px;}
 .order-row select{
   width:100%;
   padding:11px 12px;
-  background:var(--night-raise);
+  background:var(--surface-raise);
   color:var(--ink);
-  border:1px solid var(--rule);
+  border:1px solid var(--line);
   border-radius:2px;
   font-family:var(--app);
   font-size:14.5px;
   appearance:none;
-  background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
   background-position:calc(100% - 17px) 50%, calc(100% - 12px) 50%;
   background-size:5px 5px, 5px 5px;
   background-repeat:no-repeat;
 }
-.order-row select:focus-visible{border-color:var(--lamp);}
-.order-row select.select-correct{border-color:var(--dome);color:var(--dome);}
-.order-row select.select-wrong{border-color:var(--rubric);color:var(--rubric);}
+.order-row select:focus-visible{border-color:var(--navy);}
+.order-row select.select-correct{border-color:var(--navy);color:var(--navy);font-weight:600;}
+.order-row select.select-wrong{border:2px solid var(--gold);background:var(--gold-tint);color:var(--ink);}
 
 /* ------------------------------------------------------------- пропуски */
 .fill-item{
   padding:15px 0;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
 }
-.fill-item:first-child{border-top:1px solid var(--rule);}
-.fill-item:last-child{border-bottom:1px solid var(--rule);}
+.fill-item:first-child{border-top:1px solid var(--line);}
+.fill-item:last-child{border-bottom:1px solid var(--line);}
 .fill-sentence{font-size:15px;line-height:1.85;margin:0;}
 .fill-item select{
   padding:4px 22px 4px 8px;
   margin:0 3px;
-  background:var(--night-raise);
-  color:var(--lamp);
+  background:var(--surface-raise);
+  color:var(--navy);
   border:0;
-  border-bottom:1px solid var(--rule-lamp);
+  border-bottom:1px solid var(--gold-line);
   border-radius:2px;
   font-family:var(--app);
   font-size:14.5px;
   appearance:none;
-  background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-faint) 50%),linear-gradient(135deg,var(--ink-faint) 50%,transparent 50%);
   background-position:calc(100% - 13px) 55%, calc(100% - 9px) 55%;
   background-size:5px 5px, 5px 5px;
   background-repeat:no-repeat;
 }
-.fill-item select.select-correct{color:var(--dome);border-bottom-color:var(--dome);}
-.fill-item select.select-wrong{color:var(--rubric);border-bottom-color:var(--rubric);}
+.fill-item select.select-correct{color:var(--navy);border-bottom-color:var(--navy);font-weight:600;}
+.fill-item select.select-wrong{color:var(--ink);background:var(--gold-tint);border-bottom:2px solid var(--gold);}
 
 /* ----------------------------------------------------------- мультивыбор */
-.check-list{border-top:1px solid var(--rule);margin-bottom:14px;}
+.check-list{border-top:1px solid var(--line);margin-bottom:14px;}
 .check-item{
   display:flex;align-items:flex-start;gap:12px;
   padding:13px 2px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   cursor:pointer;
   font-size:15px;line-height:1.5;
   position:relative;
   transition:background var(--t) var(--ease), color var(--t) var(--ease);
 }
-.check-item:last-child{border-bottom:1px solid var(--rule);}
-.check-item:hover{background:var(--night-raise);}
+.check-item:last-child{border-bottom:1px solid var(--line);}
+.check-item:hover{background:var(--surface-raise);}
 .check-box{
   width:14px;height:14px;flex-shrink:0;margin-top:4px;
-  border:1px solid var(--ink-3);
+  border:1px solid var(--ink-faint);
   border-radius:2px;
   display:flex;align-items:center;justify-content:center;
   color:transparent;
   transition:border-color var(--t) var(--ease), background var(--t) var(--ease);
 }
 .check-box svg{width:10px;height:10px;display:block;}
-.check-item.selected .check-box{background:var(--lamp);border-color:var(--lamp);color:var(--night);}
-.check-item.correct-mark{color:var(--dome);}
-.check-item.correct-mark::before{content:"";position:absolute;left:-12px;top:13px;bottom:13px;width:1px;background:var(--dome);}
-.check-item.correct-mark .check-box{border-color:var(--dome);}
-.check-item.selected.correct-mark .check-box{background:var(--dome);border-color:var(--dome);}
-.check-item.correct-mark::after{content:"в лекции есть";margin-left:auto;padding-left:10px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dome);white-space:nowrap;}
-.check-item.wrong-mark{color:var(--rubric);}
-.check-item.wrong-mark::before{content:"";position:absolute;left:-12px;top:13px;bottom:13px;width:1px;background:var(--rubric);}
-.check-item.wrong-mark .check-box{background:var(--rubric);border-color:var(--rubric);color:var(--night);}
-.check-item.wrong-mark::after{content:"в лекции нет";margin-left:auto;padding-left:10px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--rubric);white-space:nowrap;}
+.check-item.selected .check-box{background:var(--navy);border-color:var(--navy);color:var(--bg);}
+/* Здесь пометка говорит о самом пункте, а не о читателе, поэтому слова
+   остались прежними — «есть» и «нет» в лекции. Знак добавлен к ним. */
+.check-item.correct-mark{background:var(--navy);color:var(--on-navy);}
+.check-item.correct-mark .check-box{border-color:var(--on-navy);}
+.check-item.selected.correct-mark .check-box{background:var(--on-navy);border-color:var(--on-navy);color:var(--navy);}
+.check-item.correct-mark::after{content:"✓ в лекции есть";margin-left:auto;padding-left:10px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--on-navy);white-space:nowrap;}
+.check-item.wrong-mark{background:var(--gold-tint);color:var(--ink);outline:2px solid var(--gold);outline-offset:-2px;}
+.check-item.wrong-mark .check-box{background:var(--gold);border-color:var(--gold);color:var(--card);}
+.check-item.wrong-mark::after{content:"✗ в лекции нет";margin-left:auto;padding-left:10px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;}
 
 /* -------------------------------------------------------------- проверка */
 .btn-check{
   display:block;width:100%;
   padding:12px;
-  border:1px solid var(--rule-lamp);
+  border:1px solid var(--gold-line);
   border-radius:2px;
-  color:var(--lamp);
+  color:var(--navy);
   font-size:13.5px;
   letter-spacing:.09em;
   text-transform:uppercase;
   transition:background var(--t) var(--ease), border-color var(--t) var(--ease);
 }
-.btn-check:hover{background:var(--night-raise);border-color:var(--lamp);}
+.btn-check:hover{background:var(--surface-raise);border-color:var(--navy);}
 .btn-check[disabled]{
-  border-color:var(--rule);
-  color:var(--ink-3);
+  border-color:var(--line);
+  color:var(--ink-faint);
   cursor:default;
 }
 
@@ -557,9 +608,9 @@ p{margin:0 0 14px;}
   display:none;
   margin:11px 0 0;
   padding-left:13px;
-  border-left:1px solid var(--rubric);
+  border-left:1px solid var(--navy);
   font-size:13px;
-  color:var(--rubric);
+  color:var(--navy);
   line-height:1.45;
 }
 .error-msg.show{display:block;}
@@ -569,7 +620,7 @@ p{margin:0 0 14px;}
   display:none;
   margin:22px 0 0;
   padding:14px 0 14px 15px;
-  border-left:1px solid var(--rule-lamp);
+  border-left:1px solid var(--gold-line);
   position:relative;
 }
 /* Скобка, связывающая выдержку со строкой, которой она отвечает. */
@@ -579,7 +630,7 @@ p{margin:0 0 14px;}
   top: calc(-1 * var(--tie-h, 22px));
   width:1px;
   height: var(--tie-h, 22px);
-  background:var(--rule-lamp);
+  background:var(--gold-line);
 }
 /* Колофон не должен накрывать выдержку, когда она въехала. */
 .excerpt-box{scroll-margin-bottom:96px;}
@@ -600,7 +651,7 @@ p{margin:0 0 14px;}
   font-size:10.5px;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:var(--rubric);
+  color:var(--navy);
   margin:0 0 7px;
 }
 .excerpt-text{
@@ -626,32 +677,32 @@ p{margin:0 0 14px;}
 .btn-reveal{
   display:block;width:100%;
   padding:13px;
-  border:1px solid var(--rule-lamp);
+  border:1px solid var(--gold-line);
   border-radius:2px;
-  color:var(--lamp);
+  color:var(--navy);
   font-size:14px;
   letter-spacing:.04em;
   transition:background var(--t) var(--ease);
 }
-.btn-reveal:hover{background:var(--night-raise);}
+.btn-reveal:hover{background:var(--surface-raise);}
 .reveal-box{display:none;}
 .reveal-box.show{display:block;animation: slide-in var(--t) var(--ease) both;}
-.reveal-list{margin:0 0 14px;padding:0;list-style:none;border-top:1px solid var(--rule);}
+.reveal-list{margin:0 0 14px;padding:0;list-style:none;border-top:1px solid var(--line);}
 .reveal-list li{
   padding:13px 0 13px 16px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   font-family:var(--set);
   font-size:15px;line-height:1.55;
   position:relative;
 }
-.reveal-list li::before{content:"";position:absolute;left:0;top:19px;width:7px;height:1px;background:var(--rubric);}
-.reveal-note{font-size:13px;color:var(--ink-3);font-style:italic;line-height:1.5;}
+.reveal-list li::before{content:"";position:absolute;left:0;top:19px;width:7px;height:1px;background:var(--navy);}
+.reveal-note{font-size:13px;color:var(--ink-faint);font-style:italic;line-height:1.5;}
 .memorize-banner{
-  border-top:1px solid var(--rule-lamp);
+  border-top:1px solid var(--gold-line);
   padding:13px 0 0;
   font-size:13.5px;
   letter-spacing:.03em;
-  color:var(--lamp);
+  color:var(--navy);
 }
 
 /* ---------------------------------------------------------------- итог */
@@ -660,7 +711,7 @@ p{margin:0 0 14px;}
   font-family:var(--set);
   font-size:16.5px;
   line-height:1.55;
-  color:var(--ink-2);
+  color:var(--ink-soft);
   margin:0;
 }
 /* Счёт — тихий факт в строке, а не заголовок: главу завершает не балл. */
@@ -670,27 +721,27 @@ p{margin:0 0 14px;}
   color:var(--ink);
   white-space:nowrap;
 }
-.download-row{margin-top:8px;border-top:1px solid var(--rule);}
+.download-row{margin-top:8px;border-top:1px solid var(--line);}
 .btn-download{
   display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;
   padding:16px 2px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   font-size:15px;
   color:var(--ink);
   text-align:left;
   transition:color var(--t) var(--ease), background var(--t) var(--ease);
 }
-.btn-download:last-child{border-bottom:1px solid var(--rule);}
-.btn-download .mk{width:16px;height:16px;color:var(--lamp);flex-shrink:0;}
+.btn-download:last-child{border-bottom:1px solid var(--line);}
+.btn-download .mk{width:16px;height:16px;color:var(--navy);flex-shrink:0;}
 .btn-download .mk svg{width:100%;height:100%;}
-.btn-download:hover{background:var(--night-raise);color:var(--lamp);}
+.btn-download:hover{background:var(--surface-raise);color:var(--navy);}
 
 /* ------------------------------------------------------------- колофон */
 .colophon{
   position:fixed;
   left:0;right:0;bottom:0;
-  background:var(--night);
-  border-top:1px solid var(--rule);
+  background:var(--bg);
+  border-top:1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
   z-index:20;
 }
@@ -708,8 +759,8 @@ p{margin:0 0 14px;}
   transition:color var(--t) var(--ease), background var(--t) var(--ease);
 }
 .act-back{
-  color:var(--ink-3);
-  border-right:1px solid var(--rule);
+  color:var(--ink-faint);
+  border-right:1px solid var(--line);
   min-width:92px;
   padding-left:0;
   text-align:left;
@@ -717,13 +768,13 @@ p{margin:0 0 14px;}
 .act-back:hover{color:var(--ink);}
 .act-go{
   flex:1;
-  color:var(--lamp);
+  color:var(--navy);
   text-align:center;
   letter-spacing:.14em;
   text-transform:uppercase;
   font-size:13px;
 }
-.act-go:hover{background:var(--night-raise);}
+.act-go:hover{background:var(--surface-raise);}
 
 @media (max-width: 899px){
   /* Запас, чтобы выдержка могла уйти из-под колофона. */
@@ -754,10 +805,10 @@ p{margin:0 0 14px;}
   font-weight:500;
   letter-spacing:.16em;
   text-transform:uppercase;
-  color:var(--rubric);
+  color:var(--navy);
   margin:0 0 14px;
   padding-bottom:9px;
-  border-bottom:1px solid var(--rule);
+  border-bottom:1px solid var(--line);
 }
 
 /* правила: номер стоит на поле, как рубрика в рукописи */
@@ -766,61 +817,61 @@ p{margin:0 0 14px;}
   counter-increment:rule;
   position:relative;
   padding:14px 0 14px 36px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   font-size:15px;
   line-height:1.58;
-  color:var(--ink-2);
+  color:var(--ink-soft);
 }
-.rules li:last-child{border-bottom:1px solid var(--rule);}
+.rules li:last-child{border-bottom:1px solid var(--line);}
 .rules li::before{
   content:counter(rule, decimal-leading-zero);
   position:absolute;left:0;top:16px;
   font-size:11.5px;
   letter-spacing:.06em;
-  color:var(--rubric);
+  color:var(--navy);
 }
 .rules b{color:var(--ink);font-weight:500;}
 
 /* циклы: ряды с линовкой, доступный помечен янтарной волосинкой */
-.cycles{list-style:none;margin:0 0 34px;padding:0;border-top:1px solid var(--rule);}
+.cycles{list-style:none;margin:0 0 34px;padding:0;border-top:1px solid var(--line);}
 .cycle{
   position:relative;
   padding:20px 0 20px 16px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
 }
-.cycle:last-child{border-bottom:1px solid var(--rule);}
+.cycle:last-child{border-bottom:1px solid var(--line);}
 .cycle::before{
   content:"";position:absolute;left:0;top:20px;bottom:20px;width:1px;
-  background:var(--rule);
+  background:var(--line);
 }
-.cycle.open::before{background:var(--lamp);}
+.cycle.open::before{background:var(--navy);}
 .cycle-rubric{
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-3);margin:0 0 6px;
+  color:var(--ink-faint);margin:0 0 6px;
 }
-.cycle.open .cycle-rubric{color:var(--lamp);}
+.cycle.open .cycle-rubric{color:var(--navy);}
 .cycle h3{
   font-family:var(--set);
   font-size:21px;font-weight:500;letter-spacing:-.015em;
   margin:0 0 7px;
 }
 .cycle h3 a{color:var(--ink);text-decoration:none;}
-.cycle h3 a:hover{color:var(--lamp);}
-.cycle:not(.open) h3{color:var(--ink-3);}
-.cycle-note{font-size:14.5px;line-height:1.55;color:var(--ink-2);margin:0 0 8px;max-width:40em;}
-.cycle:not(.open) .cycle-note{color:var(--ink-3);}
-.cycle-state{font-size:13px;color:var(--ink-3);margin:0;}
-.cycle-state .done{color:var(--dome);}
-.cycle-state .started{color:var(--lamp);}
+.cycle h3 a:hover{color:var(--navy);}
+.cycle:not(.open) h3{color:var(--ink-faint);}
+.cycle-note{font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 8px;max-width:40em;}
+.cycle:not(.open) .cycle-note{color:var(--ink-faint);}
+.cycle-state{font-size:13px;color:var(--ink-faint);margin:0;}
+.cycle-state .done{color:var(--navy);}
+.cycle-state .started{color:var(--navy);}
 .cycle-audio{
   display:inline-block;margin-top:10px;
   font-size:12.5px;letter-spacing:.02em;
-  color:var(--ink-3);text-decoration:none;
-  border-bottom:1px solid var(--rule);
+  color:var(--ink-faint);text-decoration:none;
+  border-bottom:1px solid var(--line);
 }
-.cycle-audio:hover{color:var(--lamp);border-bottom-color:var(--rule-lamp);}
+.cycle-audio:hover{color:var(--navy);border-bottom-color:var(--gold-line);}
 
-.plan-foot{font-size:13px;line-height:1.55;color:var(--ink-3);max-width:40em;margin:0;}
+.plan-foot{font-size:13px;line-height:1.55;color:var(--ink-faint);max-width:40em;margin:0;}
 
 /* действие в колофоне на оглавлении — ссылка, а не кнопка */
 .colophon a.act-go{
@@ -831,12 +882,12 @@ p{margin:0 0 14px;}
 .cycle-teacher{
   font-size:12.5px;line-height:1.5;
   letter-spacing:.02em;
-  color:var(--ink-3);
+  color:var(--ink-faint);
   margin:0 0 7px;
 }
-.cycle.open .cycle-teacher{color:var(--ink-2);}
-.btn-sheet{color:var(--lamp);text-decoration:none;}
-.btn-sheet .mk{width:15px;height:15px;color:var(--lamp);flex-shrink:0;}
+.cycle.open .cycle-teacher{color:var(--ink-soft);}
+.btn-sheet{color:var(--navy);text-decoration:none;}
+.btn-sheet .mk{width:15px;height:15px;color:var(--navy);flex-shrink:0;}
 .btn-sheet .mk svg{width:100%;height:100%;}
 /* Аят, от которого идёт название, стоит между лидом и правилами. */
 .plan-ayah{margin:0 0 34px;}
@@ -847,14 +898,14 @@ p{margin:0 0 14px;}
   gap:6px 0;
   margin:0 0 30px;
   font-size:11px;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--ink-3);
+  color:var(--ink-faint);
 }
 .path span{display:inline-flex;align-items:center;}
 /* Связка принадлежит предыдущему шагу: при переносе строка начинается словом. */
 .path span:not(:last-child)::after{
   content:"";display:block;
   width:16px;height:1px;margin:0 10px;
-  background:var(--rule);
+  background:var(--line);
 }
 .plan .lede-close{margin:0 0 34px;}
 
@@ -863,37 +914,37 @@ p{margin:0 0 14px;}
   display:flex;align-items:center;gap:10px;
   margin:14px 0 12px;
   font-size:11px;letter-spacing:.08em;
-  color:var(--ink-3);
+  color:var(--ink-faint);
 }
 .journey-end{flex-shrink:0;}
 .journey-track{
   position:relative;flex:1;min-width:0;height:1px;
-  background:var(--rule);
+  background:var(--line);
 }
 .journey-done{
   position:absolute;left:0;top:0;height:1px;
-  background:var(--rule-lamp);
+  background:var(--gold-line);
 }
 .journey-boat{
   position:absolute;top:50%;
   width:22px;height:19px;
   margin-left:-11px;
   transform:translateY(-50%);
-  color:var(--lamp);
+  color:var(--navy);
   display:block;
 }
 .journey-boat .dhow{width:100%;height:100%;display:block;}
 /* В начале пути лодка ещё не вышла: горит приглушённо. */
-.journey-start .journey-boat{color:var(--ink-3);}
-.cycle:not(.open) .journey-boat{color:var(--ink-3);}
-.cycle:not(.open) .journey-done{background:var(--rule);}
+.journey-start .journey-boat{color:var(--ink-faint);}
+.cycle:not(.open) .journey-boat{color:var(--ink-faint);}
+.cycle:not(.open) .journey-done{background:var(--line);}
 
 /* Тихая подпись у аята: та же лодка, вполсилы. */
 .plan-ayah{position:relative;}
 .ayah-mark{
   position:absolute;right:0;bottom:16px;
   width:24px;height:21px;
-  color:var(--rule-lamp);
+  color:var(--gold-line);
   pointer-events:none;
 }
 .ayah-mark .dhow{width:100%;height:100%;display:block;}
@@ -904,82 +955,95 @@ p{margin:0 0 14px;}
 .prov-head{
   font-family:var(--app);
   font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--rubric);
+  color:var(--navy);
   margin:0 0 12px;
   padding-bottom:8px;
-  border-bottom:1px solid var(--rule);
+  border-bottom:1px solid var(--line);
 }
 .prov-list{list-style:none;margin:0;padding:0;}
 .prov-list li{
   position:relative;
   padding:12px 0 12px 16px;
-  border-bottom:1px solid var(--rule-soft);
+  border-bottom:1px solid var(--line-soft);
   font-family:var(--set);
   font-size:15px;line-height:1.55;
 }
 .prov-list li:last-child{border-bottom:0;}
 .prov-list li::before{
   content:"";position:absolute;left:0;top:19px;
-  width:7px;height:1px;background:var(--rubric);
+  width:7px;height:1px;background:var(--navy);
 }
-.prov-actions li::before{background:var(--lamp);}
+.prov-actions li::before{background:var(--navy);}
 .prov-note{
-  font-size:14.5px;line-height:1.55;color:var(--ink-2);
+  font-size:14.5px;line-height:1.55;color:var(--ink-soft);
   margin:0;padding-left:16px;
-  border-left:1px solid var(--rule-lamp);
+  border-left:1px solid var(--gold-line);
 }
 .result-line{display:block;}
 
 /* -------------------------------------------------------------- курсор */
 /*
  * Дау вместо стрелки: читатель идёт по материалу, везя с собой провизию.
- * Нос лодки стоит в горячей точке, поэтому клик попадает туда, куда смотрит
- * нос, а не в середину корпуса. Над тем, что можно нажать, лодка теплеет и
- * уходит на пиксель вперёд. Ни волн, ни следа, ни движения само по себе.
+ * Корпус золотой, паруса синие — тот же силуэт, что на логотипе. Нос стоит
+ * в горячей точке, поэтому клик попадает туда, куда смотрит нос, а не
+ * в середину корпуса; над нажимаемым лодка идёт в полную силу и на пиксель
+ * вперёд. Ни волн, ни следа, ни движения само по себе.
  *
- * Картинка на состояние — PNG 32x32, силуэт 24x21 в левом верхнем углу,
- * остальное прозрачно. Квадрат в 32 пикселя рисуют все системы.
+ * Картинка на состояние — PNG 32x32 (силуэт 24x21 в левом верхнем углу)
+ * и 64x64 для плотных экранов. Обычный url() объявлен первым и работает
+ * везде; image-set() ниже перекрывает его там, где понят. Браузер, который
+ * его не разберёт, останется на первой строке, а не без курсора.
  *
- * Объявления идут слоями, и порядок здесь — защита, а не стиль. Первая
- * строка работает везде; image-set() ниже перекрывает её там, где понят,
- * и отдаёт на экранах с высокой плотностью чёткий растр 64x64. Браузер,
- * который image-set() не разберёт, отбросит эту строку и останется
- * на первой. Если и картинка не загрузится, вступит курсор системы.
+ * На касании курсора нет вовсе — только для точного указателя.
  */
 @media (hover: hover) and (pointer: fine){
   html{
-    cursor:url("cursor-dhow.png") 1 4, auto;
-    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
-    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, auto;
+    cursor:url("cursor-dhow-light.png") 1 4, auto;
+    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 4, auto;
   }
 
   a[href], button, label, summary, select,
   [role="button"], [role="radio"], [role="checkbox"]{
-    cursor:url("cursor-dhow-hot.png") 0 3, pointer;
-    cursor:-webkit-image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
-    cursor:image-set(url("cursor-dhow-hot.png") 1x, url("cursor-dhow-hot@2x.png") 2x) 0 3, pointer;
+    cursor:url("cursor-dhow-light-hot.png") 0 3, pointer;
+    cursor:image-set(url("cursor-dhow-light-hot.png") 1x, url("cursor-dhow-light-hot@2x.png") 2x) 0 3, pointer;
   }
 
-  /* Отвечено — нажимать больше нечего, лодка остывает обратно. */
   .btn-check[disabled], button[disabled], [aria-disabled="true"]{
-    cursor:url("cursor-dhow.png") 1 4, default;
-    cursor:-webkit-image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
-    cursor:image-set(url("cursor-dhow.png") 1x, url("cursor-dhow@2x.png") 2x) 1 4, default;
+    cursor:url("cursor-dhow-light.png") 1 4, default;
+    cursor:image-set(url("cursor-dhow-light.png") 1x, url("cursor-dhow-light@2x.png") 2x) 1 4, default;
   }
 
-  /* На бумаге сине-серый дау утонул бы: день берёт чернила и киноварь. */
-  :root[data-theme="day"]{
-    cursor:url("cursor-dhow-day.png") 1 4, auto;
-    cursor:image-set(url("cursor-dhow-day.png") 1x, url("cursor-dhow-day@2x.png") 2x) 1 4, auto;
+  /* Тёмная тема: на тёмном фоне нужны и другая обводка, и другие паруса. */
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      cursor:url("cursor-dhow-dark.png") 1 4, auto;
+      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 4, auto;
+    }
+
+    :root:not([data-theme="light"]) :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
+      cursor:url("cursor-dhow-dark-hot.png") 0 3, pointer;
+      cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 0 3, pointer;
+    }
+
+    :root:not([data-theme="light"]) :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
+      cursor:url("cursor-dhow-dark.png") 1 4, default;
+      cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 4, default;
+    }
   }
-  :root[data-theme="day"] :is(a[href], button, label, summary, select,
-  [role="button"], [role="radio"], [role="checkbox"]){
-    cursor:url("cursor-dhow-day-hot.png") 0 3, pointer;
-    cursor:image-set(url("cursor-dhow-day-hot.png") 1x, url("cursor-dhow-day-hot@2x.png") 2x) 0 3, pointer;
+
+  :root[data-theme="dark"]{
+    cursor:url("cursor-dhow-dark.png") 1 4, auto;
+    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 4, auto;
   }
-  :root[data-theme="day"] :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
-    cursor:url("cursor-dhow-day.png") 1 4, default;
-    cursor:image-set(url("cursor-dhow-day.png") 1x, url("cursor-dhow-day@2x.png") 2x) 1 4, default;
+
+  :root[data-theme="dark"] :is(a[href], button, label, summary, select, [role="button"], [role="radio"], [role="checkbox"]){
+    cursor:url("cursor-dhow-dark-hot.png") 0 3, pointer;
+    cursor:image-set(url("cursor-dhow-dark-hot.png") 1x, url("cursor-dhow-dark-hot@2x.png") 2x) 0 3, pointer;
+  }
+
+  :root[data-theme="dark"] :is(.btn-check[disabled], button[disabled], [aria-disabled="true"]){
+    cursor:url("cursor-dhow-dark.png") 1 4, default;
+    cursor:image-set(url("cursor-dhow-dark.png") 1x, url("cursor-dhow-dark@2x.png") 2x) 1 4, default;
   }
 
   /* Ввод и правка текста остаются за системой. */
@@ -987,6 +1051,7 @@ p{margin:0 0 14px;}
     cursor:text;
   }
 }
+
 
 /* ------------------------------------------------------------- переносы */
 /*

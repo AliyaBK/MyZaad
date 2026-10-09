@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F7F1E1">
-<title>MyZaad — конспект</title>
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#1A355C">
+<title>Zaaduna — конспект</title>
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/favicon-64.png" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Golos+Text:wght@400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet">
+<script>/* Платформа переименована, ключи вместе с ней. Старые переносим, чтобы
+   читатель не потерял пройденное; "myzaad_" ниже — единственный след прежнего имени. */
+try{Object.keys(localStorage).forEach(function(k){if(k.indexOf("myzaad_")!==0)return;
+var n="zaaduna_"+k.slice(7);if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));
+localStorage.removeItem(k);});}catch(e){}</script>
 <link rel="stylesheet" href="konspekt.css">
 </head>
 <body>
@@ -45,7 +51,7 @@
 
   <footer class="k-foot">
     <p id="kFoot"></p>
-    <p class="k-colophon">MyZaad · конспект главы. Лист собран из материалов главы; проверяйте по источнику.</p>
+    <p class="k-colophon">Zaaduna · конспект главы. Лист собран из материалов главы; проверяйте по источнику.</p>
   </footer>
 </article>
 
@@ -59,9 +65,9 @@
   var box = document.getElementById("kGuideOn");
   function applyGuide(){
     document.body.classList.toggle("guide-on", box.checked);
-    try{ localStorage.setItem("myzaad_konspekt_guide", box.checked ? "1" : "0"); }catch(e){}
+    try{ localStorage.setItem("zaaduna_konspekt_guide", box.checked ? "1" : "0"); }catch(e){}
   }
-  try{ box.checked = localStorage.getItem("myzaad_konspekt_guide") === "1"; }catch(e){}
+  try{ box.checked = localStorage.getItem("zaaduna_konspekt_guide") === "1"; }catch(e){}
   applyGuide();
   box.addEventListener("change", applyGuide);
   document.querySelector(".k-back").setAttribute("href", "chapter.html?ch=" + chapterId);
@@ -72,8 +78,8 @@
     var r = document.createElement("script");
     r.src = "konspekt.js";
     r.onload = function(){
-      if(window.CHAPTER_DATA && window.MyZaadKonspekt){
-        window.MyZaadKonspekt.build(window.CHAPTER_DATA);
+      if(window.CHAPTER_DATA && window.ZaadunaKonspekt){
+        window.ZaadunaKonspekt.build(window.CHAPTER_DATA);
       }
     };
     document.body.appendChild(r);

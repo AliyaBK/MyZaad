@@ -1,6 +1,6 @@
-# MyZaad
+# Zaaduna
 
-**→ [aliyabk.github.io/MyZaad](https://aliyabk.github.io/MyZaad/)**
+**→ [aliyabk.github.io/Zaaduna](https://aliyabk.github.io/Zaaduna/)**
 
 Платформа, где собраны вопросы по циклам лекций крупных учёных в переводе
 и изложении устазов. Прослушанная лекция превращается в пройденную главу:

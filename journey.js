@@ -1,5 +1,5 @@
 /*
- * MyZaad — путь цикла.
+ * Zaaduna — путь цикла.
  *
  * زاد — провизия, которую берут в дорогу, поэтому прогресс цикла показан
  * не полосой заполнения, а лодкой, идущей по тонкой линии от первого урока
@@ -9,13 +9,13 @@
 (function(){
   "use strict";
 
-  // Дау: один силуэт в одну толщину линии, без деталей.
+  // Дау: корпус золотой, паруса синие — тот же силуэт, что на логотипе.
   var DHOW =
-    '<svg class="dhow" viewBox="0 0 28 24" fill="none" stroke="currentColor" ' +
+    '<svg class="dhow" viewBox="0 0 28 24" fill="none" ' +
     'stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-    '<path d="M3.5 17.5c3.8 3 17 3 21 0"/>' +
-    '<path d="M14 17V3.5"/>' +
-    '<path d="M14 5.2 20.6 15H14z"/>' +
+    '<path stroke="var(--gold)" d="M3.5 17.5c3.8 3 17 3 21 0"/>' +
+    '<path stroke="var(--navy)" d="M14 17V3.5"/>' +
+    '<path stroke="var(--navy)" d="M14 5.2 20.6 15H14z"/>' +
     "</svg>";
 
   function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
@@ -53,5 +53,5 @@
       '<span class="journey-end">' + total + "</span>";
   }
 
-  window.MyZaadJourney = { render: render, dhow: DHOW };
+  window.ZaadunaJourney = { render: render, dhow: DHOW };
 })();

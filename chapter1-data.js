@@ -1,5 +1,5 @@
 /*
- * MyZaad — данные главы 1: «Ша'абан — подготовка к Рамадану».
+ * Zaaduna — данные главы 1: «Ша'абан — подготовка к Рамадану».
  *
  * Это единственный файл, который нужно писать для новой главы: движок
  * (engine.js/engine.html/style.css) остаётся общим для всех глав.
@@ -9,7 +9,7 @@
 window.CHAPTER_DATA = {
   id: "ch1",
   meta: {
-    docTitle: "MyZaad — Глава 1",
+    docTitle: "Zaaduna — Глава 1",
     // Иснад: цепочка передачи, стоит в колонтитуле на каждом экране.
     chain: ["Ад-Дубейси", "Ибрахим Братов", "Глава 1"],
     teacher: "Устаз Ибрахим Братов · по пятничным проповедям шейха Мухаммада ад-Дубейси"
@@ -19,7 +19,7 @@ window.CHAPTER_DATA = {
     {
       type: "content",
       blocks: [
-        { type: "eyebrow", text: "MyZaad · Ша'абан" },
+        { type: "eyebrow", text: "Zaaduna · Ша'абан" },
         { type: "slogan", text: "Готовь провизию, пока есть время" },
         { type: "title", tag: "h1", text: "Глава 1. Ша'абан — подготовка к Рамадану" },
         { type: "lede", tight: true, text: "Стенограмма из пятничных лекций шейха Мухаммада ад-Дубейси о положении мусульман, в котором они должны находиться в месяц Ша'бан и Рамадан." },
@@ -353,7 +353,7 @@ window.CHAPTER_DATA = {
         {
           id: "konspekt",
           label: "Скачать конспект текстом (.txt)",
-          filename: "MyZaad-Glava1-konspekt.txt",
+          filename: "Zaaduna-Glava1-konspekt.txt",
           lines: [
             "ЗААД — КОНСПЕКТ",
             "Глава 1. Ша'абан — подготовка к Рамадану",
@@ -372,7 +372,7 @@ window.CHAPTER_DATA = {
         {
           id: "plan",
           label: "Скачать лист для размышлений и действий",
-          filename: "MyZaad-Glava1-list.txt",
+          filename: "Zaaduna-Glava1-list.txt",
           lines: [
             "ЗААД — ЛИСТ ДЛЯ РАЗМЫШЛЕНИЙ И ДЕЙСТВИЙ",
             "Глава 1. Ша'абан — подготовка к Рамадану",

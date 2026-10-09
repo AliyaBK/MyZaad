@@ -1,10 +1,10 @@
 /*
- * MyZaad — общий движок глав.
+ * Zaaduna — общий движок глав.
  *
  * Один и тот же файл обслуживает любую главу. Всё содержимое (вопросы,
  * тексты, правильные ответы, тексты для скачивания) приходит извне через
  * объект CHAPTER_DATA, который задаёт файл главы (например chapter1-data.js)
- * и передаёт в MyZaadEngine.init(CHAPTER_DATA).
+ * и передаёт в ZaadunaEngine.init(CHAPTER_DATA).
  *
  * Чтобы добавить главу, движок и разметку (engine.html/style.css) трогать
  * не нужно — только создать новый файл данных по образцу chapter1-data.js.
@@ -21,7 +21,7 @@
     if(CHAPTER.meta && CHAPTER.meta.docTitle){ document.title = CHAPTER.meta.docTitle; }
 
     var screens = CHAPTER.screens;
-    var storageKey = "myzaad_" + (CHAPTER.id || "chapter");
+    var storageKey = "zaaduna_" + (CHAPTER.id || "chapter");
 
     var state = { answers:{}, checked:{}, score:0, maxScore:0 };
     function save(){ try{ localStorage.setItem(storageKey, JSON.stringify(state)); }catch(e){} }
@@ -934,5 +934,5 @@
     render();
   }
 
-  window.MyZaadEngine = { init: init };
+  window.ZaadunaEngine = { init: init };
 })();

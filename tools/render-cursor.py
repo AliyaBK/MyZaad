@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MyZaad — сборка курсора-дау.
+Zaaduna — сборка курсора-дау.
 
 Единственное место, где живут геометрия и цвета лодки: отсюда выходят
 и SVG (читаемый исходник), и PNG (то, что реально показывает браузер).
@@ -30,15 +30,16 @@ HULL = [("M", 2.2, 4.6), ("C", 4, 9.4, 6.2, 12.6, 8.6, 14.1),
         ("C", 7.6, 18.6, 3.6, 12, 2.2, 4.6)]
 
 STROKE_W = 0.5
-# Обводка берёт цвет своего мира, чтобы силуэт читался над чужими пятнами.
-NIGHT, PAPER = "#07131D", "#F7F1E1"
+# Корпус золотой, паруса синие — как на логотипе. Обводка берёт цвет фона
+# своей темы, чтобы силуэт не пропадал над чужими пятнами.
+BG_LIGHT, BG_DARK = "#FAF8F2", "#14181C"
 STATES = {
-    # Ночь: приглушённый сине-серый в покое, тёплая кость с огнём — над нажимаемым.
-    "cursor-dhow":         dict(sail="#C5D1CD", hull="#8DA09F", stroke=NIGHT),
-    "cursor-dhow-hot":     dict(sail="#EFE6D6", hull="#F9BC81", stroke=NIGHT),
-    # День: тот же силуэт чернилами по бумаге, акцент — киноварь.
-    "cursor-dhow-day":     dict(sail="#93A0A0", hull="#5A6A70", stroke=PAPER),
-    "cursor-dhow-day-hot": dict(sail="#22384A", hull="#A8502F", stroke=PAPER),
+    # Светлая тема: в покое приглушённо, над нажимаемым — в полную силу.
+    "cursor-dhow-light":     dict(sail="#6E7E95", hull="#C3A77E", stroke=BG_LIGHT),
+    "cursor-dhow-light-hot": dict(sail="#1A355C", hull="#B68B55", stroke=BG_LIGHT),
+    # Тёмная тема: те же роли, но цвета берутся из её половины палитры.
+    "cursor-dhow-dark":      dict(sail="#5C7599", hull="#9A8352", stroke=BG_DARK),
+    "cursor-dhow-dark-hot":  dict(sail="#7FA6D6", hull="#D2AE5C", stroke=BG_DARK),
 }
 
 SVG = '''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="{vb}">

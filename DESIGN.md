@@ -1,5 +1,5 @@
 ---
-name: MyZaad
+name: Zaaduna
 description: A classical treatise page at night — set text in one column, the lecture's own words in the margin.
 colors:
   night: "#0B1E2E"
@@ -169,17 +169,17 @@ components:
     height: "1px"
 ---
 
-# Design System: MyZaad
+# Design System: Zaaduna
 
 ## Overview
 
 **Creative North Star: "The Night Treatise Page"**
 
-MyZaad is a page from a classical treatise, read after dark. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. Night (#0B1E2E) is not an accent or a "dark mode" — it is the ground the whole sheet is printed on, flat and unlit, with no panel ever a different shade of it except on hover. Everything else is ink, rule, and rubric: three inks, three hairline weights, one lamp.
+Zaaduna is a page from a classical treatise. One column of set text runs down the left; the lecture's own words sit in the margin beside the line they answer, joined to it by a hairline. The ground — paper by day, near-black by night — is flat, with no panel ever a different shade of it except on hover. Everything else is ink, rule and rubric, carried by two colours: navy leads, gold draws the lines. The boat on the logo gives the pairing, hull in gold under navy sails.
 
 The density is editorial, not app-like. There are no cards; a block earns its boundary from a 1px rule and a small cinnabar rubric label, the way a manuscript band earns it from ruling and a marginal heading. Figures are tabular everywhere, so the folio counter and the final score sit still. Radius is effectively absent (2px only on fields the browser would otherwise render as native chrome), and there are no shadows at all — depth comes from the rule hierarchy and from one single lit element per screen.
 
-The rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind "show explanation" and disappears on the next screen. An earlier Linear/Stripe-like system (emerald on warm milk) preceded this one; its design document has been deleted, and nothing of it is authority here.
+The rejected world is explicit: the centred question card with a progress bar on top and a large pill button at the bottom — the posture of a quiz app, where the source hides behind "show explanation" and disappears on the next screen. Two earlier systems preceded this one — a green-on-warm-milk product UI, then a night treatise lit by a single amber lamp; neither is authority here, and a snapshot of the second sits in `old/` for comparison only.
 
 **Key Characteristics:**
 - Night ground, flat: one background, no card fills, no gradients.
@@ -192,42 +192,37 @@ The rejected world is explicit: the centred question card with a progress bar on
 
 ## Colors
 
-A flat night field carrying three inks, a reserved lamp, and two scribal signal colours — cinnabar and dome green — all measured against the ground rather than against a card.
+Two colours and a neutral scale — nothing else. Deep navy leads; gold answers. The pairing comes from the logo, where the dhow carries a gold hull under navy sails, and the interface simply obeys it.
+
+Gold is not a text colour. `#B68B55` on `#FAF8F2` measures about 3:1, which fails AA for body sizes, so letters are navy and gold is kept for what does not have to be read: rules, 2px borders, the gauge fill, the wrong-answer wash. Where gold does carry a glyph it sits on `--gold-tint`, against ink, not against the page.
 
 ### Primary
-- **Lamp Amber** (`{colors.lamp}`): the single live action on any screen — the colophon's forward action, the check and reveal buttons, the selected radio dot and checkbox fill, links, the focus ring. Its scarcity is the whole mechanism; two amber elements on one screen is a defect.
-- **Lamp Deep** (`{colors.lamp-deep}`): the gauge fill, the third triptych stroke, selection highlight, scrollbar thumb. Amber at reading strength, used where full amber would shout.
+- **Navy** (`#1A355C` light / `#7FA6D6` dark): every live action and every rubric. Buttons, links, the running head, list markers, the selected control, the focus ring, and the correct-answer fill. Because navy now does the work two colours used to do, rank is carried by weight, size and placement rather than hue.
+- **Navy Dark** (`#12274A` / `#A9C4E6`): the third triptych stroke and any navy that must sit against navy.
+- **Navy Tint** (`#E8EDF3` / `#1B2736`): the only tonal step in the system — row and button hover, the body of a select field.
 
 ### Secondary
-- **Cinnabar** (`{colors.rubric}`): the scribe's red. Running-head rubric, rubric labels, marginal icon marks, list markers, the principle rule, and the wrong-answer state (5.17:1 on night). Cinnabar is always a stroke, a letter, or a 1px mark — never a fill behind text.
-- **Cinnabar Dim** (`{colors.rubric-dim}`): the neutral triptych stroke, where a rubric mark must register without claiming attention.
-
-### Tertiary
-- **Dome Green** (`{colors.dome}`): the correct state only — option text, its dot, the verdict button border, the field border, and the 1px marginal mark beside a correct row (5.12:1 on night).
-- **Dome Dim** (`{colors.dome-dim}`): the quiet triptych stroke, companion to Cinnabar Dim.
+- **Gold** (`#B68B55` / `#D2AE5C`): rules and borders. The 2px frame on a wrong answer, the gauge fill, the dhow's hull, the margin tie. Never set text on the page ground.
+- **Gold Tint** (`#F6EDD8` / `#2C2617`): the wash behind a wrong answer — the one place a signal colour becomes a fill, and even there a glyph and a word do the telling.
 
 ### Neutral
-- **Night** (`{colors.night}`): the ground of every surface, including the fixed colophon, so the colophon reads as the foot of the sheet rather than a bar.
-- **Night Raise** (`{colors.night-raise}`): the only tonal step in the system, and only as a transient response — row and button hover, and the body of a select field.
-- **Night Deep / Night Plate** (`{colors.night-deep}`, `{colors.night-plate}`): reserved darker and plate values in the token block, available for inset or raster contexts.
-- **Sandstone Ink** (`{colors.ink}`): all set text, headings, quotations, the score figure.
-- **Sage Ink** (`{colors.ink-2}`): secondary apparatus — descriptions, the folio counter, verdict buttons at rest, the result line.
-- **Slate Ink** (`{colors.ink-3}`): the isnad chain, source credits, captions, hints, disabled text, the back action, unchecked control strokes.
-- **Rule / Rule Soft / Rule Lamp** (`{colors.rule}`, `{colors.rule-soft}`, `{colors.rule-lamp}`): the three ruling weights — band edge, intra-list divider, and amber ruling (the margin tie, the check and reveal borders, the memorise banner).
+- **Bg** (`#FAF8F2` / `#14181C`): the ground of every surface, the fixed colophon included, so the colophon reads as the foot of the sheet rather than a bar.
+- **Card** (`#FFFFFF` / `#1D2227`): reserved for inset contexts; the page itself uses no cards.
+- **Ink / Ink Soft / Ink Faint** (`#1E2A33` `#55606A` `#8A929A` / `#EDEBE3` `#A9B2BB` `#737C85`): set text, secondary apparatus, and the quietest register — isnad chain, source credits, captions, disabled text.
+- **Line / Line Soft** (`#E2DDD0`, `rgba(30,42,51,.10)` / `#303840`, `rgba(237,235,227,.10)`): band edge and intra-list divider.
+- **On Navy** (`#FFFFFF` / `#14181C`): text laid on a navy fill. It flips in dark mode because navy itself becomes light there; without it the correct answer would be pale text on a pale field.
 
-### Day (light theme)
-The night world is what the app is; day is the same world turned onto paper, for reading in daylight. Its palette is not invented — it is the konspekt's, which was paper from the start, so the project has one light world rather than two: `--night` → `#F7F1E1`, `--night-raise` → `#EFE7D4`, `--ink` → `#0B1E2E`, `--ink-2` → `#4A5A60`, `--ink-3` → `#65746F`, `--lamp` → `#8A5A2B`, `--rubric` → `#A8502F`, `--dome` → `#2A5C3C`, rules to `rgba(11,30,46,.20)` / `.10`.
-
-The token *names* stay nocturnal on purpose: `--night` means "the surface", `--night-raise` means "the surface under the cursor". Renaming them would touch every rule in the file for the sake of one word. The swap lives on `:root[data-theme="day"]`, so every component inherits it without a single component-level override.
-
-Day is opt-in and remembered, never automatic: one device carries a light system theme around the clock while the chapter is read at night, and the reverse. The switch sits in the `.isnad` header of both the contents page and the chapter — a word, not an icon, set like the folio beside it, naming what you *get* by pressing rather than where you are. The theme attribute is written by a two-line inline script in `<head>` so the page cannot flash night before becoming day. The konspekt is excluded: it was always paper and has no switch.
+### Light and dark
+Light is the base. Dark arrives from `prefers-color-scheme`, so the page matches how the reader has set everything else, and the switch in the `.isnad` header overrides the system when they want otherwise — a word, not an icon, set like the folio beside it, naming what you *get* by pressing. The attribute is written by a short inline script in `<head>` so the page cannot flash the wrong ground first. The konspekt is excluded: it is printed, and printed sheets are light.
 
 ### Named Rules
-**The One Lamp Rule.** Amber marks exactly one live action per screen. Everything else that could want attention takes cinnabar, ink, or a rule.
+**The Two Colour Rule.** Navy and gold, plus neutrals. A third hue is a defect, including green for right and red for wrong.
 
-**The Flat Field Rule.** Night is the ground, not a layer. The only permitted tonal shift is `{colors.night-raise}` as a hover or field body; no card fills, no gradients, no tinted panels.
+**The Gold Is A Line Rule.** Gold draws, fills and frames; it does not spell. Any gold text on the page ground is a contrast failure.
 
-**The Scribe's Two Signals Rule.** Cinnabar means rubric-or-wrong; dome green means correct. Neither ever appears as a background wash, and neither carries meaning alone — a word label always accompanies it.
+**The Never Colour Alone Rule.** Correct is a navy fill *and* a ✓ *and* the word; wrong is a gold frame *and* a ✗ *and* the word, with the correct answer still marked beside it. Read in greyscale, or by someone who cannot separate the hues, the verdict must survive intact.
+
+**The Flat Field Rule.** The ground is flat. The only permitted tonal shift is `--navy-tint` as hover or field body; no gradients, no tinted panels, no shadows.
 
 ## Typography
 
