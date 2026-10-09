@@ -64,37 +64,59 @@ localStorage.removeItem(k);});}catch(e){}</script>
   var params = new URLSearchParams(window.location.search);
   var chapterId = params.get("ch") || "1";
   /*
-   * Печать на телефоне. В окне Telegram системного диалога печати нет
-   * вовсе, поэтому лист открывается во внешнем браузере — там он
-   * печатается и сохраняется в PDF как обычно. В мобильном браузере
-   * window.print() иногда молча ничего не делает, и тогда остаётся
-   * путь через меню самого браузера; подсказку показываем заранее,
-   * а не после неудачи, потому что неудачу эту не поймать.
+   * Печать и сохранение в PDF.
+   *
+   * Внутри Телеграма ссылку открывает его собственное окно, и там
+   * window.print() молча ничего не делает. Отличить это окно со стороны
+   * страницы нельзя: признаки мини-приложения в нём отсутствуют, а по
+   * строке браузера оно не представляется. Поэтому печать не угадываем
+   * заранее, а смотрим, началась ли она: настоящая печать поднимает
+   * событие beforeprint или переключает медиазапрос print. Если за треть
+   * секунды не случилось ни того ни другого — печати нет, и тогда мы
+   * говорим, что делать, вместо того чтобы молчать.
    */
   var tg = window.Telegram && window.Telegram.WebApp;
-  var vTelegram = !!(tg && ((tg.initData && tg.initData.length) ||
-                            (tg.platform && tg.platform !== "unknown")));
+  var miniApp = !!(tg && ((tg.initData && tg.initData.length) ||
+                          (tg.platform && tg.platform !== "unknown")));
   var kasanie = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
   var hint = document.getElementById("kPrintHint");
+  var pechatNachalas = false;
 
-  function podskazka(text){
+  function podskazka(text, vazhno){
     if(!hint) return;
-    hint.textContent = text;
+    hint.innerHTML = text;
     hint.hidden = false;
+    hint.classList.toggle("k-print-hint-alarm", !!vazhno);
   }
 
-  if(vTelegram){
-    podskazka("Телеграм не умеет печатать. Нажмите «Сохранить в PDF» — лист откроется в браузере, оттуда печать и сохранение работают.");
-  }else if(kasanie){
-    podskazka("Если окно печати не откроется, сохраните лист через меню браузера: «Поделиться» → «Напечатать» → «Сохранить в PDF».");
+  window.addEventListener("beforeprint", function(){ pechatNachalas = true; });
+  if(window.matchMedia){
+    var mqPrint = window.matchMedia("print");
+    if(mqPrint.addEventListener){
+      mqPrint.addEventListener("change", function(e){ if(e.matches) pechatNachalas = true; });
+    }
+  }
+
+  if(kasanie){
+    podskazka("На телефоне лист сохраняется через меню браузера: «Поделиться» → «Напечатать» → «Сохранить в PDF».");
   }
 
   document.getElementById("kPrint").addEventListener("click", function(){
-    if(vTelegram && tg.openLink){ tg.openLink(window.location.href); return; }
-    if(typeof window.print === "function"){
-      try{ window.print(); return; }catch(e){}
-    }
-    podskazka("Этот браузер не открывает окно печати. Сохраните лист через его меню: «Поделиться» → «Напечатать» → «Сохранить в PDF».");
+    // Настоящее мини-приложение умеет вывести страницу во внешний браузер.
+    if(miniApp && tg.openLink){ tg.openLink(window.location.href); return; }
+
+    pechatNachalas = false;
+    try{ if(typeof window.print === "function") window.print(); }catch(e){}
+
+    setTimeout(function(){
+      if(pechatNachalas) return;
+      podskazka(
+        "<b>Печать здесь недоступна.</b> Похоже, страница открыта во встроенном окне " +
+        "другого приложения — чаще всего Телеграма. Откройте её в обычном браузере: " +
+        "нажмите «⋮» или «Поделиться» вверху этого окна и выберите «Открыть в Safari» " +
+        "или «Открыть в Chrome». Там кнопка «Сохранить в PDF» сработает.",
+        true);
+    }, 350);
   });
 
   // Инструкция к приложению печатается только по просьбе; выбор запоминается.

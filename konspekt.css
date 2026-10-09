@@ -216,6 +216,12 @@ body{
 .k-opt input{accent-color:var(--navy);width:14px;height:14px;cursor:pointer;}
 #kGuideWrap{display:none;}
 body.guide-on #kGuideWrap{display:block;}
+.k-print-hint-alarm{
+  color:var(--ink);
+  border-left:2px solid var(--gold);
+  background:var(--gold-tint);
+  padding-top:10px;padding-bottom:10px;
+}
 .k-print-hint{
   max-width:780px;
   margin:0 auto;
