@@ -694,7 +694,7 @@
           ' · <span class="result-score" id="scoreOut">0 / 0</span> ' + screen.resultLabel + "</p></div>";
 
         if(keep.length){
-          html += '<section class="prov"><h3 class="prov-head">Что я понял</h3><ul class="prov-list">' +
+          html += '<section class="prov"><h3 class="prov-head">Что я понял(а)</h3><ul class="prov-list">' +
             keep.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul></section>";
         }
         if(banner){
@@ -702,7 +702,7 @@
             '<p class="prov-note">' + banner + "</p></section>";
         }
         if(actions.length){
-          html += '<section class="prov"><h3 class="prov-head">Что я решил сделать</h3><ul class="prov-list prov-actions">' +
+          html += '<section class="prov"><h3 class="prov-head">Что я решил(а) сделать</h3><ul class="prov-list prov-actions">' +
             actions.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul></section>";
         }
         if(screen.note){
